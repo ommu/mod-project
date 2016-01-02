@@ -1,0 +1,17 @@
+code			: 33000
+name			: Project
+description		: Project
+folder_name		: project
+global_model	: Projects
+version			: 1.0.1
+created_date	: 2012-08-30 14:03
+author			: Putra Sudaryanto
+
+db_table_name	: 
+ - ommu_project_category
+ - ommu_project_likes
+ - ommu_project_media
+ - ommu_project_setting
+ - ommu_projects
+ 
+db_sql_filename	: 
