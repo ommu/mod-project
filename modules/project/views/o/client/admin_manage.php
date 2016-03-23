@@ -15,7 +15,7 @@
 	);
 	$this->menu=array(
 		array(
-			'label' => 'Filter', 
+			'label' => Yii::t('phrase', 'Filter'), 
 			'url' => array('javascript:void(0);'),
 			'itemOptions' => array('class' => 'search-button'),
 			'linkOptions' => array('title' => 'Filter'),
