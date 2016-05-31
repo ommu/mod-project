@@ -3,7 +3,7 @@
  * Project Clients (project-client)
  * @var $this ClientController * @var $model ProjectClient * @var $form CActiveForm
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
