@@ -183,6 +183,14 @@ class MediaController extends Controller
 		
 		$projectPhoto = CUploadedFile::getInstanceByName('namaFile');
 		$project_path = "public/project/".$id;
+		// Add project directory
+		if(!file_exists($project_path)) {
+			@mkdir($project_path, 0755, true);
+
+			// Add file in project directory (index.php)
+			$newFile = $project_path.'/index.php';
+			$FileHandle = fopen($newFile, 'w');
+		}
 		$fileName	= time().'_'.$id.'.'.strtolower($projectPhoto->extensionName);
 		if($projectPhoto->saveAs($project_path.'/'.$fileName)) {
 			$model = new ProjectMedia;

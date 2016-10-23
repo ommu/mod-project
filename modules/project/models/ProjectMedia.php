@@ -284,6 +284,14 @@ class ProjectMedia extends CActiveRecord
 			$controller = strtolower(Yii::app()->controller->id);
 			if(!$this->isNewRecord && $controller == 'media' && !Yii::app()->request->isAjaxRequest) {
 				$project_path = "public/project/".$this->project_id;
+				// Add project directory
+				if(!file_exists($project_path)) {
+					@mkdir($project_path, 0755, true);
+
+					// Add file in project directory (index.php)
+					$newFile = $project_path.'/index.php';
+					$FileHandle = fopen($newFile, 'w');
+				}
 				$this->media = CUploadedFile::getInstance($this, 'media');
 				if($this->media instanceOf CUploadedFile) {
 					$fileName = time().'_'.$this->project_id.'.'.strtolower($this->media->extensionName);
@@ -320,6 +328,14 @@ class ProjectMedia extends CActiveRecord
 		if($setting->media_resize == 1) {
 			Yii::import('ext.phpthumb.PhpThumbFactory');
 			$project_path = "public/project/".$this->project_id;
+			// Add project directory
+			if(!file_exists($project_path)) {
+				@mkdir($project_path, 0755, true);
+
+				// Add file in project directory (index.php)
+				$newFile = $project_path.'/index.php';
+				$FileHandle = fopen($newFile, 'w');
+			}
 			$projectImg = PhpThumbFactory::create($project_path.'/'.$this->media, array('jpegQuality' => 90, 'correctPermissions' => true));
 			$resizeSize = explode(',', $setting->media_resize_size);
 			if($resizeSize[1] == 0)

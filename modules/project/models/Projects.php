@@ -480,17 +480,14 @@ class Projects extends CActiveRecord
 	protected function afterSave() {
 		parent::afterSave();
 
-		$project_path = "public/project/".$this->project_id;
+		$project_path = "public/project/".$this->project_id;		
+		// Add project directory
+		if(!file_exists($project_path)) {
+			@mkdir($project_path, 0755, true);
 
-		if($this->isNewRecord) {
-			// Add project directory
-			if(!file_exists($project_path)) {
-				@mkdir($project_path, 0777, true);
-
-				// Add file in project directory (index.php)
-				$newFile = $project_path.'/index.php';
-				$FileHandle = fopen($newFile, 'w');
-			}
+			// Add file in project directory (index.php)
+			$newFile = $project_path.'/index.php';
+			$FileHandle = fopen($newFile, 'w');
 		}
 
 		$this->media = CUploadedFile::getInstance($this, 'media');
