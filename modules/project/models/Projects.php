@@ -488,7 +488,8 @@ class Projects extends CActiveRecord
 			// Add file in project directory (index.php)
 			$newFile = $project_path.'/index.php';
 			$FileHandle = fopen($newFile, 'w');
-		}
+		} else
+			@chmod($project_path, 0755, true);
 
 		$this->media = CUploadedFile::getInstance($this, 'media');
 		if($this->media instanceOf CUploadedFile) {

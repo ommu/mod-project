@@ -190,7 +190,9 @@ class MediaController extends Controller
 			// Add file in project directory (index.php)
 			$newFile = $project_path.'/index.php';
 			$FileHandle = fopen($newFile, 'w');
-		}
+		} else
+			@chmod($project_path, 0755, true);
+		
 		$fileName	= time().'_'.$id.'.'.strtolower($projectPhoto->extensionName);
 		if($projectPhoto->saveAs($project_path.'/'.$fileName)) {
 			$model = new ProjectMedia;

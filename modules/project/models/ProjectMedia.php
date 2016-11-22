@@ -291,7 +291,9 @@ class ProjectMedia extends CActiveRecord
 					// Add file in project directory (index.php)
 					$newFile = $project_path.'/index.php';
 					$FileHandle = fopen($newFile, 'w');
-				}
+				} else
+					@chmod($project_path, 0755, true);
+				
 				$this->media = CUploadedFile::getInstance($this, 'media');
 				if($this->media instanceOf CUploadedFile) {
 					$fileName = time().'_'.$this->project_id.'.'.strtolower($this->media->extensionName);
@@ -335,7 +337,9 @@ class ProjectMedia extends CActiveRecord
 				// Add file in project directory (index.php)
 				$newFile = $project_path.'/index.php';
 				$FileHandle = fopen($newFile, 'w');
-			}
+			} else
+				@chmod($project_path, 0755, true);
+			
 			$projectImg = PhpThumbFactory::create($project_path.'/'.$this->media, array('jpegQuality' => 90, 'correctPermissions' => true));
 			$resizeSize = explode(',', $setting->media_resize_size);
 			if($resizeSize[1] == 0)
