@@ -329,8 +329,8 @@ class Projects extends CActiveRecord
 				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
 					'model'=>$this, 
 					'attribute'=>'start_date', 
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					'language' => 'en',
+					'i18nScriptFile' => 'jquery-ui-i18n.min.js'
 					//'mode'=>'datetime',
 					'htmlOptions' => array(
 						'id' => 'start_date_filter',
@@ -355,8 +355,8 @@ class Projects extends CActiveRecord
 				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
 					'model'=>$this, 
 					'attribute'=>'finish_date', 
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					'language' => 'en',
+					'i18nScriptFile' => 'jquery-ui-i18n.min.js'
 					//'mode'=>'datetime',
 					'htmlOptions' => array(
 						'id' => 'finish_date_filter',
