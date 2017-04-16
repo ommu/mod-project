@@ -1,9 +1,11 @@
 <?php
-
 /**
+ * ProjectTag
+ * version: 0.0.1
+ *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
- * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
- * @link http://company.ommu.co
+ * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @link https://github.com/ommu/Products
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -208,7 +210,7 @@ class ProjectTag extends CActiveRecord
 					'model'=>$this, 
 					'attribute'=>'creation_date', 
 					'language' => 'en',
-					'i18nScriptFile' => 'jquery-ui-i18n.min.js'
+					'i18nScriptFile' => 'jquery-ui-i18n.min.js',
 					//'mode'=>'datetime',
 					'htmlOptions' => array(
 						'id' => 'creation_date_filter',

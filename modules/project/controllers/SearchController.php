@@ -2,7 +2,7 @@
 /**
 * SiteController
 * Handle SiteController
-* Copyright (c) 2012, Ommu Platform (ommu.co). All rights reserved.
+* Copyright (c) 2012, Ommu Platform (opensource.ommu.co). All rights reserved.
 * version: 0.0.1
 * Reference start
 *
@@ -16,8 +16,8 @@
 *	performAjaxValidation
 *
 * @author Putra Sudaryanto <putra@sudaryanto.id>
-* @copyright Copyright (c) 2012 Ommu Platform (ommu.co)
-* @link http://company.ommu.co
+* @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
+* @link https://github.com/ommu/Products
 * @contact (+62)856-299-4114
 *
 *----------------------------------------------------------------------------------------------------------
