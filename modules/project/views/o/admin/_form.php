@@ -324,7 +324,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->start_date != '0000-00-00' ? $model->start_date = date('d-m-Y', strtotime($model->start_date)) : '') : '';
 						//echo $form->textField($model,'start_date', array('class'=>'span-4'));
-						$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+						$this->widget('application.components.system.CJuiDatePicker',array(
 							'model'=>$model, 
 							'attribute'=>'start_date',
 							//'mode'=>'datetime',
@@ -345,7 +345,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->finish_date != '0000-00-00' ? $model->finish_date = date('d-m-Y', strtotime($model->finish_date)) : '') : '';
 						//echo $form->textField($model,'finish_date', array('class'=>'span-4'));
-						$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+						$this->widget('application.components.system.CJuiDatePicker',array(
 							'model'=>$model, 
 							'attribute'=>'finish_date',
 							//'mode'=>'datetime',
