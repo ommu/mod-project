@@ -20,7 +20,7 @@
 	}
 	$cs = Yii::app()->getClientScript();
 $js=<<<EOP
-	$('input#Projects_is_website').live('click', function() {
+	$('input#Projects_is_website').on('click', function() {
 		$(this).parent('div').find('div').slideToggle();
 	});
 EOP;
