@@ -292,7 +292,7 @@ EOP;
 					echo $form->hiddenField($model,'comment_code');
 				}?>
 	
-				<?php if(OmmuSettings::getInfo('site_headline') == 1) {?>
+				<?php /* if(OmmuSettings::getInfo('site_headline') == 1) {?>
 				<div class="clearfix publish">
 					<?php echo $form->labelEx($model,'headline'); ?>
 					<div class="desc">
@@ -301,10 +301,10 @@ EOP;
 						<?php echo $form->error($model,'headline'); ?>
 					</div>
 				</div>
-				<?php } else {
+				<?php } else {*/
 					$model->headline = 0;
 					echo $form->hiddenField($model,'headline');
-				}?>
+				//}?>
 	
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'status'); ?>

@@ -390,6 +390,7 @@ class Projects extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
+			/*
 			if(OmmuSettings::getInfo('site_headline') == 1) {
 				$this->defaultColumns[] = array(
 					'name' => 'headline',
@@ -404,6 +405,7 @@ class Projects extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
+			*/
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
