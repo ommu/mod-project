@@ -1,27 +1,28 @@
 <?php
 /**
-* SiteController
-* Handle SiteController
-* Copyright (c) 2012, Ommu Platform (opensource.ommu.co). All rights reserved.
-* version: 0.0.1
-* Reference start
-*
-* TOC :
-*	Index
-*
-*	Dialog
-*	Default
-*
-*	LoadModel
-*	performAjaxValidation
-*
-* @author Putra Sudaryanto <putra@sudaryanto.id>
-* @copyright Copyright (c) 2012 Ommu Platform (opensource.ommu.co)
-* @link https://github.com/ommu/Projects
-* @contact (+62)856-299-4114
-*
-*----------------------------------------------------------------------------------------------------------
-*/
+ * SearchController
+ * Handle SearchController
+ * @var $model Projects
+ * @var $form CActiveForm
+ * version: 0.0.1
+ * Reference start
+ *
+ * TOC :
+ *	Index
+ *
+ *	Dialog
+ *	Default
+ *
+ *	LoadModel
+ *	performAjaxValidation
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @link https://github.com/ommu/mod-project
+ * @contact (+62)856-299-4114
+ *
+ *----------------------------------------------------------------------------------------------------------
+ */
 
 class SearchController extends Controller
 {

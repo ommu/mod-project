@@ -1,12 +1,12 @@
 <?php
 /**
- * @var $this SiteController
+ * @var $this SearchController
  * @var $dataProvider CActiveDataProvider
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
- * @link https://github.com/ommu/Projects
+ * @link https://github.com/ommu/mod-project
  * @contact (+62)856-299-4114
  *
  */

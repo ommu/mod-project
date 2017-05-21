@@ -1,27 +1,28 @@
 <?php
 /**
-* TagController
-* Handle TagController
-* Copyright (c) 2014, Ommu Platform (opensource.ommu.co). All rights reserved.
-* version: 0.0.1
-* Reference start
-*
-* TOC :
-*	Index
-*	Manage
-*	Add
-*	Delete
-*
-*	LoadModel
-*	performAjaxValidation
-*
-* @author Putra Sudaryanto <putra@sudaryanto.id>
-* @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
-* @link https://github.com/ommu/Projects
-* @contact (+62)856-299-4114
-*
-*----------------------------------------------------------------------------------------------------------
-*/
+ * TagController
+ * Handle TagController
+ * @var $model ProjectTag
+ * @var $form CActiveForm
+ * version: 0.0.1
+ * Reference start
+ *
+ * TOC :
+ *	Index
+ *	Manage
+ *	Add
+ *	Delete
+ *
+ *	LoadModel
+ *	performAjaxValidation
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @link https://github.com/ommu/mod-project
+ * @contact (+62)856-299-4114
+ *
+ *----------------------------------------------------------------------------------------------------------
+ */
 
 class TagController extends Controller
 {
