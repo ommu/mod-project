@@ -30,7 +30,7 @@
  * @property string $creation_date
  *
  * The followings are the available model relations:
- * @property OmmuProjects $project
+ * @property Projects $project
  */
 class ProjectMedia extends CActiveRecord
 {

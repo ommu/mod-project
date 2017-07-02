@@ -32,7 +32,7 @@
  * @property string $creation_date
  *
  * The followings are the available model relations:
- * @property OmmuProjects[] $ommuProjects
+ * @property Projects[] $Projects
  */
 class ProjectClient extends CActiveRecord
 {

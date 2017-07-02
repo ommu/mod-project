@@ -43,9 +43,9 @@
  * @property string $modified_date
  *
  * The followings are the available model relations:
- * @property OmmuProjectLikes[] $ommuProjectLikes
- * @property OmmuProjectMedia[] $ommuProjectMedias
- * @property OmmuProjectCategory $cat
+ * @property ProjectLikes[] $ProjectLikes
+ * @property ProjectMedia[] $ProjectMedias
+ * @property ProjectCategory $cat
  */
 class Projects extends CActiveRecord
 {
