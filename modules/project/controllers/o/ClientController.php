@@ -117,7 +117,7 @@ class ClientController extends Controller
 		if(isset($_GET['term'])) {
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'client_name LIKE :client_name';
-			$criteria->select	= 'client_id, client_name';
+			$criteria->select = 'client_id, client_name';
 			$criteria->limit = $limit;
 			$criteria->order = 'client_id ASC';
 			$criteria->params = array(':client_name' => '%' . strtolower($_GET['term']) . '%');
