@@ -27,7 +27,7 @@ EOP;
 	$cs->registerScript('website', $js, CClientScript::POS_END);
 ?>
 
-<?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
+<?php $form=$this->beginWidget('application.libraries.core.components.system.OActiveForm', array(
 	'id'=>'projects-form',
 	'enableAjaxValidation'=>$validation,
 	'htmlOptions' => array('enctype' => 'multipart/form-data')
@@ -69,22 +69,30 @@ EOP;
 						<?php echo $form->error($model,'title'); ?>
 					</div>
 				</div>
-	
+
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'body'); ?>
 					<div class="desc">
 						<?php 
-						//echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50));
-						$this->widget('application.extensions.cleditor.ECLEditor', array(
+						//echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'span-10 small'));
+						$this->widget('application.vendor.yiiext.imperavi-redactor-widget.ImperaviRedactorWidget', array(
 							'model'=>$model,
-							'attribute'=>'body',
+							'attribute'=>body,
+							// Redactor options
 							'options'=>array(
-								'width'=>'100%',
-								'height'=>250,
-								'useCSS'=>true,
-								'controls'=>'bold italic underline strikethrough subscript superscript | bullets numbering | outdent indent | alignleft center alignright justify | undo redo | rule image link unlink | cut copy paste pastetext | print source',
+								//'lang'=>'fi',
+								'buttons'=>array(
+									'html', 'formatting', '|', 
+									'bold', 'italic', 'deleted', '|',
+									'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+									'link', '|',
+								),
 							),
-							'value'=>$model->body,
+							'plugins' => array(
+								'fontcolor' => array('js' => array('fontcolor.js')),
+								'table' => array('js' => array('table.js')),
+								'fullscreen' => array('js' => array('fullscreen.js')),
+							),
 						)); ?>
 						<?php echo $form->error($model,'body'); ?>
 					</div>
@@ -324,7 +332,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->start_date != '0000-00-00' ? $model->start_date = date('d-m-Y', strtotime($model->start_date)) : '') : '';
 						//echo $form->textField($model,'start_date', array('class'=>'span-4'));
-						$this->widget('application.components.system.CJuiDatePicker',array(
+						$this->widget('application.libraries.core.components.system.CJuiDatePicker',array(
 							'model'=>$model, 
 							'attribute'=>'start_date',
 							//'mode'=>'datetime',
@@ -345,7 +353,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->finish_date != '0000-00-00' ? $model->finish_date = date('d-m-Y', strtotime($model->finish_date)) : '') : '';
 						//echo $form->textField($model,'finish_date', array('class'=>'span-4'));
-						$this->widget('application.components.system.CJuiDatePicker',array(
+						$this->widget('application.libraries.core.components.system.CJuiDatePicker',array(
 							'model'=>$model, 
 							'attribute'=>'finish_date',
 							//'mode'=>'datetime',
