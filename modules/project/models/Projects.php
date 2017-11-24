@@ -394,7 +394,7 @@ class Projects extends CActiveRecord
 			if(OmmuSettings::getInfo('site_headline') == 1) {
 				$this->defaultColumns[] = array(
 					'name' => 'headline',
-					'value' => '$data->headline == 1 ? Chtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline",array("id"=>$data->project_id)), $data->headline, 9)',
+					'value' => '$data->headline == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline",array("id"=>$data->project_id)), $data->headline, 9)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
