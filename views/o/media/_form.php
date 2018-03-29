@@ -33,7 +33,7 @@
 
 	<fieldset>
 	
-		<?php if(!$model->isNewRecord) {?>		
+		<?php if(!$model->isNewRecord) {?>
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'old_media'); ?>
 			<div class="desc">
