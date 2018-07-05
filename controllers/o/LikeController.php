@@ -126,7 +126,7 @@ class LikeController extends Controller
 			$model=new ProjectLikes;
 			$model->project_id = $id;
 			if($model->save()) {
-				$this->redirect(array('site/view','id'=>$model->project_id,'t'=>Utility::getUrlTitle($model->project->title)));
+				$this->redirect(array('site/view','id'=>$model->project_id,'t'=>$this->urlTitle($model->project->title)));
 			}	
 		}
 	}
@@ -147,7 +147,7 @@ class LikeController extends Controller
 		} else {
 			$model=$this->loadModel($id);
 			if($model->delete()) {
-				$this->redirect(array('site/view','id'=>$model->project_id,'t'=>Utility::getUrlTitle($model->project->title)));
+				$this->redirect(array('site/view','id'=>$model->project_id,'t'=>$this->urlTitle($model->project->title)));
 			}	
 		}
 	}

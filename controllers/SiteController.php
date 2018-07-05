@@ -182,7 +182,7 @@ class SiteController extends Controller
 			foreach($model as $key => $val) {
 				$item = $feed->createNewItem();		 
 				$item->title = $val->title;
-				$item->link = 'http://'.$_SERVER['HTTP_HOST'].Yii::app()->controller->createUrl('view', array('id'=>$val->product_id, 't'=>Utility::getUrlTitle($val->title)));
+				$item->link = 'http://'.$_SERVER['HTTP_HOST'].Yii::app()->controller->createUrl('view', array('id'=>$val->product_id, 't'=>$this->urlTitle($val->title)));
 				$item->date = Utility::dateFormat($val->creation_date, true);
 				$item->description = Utility::shortText(Utility::hardDecode($val->body),300);
 				// this is just a test!!
