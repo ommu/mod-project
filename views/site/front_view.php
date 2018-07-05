@@ -19,7 +19,7 @@
 <?php //begin.Messages ?>
 <?php
 if(Yii::app()->user->hasFlash('success'))
-	echo Utility::flashSuccess(Yii::app()->user->getFlash('success'));
+	echo $this->flashMessage(Yii::app()->user->getFlash('success'), 'success');
 ?>
 <?php //end.Messages ?>
 
