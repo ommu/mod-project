@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  * This is the template for generating the model class of a specified table.
@@ -170,52 +170,52 @@ class Projects extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.project_id',$this->project_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
-			$criteria->compare('t.publish',1);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish') {
-			$criteria->compare('t.publish',0);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'trash') {
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.project_id', $this->project_id);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish') {
+			$criteria->compare('t.publish', 1);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish') {
+			$criteria->compare('t.publish', 0);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'trash') {
+			$criteria->compare('t.publish', 2);
 		} else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
-		if(isset($_GET['category'])) {
-			$criteria->compare('t.cat_id',$_GET['category']);
+		if(Yii::app()->getRequest()->getParam('category')) {
+			$criteria->compare('t.cat_id', Yii::app()->getRequest()->getParam('category'));
 		} else {
-			$criteria->compare('t.cat_id',$this->cat_id);
+			$criteria->compare('t.cat_id', $this->cat_id);
 		}
-		if(isset($_GET['client'])) {
-			$criteria->compare('t.client_id',$_GET['client']);
+		if(Yii::app()->getRequest()->getParam('client')) {
+			$criteria->compare('t.client_id', Yii::app()->getRequest()->getParam('client'));
 		} else {
-			$criteria->compare('t.client_id',$this->client_id);
+			$criteria->compare('t.client_id', $this->client_id);
 		}
-		if(isset($_GET['user'])) {
-			$criteria->compare('t.user_id',$_GET['user']);
+		if(Yii::app()->getRequest()->getParam('user')) {
+			$criteria->compare('t.user_id', Yii::app()->getRequest()->getParam('user'));
 		} else {
-			$criteria->compare('t.user_id',$this->user_id);
+			$criteria->compare('t.user_id', $this->user_id);
 		}
-		$criteria->compare('t.media_id',$this->media_id);
-		$criteria->compare('t.headline',$this->headline);
-		$criteria->compare('t.comment_code',$this->comment_code);
-		$criteria->compare('t.title',strtolower($this->title),true);
-		$criteria->compare('t.body',strtolower($this->body),true);
-		$criteria->compare('t.website',strtolower($this->website),true);
-		if(isset($_GET['status'])) {
-			$criteria->compare('t.status',$_GET['status']);
+		$criteria->compare('t.media_id', $this->media_id);
+		$criteria->compare('t.headline', $this->headline);
+		$criteria->compare('t.comment_code', $this->comment_code);
+		$criteria->compare('t.title', strtolower($this->title), true);
+		$criteria->compare('t.body', strtolower($this->body), true);
+		$criteria->compare('t.website', strtolower($this->website), true);
+		if(Yii::app()->getRequest()->getParam('status')) {
+			$criteria->compare('t.status', Yii::app()->getRequest()->getParam('status'));
 		} else {
-			$criteria->compare('t.status',$this->status);
+			$criteria->compare('t.status', $this->status);
 		}
-		$criteria->compare('t.start_date',strtolower($this->start_date),true);
-		$criteria->compare('t.finish_date',strtolower($this->finish_date),true);
-		$criteria->compare('t.comment',$this->comment);
-		$criteria->compare('t.view',$this->view);
-		$criteria->compare('t.likes',$this->likes);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
+		$criteria->compare('t.start_date', strtolower($this->start_date), true);
+		$criteria->compare('t.finish_date', strtolower($this->finish_date), true);
+		$criteria->compare('t.comment', $this->comment);
+		$criteria->compare('t.view', $this->view);
+		$criteria->compare('t.likes', $this->likes);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
+		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.modified_date)', date('Y-m-d', strtotime($this->modified_date)));
 		
 		// Custom Search
 		$criteria->with = array(
@@ -228,10 +228,10 @@ class Projects extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('client.client_name',strtolower($this->client_search), true);
-		$criteria->compare('user.displayname',strtolower($this->user_search), true);
+		$criteria->compare('client.client_name', strtolower($this->client_search), true);
+		$criteria->compare('user.displayname', strtolower($this->user_search), true);
 
-		if(!isset($_GET['Projects_sort']))
+		if(!Yii::app()->getRequest()->getParam('Projects_sort'))
 			$criteria->order = 'project_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -308,7 +308,7 @@ class Projects extends CActiveRecord
 				),
 				'type' => 'raw',
 			);
-			if(!isset($_GET['category'])) {
+			if(!Yii::app()->getRequest()->getParam('category')) {
 				$this->defaultColumns[] = array(
 					'name' => 'cat_id',
 					'value' => '$data->cat->name',
@@ -316,7 +316,7 @@ class Projects extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
-			if(!isset($_GET['client'])) {
+			if(!Yii::app()->getRequest()->getParam('client')) {
 				$this->defaultColumns[] = array(
 					'name' => 'client_search',
 					'value' => '$data->client->client_name',
@@ -339,7 +339,7 @@ class Projects extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -365,7 +365,7 @@ class Projects extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -374,7 +374,7 @@ class Projects extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['status'])) {
+			if(Yii::app()->getRequest()->getParam('status')) {
 				$this->defaultColumns[] = array(
 					'name' => 'status',
 					'value' => '$data->status != 0 ? ($data->status == 1 ? "Process" : "Done") : "Waiting"',
@@ -393,7 +393,7 @@ class Projects extends CActiveRecord
 			if(OmmuSettings::getInfo('site_headline') == 1) {
 				$this->defaultColumns[] = array(
 					'name' => 'headline',
-					'value' => '$data->headline == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline",array("id"=>$data->project_id)), $data->headline, 9)',
+					'value' => '$data->headline == 1 ? CHtml::image(Yii::app()->theme->baseUrl.\'/images/icons/publish.png\') : Utility::getPublish(Yii::app()->controller->createUrl("headline", array("id"=>$data->project_id)), $data->headline, 9)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -405,10 +405,10 @@ class Projects extends CActiveRecord
 				);
 			}
 			*/
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->project_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->project_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -429,7 +429,7 @@ class Projects extends CActiveRecord
 	public static function getInfo($id=1, $column=null)
 	{
 		if($column != null) {
-			$model = self::model()->findByPk($id,array(
+			$model = self::model()->findByPk($id, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)

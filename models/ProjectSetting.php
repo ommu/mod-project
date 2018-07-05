@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  * This is the template for generating the model class of a specified table.
@@ -131,21 +131,21 @@ class ProjectSetting extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.license',$this->license,true);
-		$criteria->compare('t.permission',$this->permission);
-		$criteria->compare('t.meta_keyword',$this->meta_keyword,true);
-		$criteria->compare('t.meta_description',$this->meta_description,true);
-		$criteria->compare('t.headline',$this->headline);
-		$criteria->compare('t.media_limit',$this->media_limit);
-		$criteria->compare('t.media_resize',$this->media_resize);
-		$criteria->compare('t.media_resize_size',$this->media_resize_size);
-		$criteria->compare('t.media_large_width',$this->media_large_width);
-		$criteria->compare('t.media_large_height',$this->media_large_height);
-		$criteria->compare('t.media_medium_width',$this->media_medium_width);
-		$criteria->compare('t.media_medium_height',$this->media_medium_height);
-		$criteria->compare('t.media_small_width',$this->media_small_width);
-		$criteria->compare('t.media_small_height',$this->media_small_height);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.license', $this->license,true);
+		$criteria->compare('t.permission', $this->permission);
+		$criteria->compare('t.meta_keyword', $this->meta_keyword,true);
+		$criteria->compare('t.meta_description', $this->meta_description,true);
+		$criteria->compare('t.headline', $this->headline);
+		$criteria->compare('t.media_limit', $this->media_limit);
+		$criteria->compare('t.media_resize', $this->media_resize);
+		$criteria->compare('t.media_resize_size', $this->media_resize_size);
+		$criteria->compare('t.media_large_width', $this->media_large_width);
+		$criteria->compare('t.media_large_height', $this->media_large_height);
+		$criteria->compare('t.media_medium_width', $this->media_medium_width);
+		$criteria->compare('t.media_medium_height', $this->media_medium_height);
+		$criteria->compare('t.media_small_width', $this->media_small_width);
+		$criteria->compare('t.media_small_height', $this->media_small_height);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -219,13 +219,13 @@ class ProjectSetting extends CActiveRecord
 	public static function getInfo($column, $type=null)
 	{
 		if($type != null && $type == 'many') {
-			$model = self::model()->findByPk(1,array(
+			$model = self::model()->findByPk(1, array(
 				'select' => $column,
 			));
 			return $model;
 		
 		} else {
-			$model = self::model()->findByPk(1,array(
+			$model = self::model()->findByPk(1, array(
 				'select' => $column,
 			));
  			if(count(explode(',', $column)) == 1)

@@ -21,7 +21,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ class MediaController extends Controller
 	 */
 	public function actionAjaxManage($id) 
 	{
-		if(!isset($_GET['type'])) {
+		if(!Yii::app()->getRequest()->getParam('type')) {
 			$arrThemes = Utility::getCurrentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
@@ -125,7 +125,7 @@ class MediaController extends Controller
 		}
 		
 		$model = ProjectMedia::getPhoto($id);
-		$setting = ProjectSetting::model()->findByPk(1,array(
+		$setting = ProjectSetting::model()->findByPk(1, array(
 			'select' => 'media_limit',
 		));
 		
@@ -133,7 +133,7 @@ class MediaController extends Controller
 		if($model != null) {
 			foreach($model as $key => $val) {
 				$image = Yii::app()->request->baseUrl.'/public/project/'.$val->project_id.'/'.$val->media;
-				if(isset($_GET['type'])) {
+				if(Yii::app()->getRequest()->getParam('type')) {
 					$url = Yii::app()->controller->createUrl('ajaxdelete', array('id'=>$val->media_id,'type'=>'admin'));
 					$urlCover = Yii::app()->controller->createUrl('ajaxcover', array('id'=>$val->media_id,'type'=>'admin'));
 				} else {
@@ -152,7 +152,7 @@ class MediaController extends Controller
 		if(isset($_GET['replace'])) {
 			// begin.Upload Button
 			$class = (count($model) == $setting->media_limit) ? 'class="hide"' : '';
-			if(isset($_GET['type']))
+			if(Yii::app()->getRequest()->getParam('type'))
 				$url = Yii::app()->controller->createUrl('ajaxadd', array('id'=>$id,'type'=>'admin'));
 			else 
 				$url = Yii::app()->controller->createUrl('ajaxadd', array('id'=>$id));
@@ -174,7 +174,7 @@ class MediaController extends Controller
 	 */
 	public function actionAjaxAdd($id) 
 	{
-		if(!isset($_GET['type'])) {
+		if(!Yii::app()->getRequest()->getParam('type')) {
 			$arrThemes = Utility::getCurrentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
@@ -199,7 +199,7 @@ class MediaController extends Controller
 			$model->project_id = $id;
 			$model->media = $fileName;
 			if($model->save()) {
-				if(isset($_GET['type']))
+				if(Yii::app()->getRequest()->getParam('type'))
 					$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id,'type'=>'admin','replace'=>'true'));
 				else 
 					$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id));
@@ -218,7 +218,7 @@ class MediaController extends Controller
 	 */
 	public function actionAjaxCover($id) 
 	{
-		if(!isset($_GET['type'])) {
+		if(!Yii::app()->getRequest()->getParam('type')) {
 			$arrThemes = Utility::getCurrentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
@@ -233,7 +233,7 @@ class MediaController extends Controller
 				$model->cover = 1;
 				
 				if($model->update()) {
-					if(isset($_GET['type']))
+					if(Yii::app()->getRequest()->getParam('type'))
 						$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id,'type'=>'admin','replace'=>'true'));
 					else 
 						$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id));
@@ -264,7 +264,7 @@ class MediaController extends Controller
 	 */
 	public function actionAjaxDelete($id) 
 	{
-		if(!isset($_GET['type'])) {
+		if(!Yii::app()->getRequest()->getParam('type')) {
 			$arrThemes = Utility::getCurrentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
@@ -277,7 +277,7 @@ class MediaController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				if($model->delete()) {
-					if(isset($_GET['type']))
+					if(Yii::app()->getRequest()->getParam('type'))
 						$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id,'type'=>'admin','replace'=>'true'));
 					else 
 						$url = Yii::app()->controller->createUrl('ajaxmanage', array('id'=>$model->project_id));
@@ -322,8 +322,8 @@ class MediaController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 		
-		if(isset($_GET['project'])) {
-			$project = Projects::model()->findByPk($_GET['project']);
+		if(Yii::app()->getRequest()->getParam('project')) {
+			$project = Projects::model()->findByPk(Yii::app()->getRequest()->getParam('project'));
 			$title = ': '.$project->title.' by '.$project->user->displayname;
 		} else {
 			$title = '';
@@ -332,7 +332,7 @@ class MediaController extends Controller
 		$this->pageTitle = 'View Media'.$title;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -362,7 +362,7 @@ class MediaController extends Controller
 		$this->pageTitle = 'Update Media: '.$model->project->title;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_edit',array(
+		$this->render('admin_edit', array(
 			'model'=>$model,
 		));
 	}

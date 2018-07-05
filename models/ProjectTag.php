@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  * This is the template for generating the model class of a specified table.
@@ -114,15 +114,15 @@ class ProjectTag extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id,true);
-		if(isset($_GET['project'])) {
-			$criteria->compare('t.project_id',$_GET['project']);
+		$criteria->compare('t.id', $this->id,true);
+		if(Yii::app()->getRequest()->getParam('project')) {
+			$criteria->compare('t.project_id', Yii::app()->getRequest()->getParam('project'));
 		} else {
-			$criteria->compare('t.project_id',$this->project_id);
+			$criteria->compare('t.project_id', $this->project_id);
 		}
-		$criteria->compare('t.tag_id',$this->tag_id,true);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
+		$criteria->compare('t.tag_id', $this->tag_id,true);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
 		
 		// Custom Search
 		$criteria->with = array(
@@ -135,10 +135,10 @@ class ProjectTag extends CActiveRecord
 				'select'=>'body'
 			),
 		);
-		$criteria->compare('project.title',strtolower($this->project_search), true);
-		$criteria->compare('tag.body',strtolower($this->tag_search), true);
+		$criteria->compare('project.title', strtolower($this->project_search), true);
+		$criteria->compare('tag.body', strtolower($this->tag_search), true);
 
-		if(!isset($_GET['ProjectTag_sort']))
+		if(!Yii::app()->getRequest()->getParam('ProjectTag_sort'))
 			$criteria->order = 'id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -185,7 +185,7 @@ class ProjectTag extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			if(!isset($_GET['project'])) {
+			if(!Yii::app()->getRequest()->getParam('project')) {
 				$this->defaultColumns[] = array(
 					'name' => 'project_search',
 					'value' => '$data->project->title."<br/><span>".Utility::shortText(Utility::hardDecode($data->project->body),150)."</span>"',
@@ -216,7 +216,7 @@ class ProjectTag extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,

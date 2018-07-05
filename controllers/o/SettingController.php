@@ -14,7 +14,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ class SettingController extends Controller
 				echo $encode;
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 0,
@@ -151,7 +151,7 @@ class SettingController extends Controller
 			$this->pageTitle = 'Project Settings';
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('admin_index',array(
+			$this->render('admin_index', array(
 				'model'=>$model,
 				'category' => $category,
 				'columns' => $columns,

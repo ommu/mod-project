@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  */
@@ -33,7 +33,7 @@
 				<span>Enter the your license key that is provided to you when you purchased this plugin. If you do not know your license key, please contact support team.</span>
 			</label>
 			<div class="desc">
-				<?php echo $form->textField($model,'license',array('maxlength'=>32,'class'=>'span-4')); ?>
+				<?php echo $form->textField($model,'license', array('maxlength'=>32,'class'=>'span-4')); ?>
 				<?php echo $form->error($model,'license'); ?>
 				<span class="small-px">Format: XXXX-XXXX-XXXX-XXXX</span>
 			</div>
@@ -54,7 +54,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'meta_description'); ?>
 			<div class="desc">
-				<?php echo $form->textArea($model,'meta_description',array('rows'=>6, 'cols'=>50, 'class'=>'span-7 smaller')); ?>
+				<?php echo $form->textArea($model,'meta_description', array('rows'=>6, 'cols'=>50, 'class'=>'span-7 smaller')); ?>
 				<?php echo $form->error($model,'meta_description'); ?>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'meta_keyword'); ?>
 			<div class="desc">
-				<?php echo $form->textArea($model,'meta_keyword',array('rows'=>6, 'cols'=>50, 'class'=>'span-7 smaller')); ?>
+				<?php echo $form->textArea($model,'meta_keyword', array('rows'=>6, 'cols'=>50, 'class'=>'span-7 smaller')); ?>
 				<?php echo $form->error($model,'meta_keyword'); ?>
 			</div>
 		</div>
@@ -97,24 +97,24 @@
 					$model->media_resize_height = $resizeSize[1];
 				}?>
 				<div id="resize_size" class="mt-15 <?php echo $model->media_resize == 0 ? 'hide' : '';?>">
-					Width: <?php echo $form->textField($model,'media_resize_width',array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
-					Height: <?php echo $form->textField($model,'media_resize_height',array('maxlength'=>4,'class'=>'span-2')); ?>
+					Width: <?php echo $form->textField($model,'media_resize_width', array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
+					Height: <?php echo $form->textField($model,'media_resize_height', array('maxlength'=>4,'class'=>'span-2')); ?>
 					<?php echo $form->error($model,'media_resize_size'); ?>
 				</div>
 				
 				<p>Large Size</p>
-				Width: <?php echo $form->textField($model,'media_large_width',array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
-				Height: <?php echo $form->textField($model,'media_large_height',array('maxlength'=>4,'class'=>'span-2')); ?>
+				Width: <?php echo $form->textField($model,'media_large_width', array('maxlength'=>4,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
+				Height: <?php echo $form->textField($model,'media_large_height', array('maxlength'=>4,'class'=>'span-2')); ?>
 				<?php echo $form->error($model,'media_large_width'); ?>
 				
 				<p>Medium Size</p>
-				Width: <?php echo $form->textField($model,'media_medium_width',array('maxlength'=>3,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
-				Height: <?php echo $form->textField($model,'media_medium_height',array('maxlength'=>3,'class'=>'span-2')); ?>
+				Width: <?php echo $form->textField($model,'media_medium_width', array('maxlength'=>3,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
+				Height: <?php echo $form->textField($model,'media_medium_height', array('maxlength'=>3,'class'=>'span-2')); ?>
 				<?php echo $form->error($model,'media_medium_width'); ?>
 				
 				<p>Small Size</p>
-				Width: <?php echo $form->textField($model,'media_small_width',array('maxlength'=>3,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
-				Height: <?php echo $form->textField($model,'media_small_height',array('maxlength'=>3,'class'=>'span-2')); ?>
+				Width: <?php echo $form->textField($model,'media_small_width', array('maxlength'=>3,'class'=>'span-2')); ?>&nbsp;&nbsp;&nbsp;
+				Height: <?php echo $form->textField($model,'media_small_height', array('maxlength'=>3,'class'=>'span-2')); ?>
 				<?php echo $form->error($model,'media_small_width'); ?>
 			</div>
 		</div>

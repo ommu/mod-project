@@ -23,7 +23,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -113,13 +113,13 @@ class ClientController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionSuggest($limit=10) {
-		if(isset($_GET['term'])) {
+		if(Yii::app()->getRequest()->getParam('term')) {
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'client_name LIKE :client_name';
 			$criteria->select = 'client_id, client_name';
 			$criteria->limit = $limit;
 			$criteria->order = 'client_id ASC';
-			$criteria->params = array(':client_name' => '%' . strtolower($_GET['term']) . '%');
+			$criteria->params = array(':client_name' => '%' . strtolower(Yii::app()->getRequest()->getParam('term')) . '%');
 			$model = ProjectClient::model()->findAll($criteria);
 
 			if($model) {
@@ -127,7 +127,7 @@ class ClientController extends Controller
 					$result[] = array('id' => $items->client_id, 'value' => $items->client_name);
 				}
 			} else {
-				$result[] = array('id' => 0, 'value' => $_GET['term']);
+				$result[] = array('id' => 0, 'value' => Yii::app()->getRequest()->getParam('term'));
 			}
 		}
 		echo CJSON::encode($result);
@@ -182,7 +182,7 @@ class ClientController extends Controller
 		$this->pageTitle = 'Clients Manage';
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -207,7 +207,7 @@ class ClientController extends Controller
 				echo $jsonError;				
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
@@ -230,7 +230,7 @@ class ClientController extends Controller
 			$this->pageTitle = 'Create Client';
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('admin_add',array(
+			$this->render('admin_add', array(
 				'model'=>$model,
 			));
 		}
@@ -257,7 +257,7 @@ class ClientController extends Controller
 				echo $jsonError;
 
 			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+				if(Yii::app()->getRequest()->getParam('enablesave') == 1) {
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
@@ -280,7 +280,7 @@ class ClientController extends Controller
 			$this->pageTitle = 'Update Client: '.$model->client_name;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('admin_edit',array(
+			$this->render('admin_edit', array(
 				'model'=>$model,
 			));
 		}
@@ -301,7 +301,7 @@ class ClientController extends Controller
 		$this->pageTitle = 'Detail Client: '.$model->client_name;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_view',array(
+		$this->render('admin_view', array(
 			'model'=>$model,
 		));
 	}	
@@ -313,7 +313,7 @@ class ClientController extends Controller
 	public function actionRunAction() {
 		$id       = $_POST['trash_id'];
 		$criteria = null;
-		$actions  = $_GET['action'];
+		$actions  = Yii::app()->getRequest()->getParam('action');
 
 		if(count($id) > 0) {
 			$criteria = new CDbCriteria;
@@ -337,7 +337,7 @@ class ClientController extends Controller
 		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax'])) {
+		if(!Yii::app()->getRequest()->getParam('ajax')) {
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('manage'));
 		}
 	}
@@ -416,7 +416,7 @@ class ClientController extends Controller
 			$this->pageTitle = $title.': '.$model->client_name;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('admin_publish',array(
+			$this->render('admin_publish', array(
 				'title'=>$title,
 				'model'=>$model,
 			));

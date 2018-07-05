@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  */
@@ -53,7 +53,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'media'); ?>
 			<div class="desc">
-				<?php echo $form->fileField($model,'media',array('maxlength'=>64)); ?>
+				<?php echo $form->fileField($model,'media', array('maxlength'=>64)); ?>
 				<?php echo $form->error($model,'media'); ?>
 			</div>
 		</div>

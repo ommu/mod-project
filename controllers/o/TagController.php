@@ -17,7 +17,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -121,8 +121,8 @@ class TagController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 		
-		if(isset($_GET['project'])) {
-			$article = Articles::model()->findByPk($_GET['project']);
+		if(Yii::app()->getRequest()->getParam('project')) {
+			$article = Articles::model()->findByPk(Yii::app()->getRequest()->getParam('project'));
 			$title = ': '.$article->title.' by '.$article->user->displayname;
 		} else {
 			$title = '';
@@ -131,7 +131,7 @@ class TagController extends Controller
 		$this->pageTitle = 'View Project Tags'.$title;
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -154,10 +154,10 @@ class TagController extends Controller
 			$model->body = $_POST['tag'];
 
 			if($model->save()) {
-				if(isset($_GET['type']) && $_GET['type'] == 'project')
-					$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id,'type'=>'project'));
+				if(Yii::app()->getRequest()->getParam('type') == 'project')
+					$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->id,'type'=>'project'));
 				else 
-					$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id));
+					$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->id));
 				echo CJSON::encode(array(
 					'data' => '<div>'.$model->tag->body.'<a href="'.$url.'" title="'.'Delete'.'">'.'Delete'.'</a></div>',
 				));
@@ -178,7 +178,7 @@ class TagController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				if($model->delete()) {
-					if(isset($_GET['type']) && $_GET['type'] == 'project') {
+					if(Yii::app()->getRequest()->getParam('type') == 'project') {
 						echo CJSON::encode(array(
 							'type' => 4,
 						));
@@ -194,7 +194,7 @@ class TagController extends Controller
 			}
 
 		} else {
-			if(isset($_GET['type']) && $_GET['type'] == 'project')
+			if(Yii::app()->getRequest()->getParam('type') == 'project')
 				$dialogGroundUrl = Yii::app()->controller->createUrl('admin/edit', array('id'=>$model->project_id));
 			else
 				$dialogGroundUrl = Yii::app()->controller->createUrl('manage');

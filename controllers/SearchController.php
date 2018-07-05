@@ -17,7 +17,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ class SearchController extends Controller
 	 */
 	public function actionIndex() 
 	{
-		$setting = ProjectSetting::model()->findByPk(1,array(
+		$setting = ProjectSetting::model()->findByPk(1, array(
 			'select' => 'meta_keyword',
 		));
 
@@ -120,7 +120,7 @@ class SearchController extends Controller
 		$this->pageTitle = isset($_GET['search']) ? 'Search'.': '.$_GET['search'] : 'Search';
 		$this->pageDescription = '';
 		$this->pageMeta = $setting->meta_keyword;
-		$this->render('front_index',array(
+		$this->render('front_index', array(
 			'dataProvider'=>$dataProvider,
 		));
 	}

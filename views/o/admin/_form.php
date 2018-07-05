@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  */
@@ -64,7 +64,7 @@ EOP;
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'title'); ?>
 					<div class="desc">
-						<?php echo $form->textField($model,'title',array('maxlength'=>128,'class'=>'span-8')); ?>
+						<?php echo $form->textField($model,'title', array('maxlength'=>128,'class'=>'span-8')); ?>
 						<?php echo $form->error($model,'title'); ?>
 					</div>
 				</div>
@@ -73,7 +73,7 @@ EOP;
 					<?php echo $form->labelEx($model,'body'); ?>
 					<div class="desc">
 						<?php 
-						//echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'span-10 small'));
+						//echo $form->textArea($model,'body', array('rows'=>6, 'cols'=>50, 'class'=>'span-10 small'));
 						$this->widget('yiiext.imperavi-redactor-widget.ImperaviRedactorWidget', array(
 							'model'=>$model,
 							'attribute'=>body,
@@ -103,7 +103,7 @@ EOP;
 						<?php
 						if(!$model->isNewRecord)
 							$model->client_input = $model->client->client_name;
-						//echo $form->textField($model,'client_input',array('maxlength'=>64, 'class'=>'span-7'));
+						//echo $form->textField($model,'client_input', array('maxlength'=>64, 'class'=>'span-7'));
 						$url = Yii::app()->controller->createUrl('client/ajaxadd');
 						$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 							'model' => $model,
@@ -145,7 +145,7 @@ EOP;
 						<?php echo $form->labelEx($model,'team_input');?>
 						<div class="desc">
 							<?php						
-							//echo $form->textField($model,'team_input',array('maxlength'=>32, 'class'=>'span-6'));						
+							//echo $form->textField($model,'team_input', array('maxlength'=>32, 'class'=>'span-6'));						
 							$project = $model->project_id;
 							$teamField = 'Projects_team_input';
 							$url = Yii::app()->controller->createUrl('team/ajaxadd', array('type'=>'project'));
@@ -179,7 +179,7 @@ EOP;
 							<div id="team-suggest" class="suggest clearfix">
 								<?php if($team != null) {
 									foreach($team as $key => $val) {?>
-									<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('team/delete',array('id'=>$val->team_id,'type'=>'project'));?>" title="<?php echo 'Delete';?>"><?php echo 'Delete';?></a></div>
+									<div><?php echo $val->user->displayname;?><a href="<?php echo Yii::app()->controller->createUrl('team/delete', array('id'=>$val->team_id,'type'=>'project'));?>" title="<?php echo 'Delete';?>"><?php echo 'Delete';?></a></div>
 								<?php }
 								}?>
 							</div>
@@ -194,7 +194,7 @@ EOP;
 						$model->is_website = $model->website != '' ? 1 : 0;
 						echo $form->checkBox($model,'is_website'); ?>
 						<div class="mt-10 <?php echo $model->website == '' ? 'hide' : '';?>">
-							<?php echo $form->textField($model,'website',array('maxlength'=>128, 'class'=>'span-6')); ?>
+							<?php echo $form->textField($model,'website', array('maxlength'=>128, 'class'=>'span-6')); ?>
 						</div>
 						<?php echo $form->error($model,'website'); ?>
 					</div>
@@ -205,7 +205,7 @@ EOP;
 					<?php echo $form->labelEx($model,'keyword'); ?>
 					<div class="desc">
 						<?php if(!$model->isNewRecord) {
-							//echo $form->textField($model,'keyword',array('maxlength'=>32,'class'=>'span-6'));
+							//echo $form->textField($model,'keyword', array('maxlength'=>32,'class'=>'span-6'));
 							$url = Yii::app()->controller->createUrl('tag/add', array('type'=>'project'));
 							$project = $model->project_id;
 							$tagId = 'Projects_keyword';
@@ -246,7 +246,7 @@ EOP;
 							if(!$model->isNewRecord) {
 								if($tag != null) {
 									foreach($tag as $key => $val) {?>
-									<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('tag/delete',array('id'=>$val->id,'type'=>'project'));?>" title="<?php echo 'Delete';?>"><?php echo 'Delete';?></a></div>
+									<div><?php echo $val->tag->body;?><a href="<?php echo Yii::app()->controller->createUrl('tag/delete', array('id'=>$val->id,'type'=>'project'));?>" title="<?php echo 'Delete';?>"><?php echo 'Delete';?></a></div>
 								<?php }
 								}
 							}?>
@@ -279,7 +279,7 @@ EOP;
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'media'); ?>
 					<div class="desc">
-						<?php echo $form->fileField($model,'media',array('maxlength'=>64)); ?>
+						<?php echo $form->fileField($model,'media', array('maxlength'=>64)); ?>
 						<?php echo $form->error($model,'media'); ?>
 					</div>
 				</div>
@@ -331,12 +331,12 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->start_date != '0000-00-00' ? $model->start_date = date('d-m-Y', strtotime($model->start_date)) : '') : '';
 						//echo $form->textField($model,'start_date', array('class'=>'span-4'));
-						$this->widget('application.libraries.core.components.system.CJuiDatePicker',array(
+						$this->widget('application.libraries.core.components.system.CJuiDatePicker', array(
 							'model'=>$model, 
 							'attribute'=>'start_date',
 							//'mode'=>'datetime',
 							'options'=>array(
-								'dateFormat' => 'dd-mm-yy',
+								'dateFormat' => 'yy-mm-dd',
 							),
 							'htmlOptions'=>array(
 								'class' => 'span-6',
@@ -352,12 +352,12 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->finish_date != '0000-00-00' ? $model->finish_date = date('d-m-Y', strtotime($model->finish_date)) : '') : '';
 						//echo $form->textField($model,'finish_date', array('class'=>'span-4'));
-						$this->widget('application.libraries.core.components.system.CJuiDatePicker',array(
+						$this->widget('application.libraries.core.components.system.CJuiDatePicker', array(
 							'model'=>$model, 
 							'attribute'=>'finish_date',
 							//'mode'=>'datetime',
 							'options'=>array(
-								'dateFormat' => 'dd-mm-yy',
+								'dateFormat' => 'yy-mm-dd',
 							),
 							'htmlOptions'=>array(
 								'class' => 'span-6',

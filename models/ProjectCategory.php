@@ -4,7 +4,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  * This is the template for generating the model class of a specified table.
@@ -110,25 +110,25 @@ class ProjectCategory extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.cat_id',$this->cat_id);
-		if(isset($_GET['type']) && $_GET['type'] == 'publish') {
-			$criteria->compare('t.publish',1);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish') {
-			$criteria->compare('t.publish',0);
-		} elseif(isset($_GET['type']) && $_GET['type'] == 'trash') {
-			$criteria->compare('t.publish',2);
+		$criteria->compare('t.cat_id', $this->cat_id);
+		if(Yii::app()->getRequest()->getParam('type') == 'publish') {
+			$criteria->compare('t.publish', 1);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'unpublish') {
+			$criteria->compare('t.publish', 0);
+		} elseif(Yii::app()->getRequest()->getParam('type') == 'trash') {
+			$criteria->compare('t.publish', 2);
 		} else {
-			$criteria->addInCondition('t.publish',array(0,1));
-			$criteria->compare('t.publish',$this->publish);
+			$criteria->addInCondition('t.publish', array(0,1));
+			$criteria->compare('t.publish', $this->publish);
 		}
-		$criteria->compare('t.dependency',$this->dependency);
-		$criteria->compare('t.orders',$this->orders);
-		$criteria->compare('t.name',$this->name);
-		$criteria->compare('t.desc',$this->desc);
-		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
+		$criteria->compare('t.dependency', $this->dependency);
+		$criteria->compare('t.orders', $this->orders);
+		$criteria->compare('t.name', $this->name);
+		$criteria->compare('t.desc', $this->desc);
+		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00','1970-01-01 00:00:00','0002-12-02 07:07:12','-0001-11-30 00:00:00')))
+			$criteria->compare('date(t.creation_date)', date('Y-m-d', strtotime($this->creation_date)));
 
-		if(!isset($_GET['ProjectCategory_sort']))
+		if(!Yii::app()->getRequest()->getParam('ProjectCategory_sort'))
 			$criteria->order = 'cat_id DESC';
 
 		return new CActiveDataProvider($this, array(
@@ -212,7 +212,7 @@ class ProjectCategory extends CActiveRecord
 					),
 					'options'=>array(
 						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
+						'dateFormat' => 'yy-mm-dd',
 						'showOtherMonths' => true,
 						'selectOtherMonths' => true,
 						'changeMonth' => true,
@@ -221,10 +221,10 @@ class ProjectCategory extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['type'])) {
+			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("category/publish",array("id"=>$data->cat_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("category/publish", array("id"=>$data->cat_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),

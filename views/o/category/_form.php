@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  */
@@ -43,7 +43,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'name'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'name',array('maxlength'=>32,'class'=>'span-8')); ?>
+				<?php echo $form->textField($model,'name', array('maxlength'=>32,'class'=>'span-8')); ?>
 				<?php echo $form->error($model,'name'); ?>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'desc'); ?>
 			<div class="desc">
-				<?php echo $form->textArea($model,'desc',array('maxlength'=>128,'class'=>'span-11 smaller')); ?>
+				<?php echo $form->textArea($model,'desc', array('maxlength'=>128,'class'=>'span-11 smaller')); ?>
 				<?php echo $form->error($model,'desc'); ?>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 	</fieldset>
 </div>
 <div class="dialog-submit">
-	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save' ,array('onclick' => 'setEnableSave()')); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save' , array('onclick' => 'setEnableSave()')); ?>
 	<?php echo CHtml::button('Close', array('id'=>'closed')); ?>
 </div>
 <?php $this->endWidget(); ?>

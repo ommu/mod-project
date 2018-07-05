@@ -7,7 +7,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  */
@@ -31,7 +31,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'client_name'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'client_name',array('maxlength'=>64)); ?>
+				<?php echo $form->textField($model,'client_name', array('maxlength'=>64)); ?>
 				<?php echo $form->error($model,'client_name'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -46,7 +46,7 @@
 				</label>
 			<?php }?>
 			<div class="desc">
-				<?php echo $form->textArea($model,'address',array('rows'=>6, 'cols'=>50, 'class'=>'span-10 smaller')); ?>
+				<?php echo $form->textArea($model,'address', array('rows'=>6, 'cols'=>50, 'class'=>'span-10 smaller')); ?>
 				<?php echo $form->error($model,'address'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -61,7 +61,7 @@
 				</label>
 			<?php }?>
 			<div class="desc">
-				<?php echo $form->textField($model,'cp_name',array('maxlength'=>32)); ?>
+				<?php echo $form->textField($model,'cp_name', array('maxlength'=>32)); ?>
 				<?php echo $form->error($model,'cp_name'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -76,7 +76,7 @@
 				</label>
 			<?php }?>
 			<div class="desc">
-				<?php echo $form->textField($model,'phone',array('maxlength'=>32)); ?>
+				<?php echo $form->textField($model,'phone', array('maxlength'=>32)); ?>
 				<?php echo $form->error($model,'phone'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -91,7 +91,7 @@
 				</label>
 			<?php }?>
 			<div class="desc">
-				<?php echo $form->textField($model,'email',array('maxlength'=>32)); ?>
+				<?php echo $form->textField($model,'email', array('maxlength'=>32)); ?>
 				<?php echo $form->error($model,'email'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -109,7 +109,7 @@
 	</fieldset>
 </div>
 <div class="dialog-submit">
-	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save' ,array('onclick' => 'setEnableSave()')); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save' , array('onclick' => 'setEnableSave()')); ?>
 	<?php echo CHtml::button('Close', array('id'=>'closed')); ?>
 </div>
 <?php $this->endWidget(); ?>

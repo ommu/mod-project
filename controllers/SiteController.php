@@ -19,7 +19,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2013 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2013 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex() 
 	{
-		$setting = ProjectSetting::model()->findByPk(1,array(
+		$setting = ProjectSetting::model()->findByPk(1, array(
 			'select' => 'meta_description, meta_keyword',
 		));
 
@@ -116,7 +116,7 @@ class SiteController extends Controller
 		$this->pageTitle = 'Projects';
 		$this->pageDescription = $setting->meta_description;
 		$this->pageMeta = $setting->meta_keyword;
-		$this->render('front_index',array(
+		$this->render('front_index', array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -127,7 +127,7 @@ class SiteController extends Controller
 	 */
 	public function actionView($id) 
 	{
-		$setting = ProjectSetting::model()->findByPk(1,array(
+		$setting = ProjectSetting::model()->findByPk(1, array(
 			'select' => 'meta_keyword',
 		));
 
@@ -140,7 +140,7 @@ class SiteController extends Controller
 		$this->pageDescription = Utility::shortText(Utility::hardDecode($model->body),300);
 		$this->pageMeta = ProjectTag::getKeyword($setting->meta_keyword, $id);
 		$this->pageImage = $model->media_id != 0 ? Yii::app()->request->baseUrl.'/public/project/'.$id.'/'.$model->cover->media : '';
-		$this->render('front_view',array(
+		$this->render('front_view', array(
 			'model'=>$model,
 		));
 	}
@@ -151,7 +151,7 @@ class SiteController extends Controller
 	 */
 	public function actionFeed() 
 	{
-		$setting = ProjectSetting::model()->findByPk(1,array(
+		$setting = ProjectSetting::model()->findByPk(1, array(
 			'select' => 'meta_description, meta_keyword',
 		));
 

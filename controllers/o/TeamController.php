@@ -18,7 +18,7 @@
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2014 Ommu Platform (opensource.ommu.co)
+ * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
  * @link https://github.com/ommu/ommu-project
  *
  *----------------------------------------------------------------------------------------------------------
@@ -108,14 +108,14 @@ class TeamController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionSuggest($limit=10) {
-		if(isset($_GET['term'])) {
+		if(Yii::app()->getRequest()->getParam('term')) {
 			$criteria = new CDbCriteria;	
 			$criteria->condition = 'displayname LIKE :displayname';
 			$criteria->select = 'user_id, displayname';
 			$criteria->limit = $limit;
 			$criteria->order = 'user_id ASC';
 			$criteria->params = array(
-				':displayname' => '%' . strtolower($_GET['term']) . '%',
+				':displayname' => '%' . strtolower(Yii::app()->getRequest()->getParam('term')) . '%',
 			);
 			$model = Users::model()->findAll($criteria);
 
@@ -145,10 +145,10 @@ class TeamController extends Controller
 			$model->user_id = $_POST['user_id'];
 
 			if($model->save()) {
-				if(isset($_GET['type']) && $_GET['type'] == 'project')
-					$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->team_id,'type'=>'project'));
+				if(Yii::app()->getRequest()->getParam('type') == 'project')
+					$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->team_id,'type'=>'project'));
 				else 
-					$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->team_id));
+					$url = Yii::app()->controller->createUrl('delete', array('id'=>$model->team_id));
 				echo CJSON::encode(array(
 					'data' => '<div>'.$model->user->displayname.'<a href="'.$url.'" title="'.'Delete'.'">'.'Delete'.'</a></div>',
 				));
@@ -180,7 +180,7 @@ class TeamController extends Controller
 		$this->pageTitle = 'Project Teams Manage';
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('admin_manage',array(
+		$this->render('admin_manage', array(
 			'model'=>$model,
 			'columns' => $columns,
 		));
@@ -199,7 +199,7 @@ class TeamController extends Controller
 			// we only allow deletion via POST request
 			if(isset($id)) {
 				if($model->delete()) {
-					if(isset($_GET['type']) && $_GET['type'] == 'project') {
+					if(Yii::app()->getRequest()->getParam('type') == 'project') {
 						echo CJSON::encode(array(
 							'type' => 4,
 						));
@@ -215,7 +215,7 @@ class TeamController extends Controller
 			}
 
 		} else {
-			if(isset($_GET['type']) && $_GET['type'] == 'project')
+			if(Yii::app()->getRequest()->getParam('type') == 'project')
 				$dialogGroundUrl = Yii::app()->controller->createUrl('admin/edit', array('id'=>$model->project_id));
 			else
 				$dialogGroundUrl = Yii::app()->controller->createUrl('manage');
