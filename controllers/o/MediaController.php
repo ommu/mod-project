@@ -43,7 +43,7 @@ class MediaController extends Controller
 	{
 		if(!Yii::app()->user->isGuest) {
 			if(Yii::app()->user->level == 1) {
-				$arrThemes = Utility::getCurrentTemplate('admin');
+				$arrThemes = $this->currentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
 			} else
@@ -51,7 +51,7 @@ class MediaController extends Controller
 			
 		} else {
 			if(ProjectSetting::getInfo('permission') == 1) {
-				$arrThemes = Utility::getCurrentTemplate('public');
+				$arrThemes = $this->currentTemplate('public');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
 			} else {
@@ -118,10 +118,10 @@ class MediaController extends Controller
 	public function actionAjaxManage($id) 
 	{
 		if(!Yii::app()->getRequest()->getParam('type')) {
-			$arrThemes = Utility::getCurrentTemplate('public');
+			$arrThemes = $this->currentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
-			Utility::applyCurrentTheme($this->module);
+			$this->applyCurrentTheme($this->module);
 		}
 		
 		$model = ProjectMedia::getPhoto($id);
@@ -175,10 +175,10 @@ class MediaController extends Controller
 	public function actionAjaxAdd($id) 
 	{
 		if(!Yii::app()->getRequest()->getParam('type')) {
-			$arrThemes = Utility::getCurrentTemplate('public');
+			$arrThemes = $this->currentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
-			Utility::applyCurrentTheme($this->module);
+			$this->applyCurrentTheme($this->module);
 		}
 		
 		$projectPhoto = CUploadedFile::getInstanceByName('namaFile');
@@ -219,10 +219,10 @@ class MediaController extends Controller
 	public function actionAjaxCover($id) 
 	{
 		if(!Yii::app()->getRequest()->getParam('type')) {
-			$arrThemes = Utility::getCurrentTemplate('public');
+			$arrThemes = $this->currentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
-			Utility::applyCurrentTheme($this->module);
+			$this->applyCurrentTheme($this->module);
 		}
 		
 		$model = $this->loadModel($id);
@@ -265,10 +265,10 @@ class MediaController extends Controller
 	public function actionAjaxDelete($id) 
 	{
 		if(!Yii::app()->getRequest()->getParam('type')) {
-			$arrThemes = Utility::getCurrentTemplate('public');
+			$arrThemes = $this->currentTemplate('public');
 			Yii::app()->theme = $arrThemes['folder'];
 			$this->layout = $arrThemes['layout'];
-			Utility::applyCurrentTheme($this->module);
+			$this->applyCurrentTheme($this->module);
 		}
 		
 		$model = $this->loadModel($id);

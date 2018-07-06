@@ -40,7 +40,7 @@ class LikeController extends Controller
 	{
 		if(!Yii::app()->user->isGuest) {
 			if(Yii::app()->user->level == 1) {
-				$arrThemes = Utility::getCurrentTemplate('admin');
+				$arrThemes = $this->currentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
 			} else
@@ -48,7 +48,7 @@ class LikeController extends Controller
 			
 		} else {
 			if(ProjectSetting::getInfo('permission') == 1) {
-				$arrThemes = Utility::getCurrentTemplate('public');
+				$arrThemes = $this->currentTemplate('public');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];
 			} else {
@@ -115,10 +115,10 @@ class LikeController extends Controller
 	 */
 	public function actionUp($id=null) 
 	{
-		$arrThemes = Utility::getCurrentTemplate('public');
+		$arrThemes = $this->currentTemplate('public');
 		Yii::app()->theme = $arrThemes['folder'];
 		$this->layout = $arrThemes['layout'];
-		Utility::applyCurrentTheme($this->module);
+		$this->applyCurrentTheme($this->module);
 		
 		if($id == null) {
 			$this->redirect(array('site/index'));
@@ -137,10 +137,10 @@ class LikeController extends Controller
 	 */
 	public function actionDown($id=null) 
 	{
-		$arrThemes = Utility::getCurrentTemplate('public');
+		$arrThemes = $this->currentTemplate('public');
 		Yii::app()->theme = $arrThemes['folder'];
 		$this->layout = $arrThemes['layout'];
-		Utility::applyCurrentTheme($this->module);
+		$this->applyCurrentTheme($this->module);
 		
 		if($id == null) {
 			$this->redirect(array('site/index'));
