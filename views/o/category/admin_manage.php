@@ -39,26 +39,25 @@
 				'buttons' => array(
 					'view' => array(
 						'label' => 'view',
-						'imageUrl' => false,
-						'options' => array(							
+						'imageUrl' => Yii::app()->params['grid-view']['buttonImageUrl'],
+						'options' => array(
 							'class' => 'view',
-							'target' => '_blank',
 						),
-						'url' => 'Yii::app()->controller->createUrl("site/view", array("id"=>$data->primaryKey))'),
+						'url' => 'Yii::app()->controller->createUrl("site/view", array(\'id\'=>$data->primaryKey))'),
 					'update' => array(
 						'label' => 'update',
-						'imageUrl' => false,
+						'imageUrl' => Yii::app()->params['grid-view']['buttonImageUrl'],
 						'options' => array(
-							'class' => 'update'
+							'class' => 'update',
 						),
-						'url' => 'Yii::app()->controller->createUrl("edit", array("id"=>$data->primaryKey))'),
+						'url' => 'Yii::app()->controller->createUrl(\'edit\', array(\'id\'=>$data->primaryKey))'),
 					'delete' => array(
 						'label' => 'delete',
-						'imageUrl' => false,
+						'imageUrl' => Yii::app()->params['grid-view']['buttonImageUrl'],
 						'options' => array(
-							'class' => 'delete'
+							'class' => 'delete',
 						),
-						'url' => 'Yii::app()->controller->createUrl("delete", array("id"=>$data->primaryKey))')
+						'url' => 'Yii::app()->controller->createUrl(\'delete\', array(\'id\'=>$data->primaryKey))')
 				),
 				'template' => '{update}|{delete}',
 			));
@@ -67,9 +66,10 @@
 				'id'=>'project-category-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
-				'afterAjaxUpdate' => 'reinstallDatePicker',
-				'columns' => $columnData,
-				'pager' => array('header' => ''),
+				'afterAjaxUpdate'=>'reinstallDatePicker',
+				'columns'=>$columnData,
+				'template'=>Yii::app()->params['grid-view']['gridTemplate'],
+				'pager'=>array('header'=>''),
 			));
 		?>
 		<?php //end.Grid Item ?>
