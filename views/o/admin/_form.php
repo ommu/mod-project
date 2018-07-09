@@ -26,7 +26,7 @@ EOP;
 	$cs->registerScript('website', $js, CClientScript::POS_END);
 ?>
 
-<?php $form=$this->beginWidget('application.libraries.core.components.system.OActiveForm', array(
+<?php $form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'projects-form',
 	'enableAjaxValidation'=>$validation,
 	'htmlOptions' => array('enctype' => 'multipart/form-data')
@@ -331,7 +331,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->start_date != '0000-00-00' ? $model->start_date = date('d-m-Y', strtotime($model->start_date)) : '') : '';
 						//echo $form->textField($model,'start_date', array('class'=>'span-4'));
-						$this->widget('application.libraries.core.components.system.CJuiDatePicker', array(
+						$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 							'model'=>$model, 
 							'attribute'=>'start_date',
 							//'mode'=>'datetime',
@@ -352,7 +352,7 @@ EOP;
 						<?php 
 						!$model->isNewRecord ? ($model->finish_date != '0000-00-00' ? $model->finish_date = date('d-m-Y', strtotime($model->finish_date)) : '') : '';
 						//echo $form->textField($model,'finish_date', array('class'=>'span-4'));
-						$this->widget('application.libraries.core.components.system.CJuiDatePicker', array(
+						$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 							'model'=>$model, 
 							'attribute'=>'finish_date',
 							//'mode'=>'datetime',

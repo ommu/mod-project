@@ -15,7 +15,7 @@
 );
 ?>
 
-<?php $this->widget('application.libraries.core.components.system.FListView', array(
+<?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 	'pager' => array(
