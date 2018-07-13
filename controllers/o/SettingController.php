@@ -102,15 +102,7 @@ class SettingController extends Controller
 			$category->attributes=$_GET['ProjectCategory'];
 		}
 
-		$columnTemp = array();
-		if(isset($_GET['GridColumn'])) {
-			foreach($_GET['GridColumn'] as $key => $val) {
-				if($_GET['GridColumn'][$key] == 1) {
-					$columnTemp[] = $key;
-				}
-			}
-		}
-		$columns = $category->getGridColumn($columnTemp);
+		$columns = $category->getGridColumn($this->gridColumnTemp());
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
