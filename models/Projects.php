@@ -326,7 +326,7 @@ class Projects extends CActiveRecord
 			}
 			$this->defaultColumns[] = array(
 				'name' => 'start_date',
-				'value' => 'Utility::dateFormat($data->start_date)',
+				'value' => 'Yii::app()->dateFormatter->formatDateTime($data->start_date, \'medium\', false)',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
@@ -334,7 +334,7 @@ class Projects extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'finish_date',
-				'value' => 'Utility::dateFormat($data->finish_date)',
+				'value' => 'Yii::app()->dateFormatter->formatDateTime($data->finish_date, \'medium\', false)',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
