@@ -162,7 +162,7 @@ class TeamController extends Controller
 	public function actionManage() 
 	{
 		$model=new ProjectTeam('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ProjectTeam'])) {
 			$model->attributes=$_GET['ProjectTeam'];
 		}

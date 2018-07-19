@@ -158,7 +158,7 @@ class LikeController extends Controller
 	public function actionManage() 
 	{
 		$model=new ProjectLikes('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ProjectLikes'])) {
 			$model->attributes=$_GET['ProjectLikes'];
 		}

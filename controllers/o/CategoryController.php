@@ -108,7 +108,7 @@ class CategoryController extends Controller
 	public function actionManage() 
 	{
 		$model=new ProjectCategory('search');
-		$model->unsetAttributes();  // clear any default values
+		$model->unsetAttributes();	// clear any default values
 		if(isset($_GET['ProjectCategory'])) {
 			$model->attributes=$_GET['ProjectCategory'];
 		}

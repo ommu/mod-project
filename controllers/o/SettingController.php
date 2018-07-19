@@ -97,7 +97,7 @@ class SettingController extends Controller
 		$model=$this->loadModel(1);
 
 		$category=new ProjectCategory('search');
-		$category->unsetAttributes();  // clear any default values
+		$category->unsetAttributes();	// clear any default values
 		if(isset($_GET['ProjectCategory'])) {
 			$category->attributes=$_GET['ProjectCategory'];
 		}
