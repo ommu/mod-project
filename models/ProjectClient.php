@@ -226,7 +226,7 @@ class ProjectClient extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
+					'filter' =>array(
 						1=>'Yes',
 						0=>'No',
 					),

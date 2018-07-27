@@ -222,12 +222,12 @@ class Projects extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'client' => array(
-				'alias'=>'client',
-				'select'=>'client_name'
+				'alias' => 'client',
+				'select' => 'client_name'
 			),
 			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
+				'alias' => 'user',
+				'select' => 'displayname'
 			),
 		);
 		$criteria->compare('client.client_name', strtolower($this->client_search), true);
@@ -314,7 +314,7 @@ class Projects extends CActiveRecord
 				$this->defaultColumns[] = array(
 					'name' => 'cat_id',
 					'value' => '$data->cat->name',
-					'filter'=> ProjectCategory::getCategory(),
+					'filter' => ProjectCategory::getCategory(),
 					'type' => 'raw',
 				);
 			}
@@ -347,7 +347,7 @@ class Projects extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
+					'filter' =>array(
 						2=>'Done',
 						1=>'Process',
 						0=>'Waiting',
@@ -363,7 +363,7 @@ class Projects extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
+					'filter' =>array(
 						1=>'Yes',
 						0=>'No',
 					),
@@ -378,7 +378,7 @@ class Projects extends CActiveRecord
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
-					'filter'=>array(
+					'filter' =>array(
 						1=>'Yes',
 						0=>'No',
 					),

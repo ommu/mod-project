@@ -127,12 +127,12 @@ class ProjectTeam extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'project' => array(
-				'alias'=>'project',
-				'select'=>'title'
+				'alias' => 'project',
+				'select' => 'title'
 			),
 			'user' => array(
-				'alias'=>'user',
-				'select'=>'displayname'
+				'alias' => 'user',
+				'select' => 'displayname'
 			),
 		);
 		$criteria->compare('project.title', strtolower($this->project_search), true);

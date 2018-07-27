@@ -129,12 +129,12 @@ class ProjectTag extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'project' => array(
-				'alias'=>'project',
-				'select'=>'title'
+				'alias' => 'project',
+				'select' => 'title'
 			),
 			'tag' => array(
-				'alias'=>'tag',
-				'select'=>'body'
+				'alias' => 'tag',
+				'select' => 'body'
 			),
 		);
 		$criteria->compare('project.title', strtolower($this->project_search), true);

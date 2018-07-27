@@ -137,8 +137,8 @@ class ProjectMedia extends CActiveRecord
 		// Custom Search
 		$criteria->with = array(
 			'project' => array(
-				'alias'=>'project',
-				'select'=>'title'
+				'alias' => 'project',
+				'select' => 'title'
 			),
 		);
 		$criteria->compare('project.title', strtolower($this->project_search), true);
@@ -221,7 +221,7 @@ class ProjectMedia extends CActiveRecord
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
-				'filter'=>array(
+				'filter' =>array(
 					1=>'Yes',
 					0=>'No',
 				),
