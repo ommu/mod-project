@@ -7,7 +7,7 @@
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2014 Ommu Platform (www.ommu.co)
- * @link https://github.com/ommu/ommu-project
+ * @link https://bitbucket.org/ommu/project
  *
  */
 
@@ -66,7 +66,7 @@
 			$columnData   = $columns;
 			array_push($columnData, array(
 				'header' => 'Actions',
-				'class'=>'CButtonColumn',
+				'class' => 'CButtonColumn',
 				'buttons' => array(
 					'view' => array(
 						'label' => 'view',
