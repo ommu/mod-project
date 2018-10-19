@@ -14,14 +14,13 @@
  
 	$this->breadcrumbs=array(
 		'Project Categories'=>array('manage'),
-		'Publish',
+		Yii::t('phrase', 'Publish'),
 	);
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'project-category-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<div class="dialog-content">
 		<?php echo $model->publish == 1 ?'Are you sure you want to unpublish this item?' : 'Are you sure you want to publish this item?'?>

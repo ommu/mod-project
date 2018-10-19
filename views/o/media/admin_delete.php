@@ -14,14 +14,13 @@
  
 	$this->breadcrumbs=array(
 		'Project Medias'=>array('manage'),
-		'Delete',
+		Yii::t('phrase', 'Delete'),
 	);
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'project-media-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<div class="dialog-content">
 		<?php echo 'Are you sure you want to delete this item?';?>

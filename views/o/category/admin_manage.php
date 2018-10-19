@@ -13,7 +13,7 @@
  
 	$this->breadcrumbs=array(
 		'Project Categories'=>array('manage'),
-		'Manage',
+		Yii::t('phrase', 'Manage'),
 	);
 ?>
 

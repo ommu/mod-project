@@ -195,7 +195,7 @@ class ProjectCategory extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'dependency',
-				'value' => '$data->dependency != 0 ? ProjectCategory::model()->findByPk($data->dependency)->name : "-"',
+				'value' => '$data->dependency != 0 ? ProjectCategory::model()->findByPk($data->dependency)->name : \'-\'',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_date',

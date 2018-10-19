@@ -14,14 +14,13 @@
  
 	$this->breadcrumbs=array(
 		'Projects'=>array('manage'),
-		'Headline',
+		Yii::t('phrase', 'Headline'),
 	);
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'projects-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<div class="dialog-content">
 		Are you sure you want to headline this item?

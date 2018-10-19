@@ -16,7 +16,6 @@
 <?php $form=$this->beginWidget('application.libraries.yii-traits.system.OActiveForm', array(
 	'id'=>'project-setting-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 
 	<?php //begin.Messages ?>
@@ -35,14 +34,14 @@
 			<div class="desc">
 				<?php echo $form->textField($model,'license', array('maxlength'=>32,'class'=>'span-4')); ?>
 				<?php echo $form->error($model,'license'); ?>
-				<span class="small-px">Format: XXXX-XXXX-XXXX-XXXX</span>
+				<div class="small-px">Format: XXXX-XXXX-XXXX-XXXX</div>
 			</div>
 		</div>
 
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'permission'); ?>
 			<div class="desc">
-				<span class="small-px">Select whether or not you want to let the public (visitors that are not logged-in) to view the following sections of your social network. In some cases (such as Profiles, Blogs, and Albums), if you have given them the option, your users will be able to make their pages private even though you have made them publically viewable here. For more permissions settings, please visit the General Settings page.</span>
+				<div class="small-px">Select whether or not you want to let the public (visitors that are not logged-in) to view the following sections of your social network. In some cases (such as Profiles, Blogs, and Albums), if you have given them the option, your users will be able to make their pages private even though you have made them publically viewable here. For more permissions settings, please visit the General Settings page.</div>
 				<?php echo $form->radioButtonList($model, 'permission', array(
 					1 => 'Yes, the public can view project unless they are made private.',
 					0 => 'No, the public cannot view projects.',

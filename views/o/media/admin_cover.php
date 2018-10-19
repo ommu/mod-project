@@ -21,7 +21,6 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'projects-form',
 	'enableAjaxValidation'=>true,
-	//'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<div class="dialog-content">
 		Are you sure made ​​cover this item?

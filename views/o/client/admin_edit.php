@@ -15,7 +15,7 @@
 	$this->breadcrumbs=array(
 		'Project Clients'=>array('manage'),
 		$model->client_id=>array('view','id'=>$model->client_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 ?>
 

@@ -72,14 +72,10 @@ EOP;
 				<div class="clearfix">
 					<?php echo $form->labelEx($model,'body'); ?>
 					<div class="desc">
-						<?php 
-						//echo $form->textArea($model,'body', array('rows'=>6, 'cols'=>50, 'class'=>'span-10 small'));
-						$this->widget('yiiext.imperavi-redactor-widget.ImperaviRedactorWidget', array(
+						<?php $this->widget('yiiext.imperavi-redactor-widget.ImperaviRedactorWidget', array(
 							'model'=>$model,
 							'attribute'=>body,
-							// Redactor options
 							'options'=>array(
-								//'lang'=>'fi',
 								'buttons'=>array(
 									'html', 'formatting', '|', 
 									'bold', 'italic', 'deleted', '|',

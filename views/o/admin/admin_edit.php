@@ -15,7 +15,7 @@
 	$this->breadcrumbs=array(
 		'Projects'=>array('manage'),
 		$model->title=>array('view','id'=>$model->project_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 
 	$url = Yii::app()->controller->createUrl('media/ajaxmanage', array('id'=>$model->project_id,'type'=>'admin'));

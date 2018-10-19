@@ -15,7 +15,7 @@
 	$this->breadcrumbs=array(
 		'Project Medias'=>array('manage'),
 		$model->media_id=>array('view','id'=>$model->media_id),
-		'Update',
+		Yii::t('phrase', 'Update'),
 	);
 ?>
 

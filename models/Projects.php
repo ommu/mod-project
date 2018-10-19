@@ -374,7 +374,7 @@ class Projects extends CActiveRecord
 			if(!Yii::app()->getRequest()->getParam('type')) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish", array("id"=>$data->project_id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl(\'publish\', array(\'id\'=>$data->project_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -512,7 +512,7 @@ class Projects extends CActiveRecord
 		if(ProjectSetting::getInfo('headline') == 1) {
 			if($this->headline == 1) {
 				self::model()->updateAll(array(
-					'headline' => 0,	
+					'headline' => 0,
 				), array(
 					'condition'=> 'project_id != :id',
 					'params'=>array(
