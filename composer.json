@@ -33,6 +33,8 @@
 		"oomphinc/composer-installers-extender": "^1.0",
 		"yiisoft/yii2": "~2.0.13",
 		"ommu/yii-traits": "~2.1",
+		"ommu/yii2-redactor": "~2.0",
+		"ommu/ipedia": "v2.x-dev",
 		"thamtech/yii2-uuid": "*"
 	},
 	"autoload": {
