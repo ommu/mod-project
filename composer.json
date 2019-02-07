@@ -1,0 +1,36 @@
+{
+	"name": "ommu/project",
+	"description": "Project Module from Ommu Platform",
+	"keywords": [
+		"module",
+		"project",
+		"ommu",
+		"ommu-platform",
+		"yii"
+	],
+	"homepage": "https://bitbucket.org/ommu/project",
+	"type": "ommu-module",
+	"license": "Apache-2.0",
+	"support": {
+		"issues": "https://bitbucket.org/ommu/project/issues",
+		"wiki": "https://bitbucket.org/ommu/project/wiki",
+		"source": "https://bitbucket.org/ommu/project"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://bitbucket.org/ommu/project.git"
+	},
+	"authors": [
+		{
+			"name": "Putra Sudaryanto",
+			"email": "putra@sudaryanto.id",
+			"homepage": "https://putra.sudaryanto.id",
+			"role": "Creator"
+		}
+	],
+	"require": {
+		"php": ">=5.3.2",
+		"oomphinc/composer-installers-extender": "^1.0",
+		"yiisoft/yii": ">=1.1.14"
+	}
+}
