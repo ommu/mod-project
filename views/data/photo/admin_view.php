@@ -48,11 +48,21 @@ $this->params['menu']['content'] = [
 			'value' => $this->filterYesNo($model->cover),
 		],
 		[
+			'attribute' => 'categoryId',
+			'value' => function ($model) {
+				$categoryId = isset($model->project->category) ? $model->project->category->title->message : '-';
+				if($categoryId != '-')
+					return Html::a($categoryId, ['setting/category/view', 'id'=>$model->project->cat_id], ['title'=>$categoryId]);
+				return $categoryId;
+			},
+			'format' => 'html',
+		],
+		[
 			'attribute' => 'projectName',
 			'value' => function ($model) {
 				$projectName = isset($model->project) ? $model->project->project_name : '-';
 				if($projectName != '-')
-					return Html::a($projectName, ['project/view', 'id'=>$model->project_id], ['title'=>$projectName]);
+					return Html::a($projectName, ['admin/view', 'id'=>$model->project_id], ['title'=>$projectName]);
 				return $projectName;
 			},
 			'format' => 'html',
@@ -60,7 +70,7 @@ $this->params['menu']['content'] = [
 		[
 			'attribute' => 'photo',
 			'value' => function ($model) {
-				$uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->photo_id]);
+				$uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->project_id]);
 				return $model->photo ? Html::img(join('/', [Url::Base(), $uploadPath, $model->photo]), ['width' => '100%']).'<br/><br/>'.$model->photo : '-';
 			},
 			'format' => 'html',

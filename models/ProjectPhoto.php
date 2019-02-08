@@ -45,12 +45,13 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	use \ommu\traits\UtilityTrait;
 	use \ommu\traits\FileTrait;
 
-	public $gridForbiddenColumn = [];
+	public $gridForbiddenColumn = ['photo', 'photo_caption', 'modified_date', 'modifiedDisplayname', 'updated_date'];
 
 	public $old_photo;
 	public $projectName;
 	public $creationDisplayname;
 	public $modifiedDisplayname;
+	public $categoryId;
 
 	/**
 	 * @return string the associated database table name
@@ -66,10 +67,10 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['project_id', 'photo_title', 'photo_caption'], 'required'],
+			[['project_id'], 'required'],
 			[['publish', 'cover', 'project_id', 'creation_id', 'modified_id'], 'integer'],
 			[['photo', 'photo_caption'], 'string'],
-			[['photo'], 'safe'],
+			[['photo', 'photo_title', 'photo_caption'], 'safe'],
 			[['photo_title'], 'string', 'max' => 64],
 			[['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['project_id' => 'project_id']],
 		];
@@ -97,6 +98,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 			'projectName' => Yii::t('app', 'Project'),
 			'creationDisplayname' => Yii::t('app', 'Creation'),
 			'modifiedDisplayname' => Yii::t('app', 'Modified'),
+			'categoryId' => Yii::t('app', 'Category'),
 		];
 	}
 
@@ -146,6 +148,13 @@ class ProjectPhoto extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 		];
 		if(!Yii::$app->request->get('project')) {
+			$this->templateColumns['categoryId'] = [
+				'attribute' => 'categoryId',
+				'filter' => ProjectCategory::getCategory(),
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->project->category) ? $model->project->category->title->message : '-';
+				},
+			];
 			$this->templateColumns['projectName'] = [
 				'attribute' => 'projectName',
 				'value' => function($model, $key, $index, $column) {
@@ -270,6 +279,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 		// $this->projectName = isset($this->project) ? $this->project->project_name : '-';
 		// $this->creationDisplayname = isset($this->creation) ? $this->creation->displayname : '-';
 		// $this->modifiedDisplayname = isset($this->modified) ? $this->modified->displayname : '-';
+		// this->categoryId = isset($this->project->category) ? $this->project->category->title->message : '-';
 	}
 
 	/**
@@ -288,10 +298,10 @@ class ProjectPhoto extends \app\components\ActiveRecord
 						'extensions'=>$this->formatFileType($photoFileType, false),
 					]));
 				}
-			} /* else {
+			} else {
 				if($this->isNewRecord || (!$this->isNewRecord && $this->old_photo == ''))
 					$this->addError('photo', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo')]));
-			} */
+			}
 
 			if($this->isNewRecord) {
 				if($this->creation_id == null)
@@ -310,49 +320,24 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	public function beforeSave($insert)
 	{
 		if(parent::beforeSave($insert)) {
-			if(!$insert) {
-				$uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
-				$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
-				$this->createUploadDirectory(self::getUploadPath(), $this->project_id);
+			$uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
+			$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
+			$this->createUploadDirectory(self::getUploadPath(), $this->project_id);
 
-				$this->photo = UploadedFile::getInstance($this, 'photo');
-				if($this->photo instanceof UploadedFile && !$this->photo->getHasError()) {
-					$fileName = join('-', [time(), UuidHelper::uuid()]).'.'.strtolower($this->photo->getExtension()); 
-					if($this->photo->saveAs(join('/', [$uploadPath, $fileName]))) {
-						if($this->old_photo != '' && file_exists(join('/', [$uploadPath, $this->old_photo])))
-							rename(join('/', [$uploadPath, $this->old_photo]), join('/', [$verwijderenPath, time().'_change_'.$this->old_photo]));
-						$this->photo = $fileName;
-					}
-				} else {
-					if($this->photo == '')
-						$this->photo = $this->old_photo;
-				}
-
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * After save attributes
-	 */
-	public function afterSave($insert, $changedAttributes)
-	{
-		parent::afterSave($insert, $changedAttributes);
-
-		$uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
-		$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
-		$this->createUploadDirectory(self::getUploadPath(), $this->project_id);
-
-		if($insert) {
 			$this->photo = UploadedFile::getInstance($this, 'photo');
 			if($this->photo instanceof UploadedFile && !$this->photo->getHasError()) {
 				$fileName = join('-', [time(), UuidHelper::uuid()]).'.'.strtolower($this->photo->getExtension()); 
-				if($this->photo->saveAs(join('/', [$uploadPath, $fileName])))
-					self::updateAll(['photo' => $fileName], ['photo_id' => $this->project_id]);
+				if($this->photo->saveAs(join('/', [$uploadPath, $fileName]))) {
+					if(!$insert && $this->old_photo != '' && file_exists(join('/', [$uploadPath, $this->old_photo])))
+						rename(join('/', [$uploadPath, $this->old_photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_change_'.$this->old_photo]));
+					$this->photo = $fileName;
+				}
+			} else {
+				if($this->photo == '')
+					$this->photo = $this->old_photo;
 			}
-
 		}
+		return true;
 	}
 
 	/**
@@ -366,7 +351,6 @@ class ProjectPhoto extends \app\components\ActiveRecord
 		$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
 
 		if($this->photo != '' && file_exists(join('/', [$uploadPath, $this->photo])))
-			rename(join('/', [$uploadPath, $this->photo]), join('/', [$verwijderenPath, time().'_deleted_'.$this->photo]));
-
+			rename(join('/', [$uploadPath, $this->photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_deleted_'.$this->photo]));
 	}
 }

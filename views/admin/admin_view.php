@@ -49,7 +49,7 @@ $this->params['menu']['content'] = [
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
 				if($categoryName != '-')
-					return Html::a($categoryName, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
+					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
 				return $categoryName;
 			},
 			'format' => 'html',
@@ -59,7 +59,7 @@ $this->params['menu']['content'] = [
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
 				if($companyName != '-')
-					return Html::a($companyName, ['company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
+					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
 				return $companyName;
 			},
 			'format' => 'html',

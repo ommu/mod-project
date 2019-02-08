@@ -9,7 +9,6 @@
  * TOC :
  *	Index
  *	Manage
- *	Create
  *	Update
  *	View
  *	Delete
@@ -98,39 +97,6 @@ class PhotoController extends Controller
 			'columns' => $columns,
 			'project' => $project,
 			'projects' => $projects,
-		]);
-	}
-
-	/**
-	 * Creates a new ProjectPhoto model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new ProjectPhoto();
-
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project photo success created.'));
-				return $this->redirect(['manage']);
-				//return $this->redirect(['view', 'id'=>$model->photo_id]);
-
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Create Photo');
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_create', [
-			'model' => $model,
 		]);
 	}
 

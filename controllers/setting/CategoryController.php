@@ -121,7 +121,7 @@ class CategoryController extends Controller
 		$this->view->title = Yii::t('app', 'Create Category');
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_create', [
+		return $this->oRender('admin_create', [
 			'model' => $model,
 		]);
 	}
@@ -153,7 +153,7 @@ class CategoryController extends Controller
 		$this->view->title = Yii::t('app', 'Update {model-class}: {cat-name}', ['model-class' => 'Category', 'cat-name' => $model->title->message]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_update', [
+		return $this->oRender('admin_update', [
 			'model' => $model,
 		]);
 	}

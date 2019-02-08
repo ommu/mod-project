@@ -84,7 +84,7 @@ echo DetailView::widget([
 			'attribute' => 'cat_name_i',
 			'value' => function ($model) {
 				if($model->cat_name_i != '')
-					return Html::a($model->cat_name_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
+					return Html::a($model->cat_name_i, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
 				return $model->cat_name_i;
 			},
 			'format' => 'html',
