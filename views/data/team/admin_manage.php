@@ -26,9 +26,6 @@ use ommu\ipedia\models\IpediaPositions;
 
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->params['menu']['content'] = [
-	['label' => Yii::t('app', 'Add Team'), 'url' => Url::to(['create']), 'icon' => 'plus-square'],
-];
 $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
 	['label' => Yii::t('app', 'Grid Option'), 'url' => 'javascript:void(0);'],
@@ -47,12 +44,12 @@ echo DetailView::widget([
 	],
 	'attributes' => [
 		[
-			'attribute' => 'categoryCatName',
+			'attribute' => 'categoryName',
 			'value' => function ($model) {
-				$categoryCatName = isset($model->category) ? $model->category->title->message : '-';
-				if($categoryCatName != '-')
-					return Html::a($categoryCatName, ['category/view', 'id'=>$model->cat_id], ['title'=>$categoryCatName]);
-				return $categoryCatName;
+				$categoryName = isset($model->category) ? $model->category->title->message : '-';
+				if($categoryName != '-')
+					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
+				return $categoryName;
 			},
 			'format' => 'html',
 		],
@@ -61,7 +58,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
 				if($companyName != '-')
-					return Html::a($companyName, ['company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
+					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
 				return $companyName;
 			},
 			'format' => 'html',
@@ -74,7 +71,7 @@ echo DetailView::widget([
 		],
 		[
 			'attribute' => 'status',
-			'value' => Projects::get($model->status),
+			'value' => Projects::getStatus($model->status),
 		],
 		[
 			'attribute' => 'start_date',
@@ -83,18 +80,6 @@ echo DetailView::widget([
 		[
 			'attribute' => 'finish_date',
 			'value' => Yii::$app->formatter->asDate($model->finish_date, 'medium'),
-		],
-		[
-			'attribute' => 'headline_date',
-			'value' => Yii::$app->formatter->asDatetime($model->headline_date, 'medium'),
-		],
-		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
 		],
 	],
 ]);
@@ -137,30 +122,14 @@ echo DetailView::widget([
 		'class'=>'table table-striped detail-view',
 	],
 	'attributes' => [
-		'position_name',
+		[
+			'attribute' => 'position_name',
+			'value' => Html::a($model->position_name, ['/ipedia/position/view', 'id'=>$model->position_id], ['title'=>$model->position_name]),
+			'format' => 'html',
+		],
 		[
 			'attribute' => 'position_desc',
 			'value' => $model->position_desc ? $model->position_desc : '-',
-		],
-		[
-			'attribute' => 'position_task',
-			'value' => $model->position_task ? $model->position_task : '-',
-		],
-		[
-			'attribute' => 'position_jobdesc',
-			'value' => $model->position_jobdesc ? $model->position_jobdesc : '-',
-		],
-		[
-			'attribute' => 'position_knowledge',
-			'value' => $model->position_knowledge ? $model->position_knowledge : '-',
-		],
-		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
 		],
 	],
 ]);
@@ -196,7 +165,7 @@ array_push($columnData, [
 			]);
 		},
 	],
-	'template' => '{view}{update}{delete}',
+	'template' => '{view}{delete}',
 ]);
 
 echo GridView::widget([

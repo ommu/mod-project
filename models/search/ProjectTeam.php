@@ -28,7 +28,8 @@ class ProjectTeam extends ProjectTeamModel
 	{
 		return [
 			[['team_id', 'publish', 'project_id', 'user_id', 'position_id', 'creation_id'], 'integer'],
-			[['creation_date', 'updated_date', 'projectName', 'userDisplayname', 'positionName', 'creationDisplayname'], 'safe'],
+			[['creation_date', 'updated_date', 
+				'categoryId', 'projectName', 'userDisplayname', 'positionName', 'creationDisplayname'], 'safe'],
 		];
 	}
 
@@ -65,7 +66,8 @@ class ProjectTeam extends ProjectTeamModel
 			'project project', 
 			'user user', 
 			'position position', 
-			'creation creation'
+			'creation creation',
+			'project.category.title category',
 		]);
 
 		// add conditions that should always apply here
@@ -94,6 +96,10 @@ class ProjectTeam extends ProjectTeamModel
 			'asc' => ['creation.displayname' => SORT_ASC],
 			'desc' => ['creation.displayname' => SORT_DESC],
 		];
+		$attributes['categoryId'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
 			'defaultOrder' => ['team_id' => SORT_DESC],
@@ -116,6 +122,7 @@ class ProjectTeam extends ProjectTeamModel
 			'cast(t.creation_date as date)' => $this->creation_date,
 			't.creation_id' => isset($params['creation']) ? $params['creation'] : $this->creation_id,
 			'cast(t.updated_date as date)' => $this->updated_date,
+			'project.cat_id' => isset($params['category']) ? $params['category'] : $this->categoryId,
 		]);
 
 		if(isset($params['trash']))

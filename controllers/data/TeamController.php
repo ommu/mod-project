@@ -9,8 +9,6 @@
  * TOC :
  *	Index
  *	Manage
- *	Create
- *	Update
  *	View
  *	Delete
  *	RunAction
@@ -110,71 +108,6 @@ class TeamController extends Controller
 			'users' => $users,
 			'position' => $position,
 			'positions' => $positions,
-		]);
-	}
-
-	/**
-	 * Creates a new ProjectTeam model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new ProjectTeam();
-
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success created.'));
-				return $this->redirect(['manage']);
-				//return $this->redirect(['view', 'id'=>$model->team_id]);
-
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Create Team');
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_create', [
-			'model' => $model,
-		]);
-	}
-
-	/**
-	 * Updates an existing ProjectTeam model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success updated.'));
-				return $this->redirect(['manage']);
-
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Update {model-class}: {project-id}', ['model-class' => 'Team', 'project-id' => $model->project->project_name]);
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_update', [
-			'model' => $model,
 		]);
 	}
 

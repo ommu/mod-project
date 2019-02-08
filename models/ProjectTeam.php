@@ -39,12 +39,13 @@ class ProjectTeam extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = [];
+	public $gridForbiddenColumn = ['updated_date'];
 
 	public $projectName;
 	public $userDisplayname;
 	public $positionName;
 	public $creationDisplayname;
+	public $categoryId;
 
 	/**
 	 * @return string the associated database table name
@@ -86,6 +87,7 @@ class ProjectTeam extends \app\components\ActiveRecord
 			'userDisplayname' => Yii::t('app', 'User'),
 			'positionName' => Yii::t('app', 'Position'),
 			'creationDisplayname' => Yii::t('app', 'Creation'),
+			'categoryId' => Yii::t('app', 'Category'),
 		];
 	}
 
@@ -143,6 +145,13 @@ class ProjectTeam extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 		];
 		if(!Yii::$app->request->get('project')) {
+			$this->templateColumns['categoryId'] = [
+				'attribute' => 'categoryId',
+				'filter' => ProjectCategory::getCategory(),
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->project->category) ? $model->project->category->title->message : '-';
+				},
+			];
 			$this->templateColumns['projectName'] = [
 				'attribute' => 'projectName',
 				'value' => function($model, $key, $index, $column) {
@@ -231,6 +240,7 @@ class ProjectTeam extends \app\components\ActiveRecord
 		// $this->userDisplayname = isset($this->user) ? $this->user->displayname : '-';
 		// $this->positionName = isset($this->position) ? $this->position->position_name : '-';
 		// $this->creationDisplayname = isset($this->creation) ? $this->creation->displayname : '-';
+		// this->categoryId = isset($this->project->category) ? $this->project->category->title->message : '-';
 	}
 
 	/**

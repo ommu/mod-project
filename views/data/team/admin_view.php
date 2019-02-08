@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $model->project->project_name;
 $this->params['menu']['content'] = [
 	['label' => Yii::t('app', 'Back To Manage'), 'url' => Url::to(['manage']), 'icon' => 'table'],
 	['label' => Yii::t('app', 'Detail'), 'url' => Url::to(['view', 'id'=>$model->team_id]), 'icon' => 'eye'],
-	['label' => Yii::t('app', 'Update'), 'url' => Url::to(['update', 'id'=>$model->team_id]), 'icon' => 'pencil'],
 	['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id'=>$model->team_id]), 'htmlOptions' => ['data-confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'), 'data-method'=>'post'], 'icon' => 'trash'],
 ];
 ?>
@@ -43,11 +42,21 @@ $this->params['menu']['content'] = [
 			'format' => 'raw',
 		],
 		[
+			'attribute' => 'categoryId',
+			'value' => function ($model) {
+				$categoryId = isset($model->project->category) ? $model->project->category->title->message : '-';
+				if($categoryId != '-')
+					return Html::a($categoryId, ['setting/category/view', 'id'=>$model->project->cat_id], ['title'=>$categoryId]);
+				return $categoryId;
+			},
+			'format' => 'html',
+		],
+		[
 			'attribute' => 'projectName',
 			'value' => function ($model) {
 				$projectName = isset($model->project) ? $model->project->project_name : '-';
 				if($projectName != '-')
-					return Html::a($projectName, ['project/view', 'id'=>$model->project_id], ['title'=>$projectName]);
+					return Html::a($projectName, ['admin/view', 'id'=>$model->project_id], ['title'=>$projectName]);
 				return $projectName;
 			},
 			'format' => 'html',
@@ -61,7 +70,7 @@ $this->params['menu']['content'] = [
 			'value' => function ($model) {
 				$positionName = isset($model->position) ? $model->position->position_name : '-';
 				if($positionName != '-')
-					return Html::a($positionName, ['position/view', 'id'=>$model->position_id], ['title'=>$positionName]);
+					return Html::a($positionName, ['/ipedia/position/view', 'id'=>$model->position_id], ['title'=>$positionName]);
 				return $positionName;
 			},
 			'format' => 'html',
