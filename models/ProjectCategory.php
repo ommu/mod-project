@@ -222,7 +222,7 @@ class ProjectCategory extends \app\components\ActiveRecord
 			'attribute' => 'projects',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->projects, ['project/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$model->projects])]);
+				return Html::a($model->projects, ['admin/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$model->projects])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',

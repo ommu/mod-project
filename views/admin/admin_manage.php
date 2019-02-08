@@ -56,15 +56,6 @@ echo DetailView::widget([
 			'format' => 'html',
 		],
 		[
-			'attribute' => 'cat_desc_i',
-			'value' => function ($model) {
-				if($model->cat_desc_i != '')
-					return Html::a($model->cat_desc_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_desc_i]);
-				return $model->cat_desc_i;
-			},
-			'format' => 'html',
-		],
-		[
 			'attribute' => 'creation_date',
 			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
 		],

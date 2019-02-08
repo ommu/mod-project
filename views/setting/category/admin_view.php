@@ -72,7 +72,7 @@ $this->params['menu']['content'] = [
 		],
 		[
 			'attribute' => 'projects',
-			'value' => Html::a($model->projects, ['project/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$model->projects])]),
+			'value' => Html::a($model->projects, ['admin/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$model->projects])]),
 			'format' => 'html',
 		],
 	],

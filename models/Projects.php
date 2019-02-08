@@ -55,7 +55,7 @@ class Projects extends \app\components\ActiveRecord
 {
 	use \ommu\traits\UtilityTrait;
 
-	public $gridForbiddenColumn = [];
+	public $gridForbiddenColumn = ['project_desc', 'start_date', 'finish_date', 'comment', 'headline_date', 'creation_date', 'creationDisplayname', 'modified_date', 'modifiedDisplayname', 'updated_date', 'slug'];
 
 	public $categoryName;
 	public $companyName;
@@ -90,10 +90,10 @@ class Projects extends \app\components\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['publish', 'cat_id', 'company_id', 'project_name', 'status', 'start_date', 'finish_date'], 'required'],
+			[['publish', 'cat_id', 'project_name', 'status'], 'required'],
 			[['publish', 'cat_id', 'company_id', 'headline', 'comment', 'creation_id', 'modified_id'], 'integer'],
 			[['project_desc', 'status'], 'string'],
-			[['start_date', 'finish_date'], 'safe'],
+			[['company_id', 'start_date', 'finish_date'], 'safe'],
 			[['project_name', 'slug'], 'string', 'max' => 64],
 			[['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProjectCategory::className(), 'targetAttribute' => ['cat_id' => 'cat_id']],
 			[['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => IpediaCompanies::className(), 'targetAttribute' => ['company_id' => 'company_id']],
@@ -276,12 +276,6 @@ class Projects extends \app\components\ActiveRecord
 			},
 			'format' => 'html',
 		];
-		$this->templateColumns['status'] = [
-			'attribute' => 'status',
-			'value' => function($model, $key, $index, $column) {
-				return self::getStatus($model->status);
-			},
-		];
 		$this->templateColumns['start_date'] = [
 			'attribute' => 'start_date',
 			'value' => function($model, $key, $index, $column) {
@@ -350,7 +344,7 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'photos',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->photos, ['photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$model->photos])]);
+				return Html::a($model->photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$model->photos])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
@@ -359,7 +353,7 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'tags',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->tags, ['tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$model->tags])]);
+				return Html::a($model->tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$model->tags])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
@@ -368,10 +362,17 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'teams',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->teams, ['team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$model->teams])]);
+				return Html::a($model->teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$model->teams])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
+		];
+		$this->templateColumns['status'] = [
+			'attribute' => 'status',
+			'value' => function($model, $key, $index, $column) {
+				return self::getStatus($model->status);
+			},
+			'contentOptions' => ['class'=>'center'],
 		];
 		$this->templateColumns['headline'] = [
 			'attribute' => 'headline',
