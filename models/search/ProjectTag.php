@@ -28,7 +28,8 @@ class ProjectTag extends ProjectTagModel
 	{
 		return [
 			[['id', 'project_id', 'tag_id', 'creation_id'], 'integer'],
-			[['creation_date', 'tagBody', 'projectName', 'creationDisplayname'], 'safe'],
+			[['creation_date', 
+				'categoryId', 'tagBody', 'projectName', 'creationDisplayname'], 'safe'],
 		];
 	}
 
@@ -64,7 +65,8 @@ class ProjectTag extends ProjectTagModel
 		$query->joinWith([
 			'tag tag', 
 			'project project', 
-			'creation creation'
+			'creation creation',
+			'project.category.title category',
 		]);
 
 		// add conditions that should always apply here
@@ -89,6 +91,10 @@ class ProjectTag extends ProjectTagModel
 			'asc' => ['creation.displayname' => SORT_ASC],
 			'desc' => ['creation.displayname' => SORT_DESC],
 		];
+		$attributes['categoryId'] = [
+			'asc' => ['category.message' => SORT_ASC],
+			'desc' => ['category.message' => SORT_DESC],
+		];
 		$dataProvider->setSort([
 			'attributes' => $attributes,
 			'defaultOrder' => ['id' => SORT_DESC],
@@ -109,6 +115,7 @@ class ProjectTag extends ProjectTagModel
 			't.tag_id' => isset($params['tag']) ? $params['tag'] : $this->tag_id,
 			'cast(t.creation_date as date)' => $this->creation_date,
 			't.creation_id' => isset($params['creation']) ? $params['creation'] : $this->creation_id,
+			'project.cat_id' => isset($params['category']) ? $params['category'] : $this->categoryId,
 		]);
 
 		$query->andFilterWhere(['like', 'tag.body', $this->tagBody])

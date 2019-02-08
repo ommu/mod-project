@@ -9,8 +9,6 @@
  * TOC :
  *	Index
  *	Manage
- *	Create
- *	Update
  *	View
  *	Delete
  *
@@ -95,71 +93,6 @@ class TagController extends Controller
 			'columns' => $columns,
 			'project' => $project,
 			'projects' => $projects,
-		]);
-	}
-
-	/**
-	 * Creates a new ProjectTag model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new ProjectTag();
-
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
-				return $this->redirect(['manage']);
-				//return $this->redirect(['view', 'id'=>$model->id]);
-
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Create Tag');
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_create', [
-			'model' => $model,
-		]);
-	}
-
-	/**
-	 * Updates an existing ProjectTag model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-		if(Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-
-			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success updated.'));
-				return $this->redirect(['manage']);
-
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
-			}
-		}
-
-		$this->view->title = Yii::t('app', 'Update {model-class}: {tag-id}', ['model-class' => 'Tag', 'tag-id' => $model->tag->body]);
-		$this->view->description = '';
-		$this->view->keywords = '';
-		return $this->render('admin_update', [
-			'model' => $model,
 		]);
 	}
 

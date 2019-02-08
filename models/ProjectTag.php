@@ -39,6 +39,7 @@ class ProjectTag extends \app\components\ActiveRecord
 	public $tagBody;
 	public $projectName;
 	public $creationDisplayname;
+	public $categoryId;
 
 	/**
 	 * @return string the associated database table name
@@ -75,6 +76,7 @@ class ProjectTag extends \app\components\ActiveRecord
 			'tagBody' => Yii::t('app', 'Tag'),
 			'projectName' => Yii::t('app', 'Project'),
 			'creationDisplayname' => Yii::t('app', 'Creation'),
+			'categoryId' => Yii::t('app', 'Category'),
 		];
 	}
 
@@ -124,6 +126,13 @@ class ProjectTag extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 		];
 		if(!Yii::$app->request->get('project')) {
+			$this->templateColumns['categoryId'] = [
+				'attribute' => 'categoryId',
+				'filter' => ProjectCategory::getCategory(),
+				'value' => function($model, $key, $index, $column) {
+					return isset($model->project->category) ? $model->project->category->title->message : '-';
+				},
+			];
 			$this->templateColumns['projectName'] = [
 				'attribute' => 'projectName',
 				'value' => function($model, $key, $index, $column) {
@@ -184,6 +193,7 @@ class ProjectTag extends \app\components\ActiveRecord
 		$this->tagBody = isset($this->tag) ? $this->tag->body : '';
 		// $this->projectName = isset($this->project) ? $this->project->project_name : '-';
 		// $this->creationDisplayname = isset($this->creation) ? $this->creation->displayname : '-';
+		// this->categoryId = isset($this->project->category) ? $this->project->category->title->message : '-';
 	}
 
 	/**
