@@ -1,10 +1,10 @@
 <?php
 /**
- * AdminController
+ * TeamController
  * @var $this app\components\View
- * @var $model ommu\project\models\Projects
+ * @var $model ommu\project\models\ProjectTeam
  *
- * AdminController implements the CRUD actions for Projects model.
+ * TeamController implements the CRUD actions for ProjectTeam model.
  * Reference start
  * TOC :
  *	Index
@@ -15,32 +15,30 @@
  *	Delete
  *	RunAction
  *	Publish
- *	Headline
- *	Comment
  *
  *	findModel
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
- * @created date 7 February 2019, 19:54 WIB
- * @modified date 8 February 2019, 15:21 WIB
+ * @created date 8 February 2019, 15:40 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
 
-namespace ommu\project\controllers;
+namespace ommu\project\controllers\data;
 
 use Yii;
 use yii\filters\VerbFilter;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use ommu\project\models\ProjectTeam;
+use ommu\project\models\search\ProjectTeam as ProjectTeamSearch;
 use ommu\project\models\Projects;
-use ommu\project\models\search\Projects as ProjectsSearch;
-use ommu\ipedia\models\IpediaCompanies;
-use ommu\project\models\ProjectCategory;
+use ommu\users\models\Users;
+use ommu\ipedia\models\IpediaPositions;
 
-class AdminController extends Controller
+class TeamController extends Controller
 {
 	/**
 	 * {@inheritdoc}
@@ -56,8 +54,6 @@ class AdminController extends Controller
 				'actions' => [
 					'delete' => ['POST'],
 					'publish' => ['POST'],
-					'headline' => ['POST'],
-					'comment' => ['POST'],
 				],
 			],
 		];
@@ -72,15 +68,16 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Lists all Projects models.
+	 * Lists all ProjectTeam models.
 	 * @return mixed
 	 */
 	public function actionManage()
 	{
-		$company = Yii::$app->request->get('company');
-		$category = Yii::$app->request->get('category');
+		$project = Yii::$app->request->get('project');
+		$user = Yii::$app->request->get('user');
+		$position = Yii::$app->request->get('position');
 
-		$searchModel = new ProjectsSearch();
+		$searchModel = new ProjectTeamSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		$gridColumn = Yii::$app->request->get('GridColumn', null);
@@ -93,33 +90,37 @@ class AdminController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		if($company != null)
-			$companies = IpediaCompanies::findOne($company);
-		if($category != null)
-			$categories = ProjectCategory::findOne($category);
+		if($project != null)
+			$projects = Projects::findOne($project);
+		if($user != null)
+			$users = Users::findOne($user);
+		if($position != null)
+			$positions = IpediaPositions::findOne($position);
 
-		$this->view->title = Yii::t('app', 'Projects');
+		$this->view->title = Yii::t('app', 'Teams');
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_manage', [
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
-			'company' => $company,
-			'companies' => $companies,
-			'category' => $category,
-			'categories' => $categories,
+			'project' => $project,
+			'projects' => $projects,
+			'user' => $user,
+			'users' => $users,
+			'position' => $position,
+			'positions' => $positions,
 		]);
 	}
 
 	/**
-	 * Creates a new Projects model.
+	 * Creates a new ProjectTeam model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new Projects();
+		$model = new ProjectTeam();
 
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
@@ -127,9 +128,9 @@ class AdminController extends Controller
 			// $model->load($postData);
 
 			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project success created.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success created.'));
 				return $this->redirect(['manage']);
-				//return $this->redirect(['view', 'id'=>$model->project_id]);
+				//return $this->redirect(['view', 'id'=>$model->team_id]);
 
 			} else {
 				if(Yii::$app->request->isAjax)
@@ -137,7 +138,7 @@ class AdminController extends Controller
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Create Project');
+		$this->view->title = Yii::t('app', 'Create Team');
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_create', [
@@ -146,7 +147,7 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Updates an existing Projects model.
+	 * Updates an existing ProjectTeam model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id
 	 * @return mixed
@@ -160,7 +161,7 @@ class AdminController extends Controller
 			// $model->load($postData);
 
 			if($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success updated.'));
 				return $this->redirect(['manage']);
 
 			} else {
@@ -169,7 +170,7 @@ class AdminController extends Controller
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Update {model-class}: {project-name}', ['model-class' => 'Project', 'project-name' => $model->project_name]);
+		$this->view->title = Yii::t('app', 'Update {model-class}: {project-id}', ['model-class' => 'Team', 'project-id' => $model->project->project_name]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_update', [
@@ -178,7 +179,7 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Displays a single Projects model.
+	 * Displays a single ProjectTeam model.
 	 * @param integer $id
 	 * @return mixed
 	 */
@@ -186,7 +187,7 @@ class AdminController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'Detail {model-class}: {project-name}', ['model-class' => 'Project', 'project-name' => $model->project_name]);
+		$this->view->title = Yii::t('app', 'Detail {model-class}: {project-id}', ['model-class' => 'Team', 'project-id' => $model->project->project_name]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_view', [
@@ -195,7 +196,7 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * Deletes an existing Projects model.
+	 * Deletes an existing ProjectTeam model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
@@ -205,14 +206,14 @@ class AdminController extends Controller
 		$model = $this->findModel($id);
 		$model->publish = 2;
 
-		if($model->save(false, ['publish','modified_id'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success deleted.'));
+		if($model->save(false, ['publish'])) {
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success deleted.'));
 			return $this->redirect(['manage']);
 		}
 	}
 
 	/**
-	 * actionPublish an existing Projects model.
+	 * actionPublish an existing ProjectTeam model.
 	 * If publish is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id
 	 * @return mixed
@@ -223,58 +224,22 @@ class AdminController extends Controller
 		$replace = $model->publish == 1 ? 0 : 1;
 		$model->publish = $replace;
 
-		if($model->save(false, ['publish','modified_id'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
+		if($model->save(false, ['publish'])) {
+			Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success updated.'));
 			return $this->redirect(['manage']);
 		}
 	}
 
 	/**
-	 * actionHeadline an existing Projects model.
-	 * If headline is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionHeadline($id)
-	{
-		$model = $this->findModel($id);
-		$model->headline = 1;
-		$model->publish  = 1;
-
-		if($model->save(false, ['publish','headline','modified_id'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
-			return $this->redirect(['manage']);
-		}
-	}
-
-	/**
-	 * actionComment an existing Projects model.
-	 * If comment is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionComment($id)
-	{
-		$model = $this->findModel($id);
-		$replace = $model->comment == 1 ? 0 : 1;
-		$model->comment = $replace;
-		
-		if($model->save(false, ['comment','modified_id'])) {
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
-			return $this->redirect(['manage']);
-		}
-	}
-
-	/**
-	 * Finds the Projects model based on its primary key value.
+	 * Finds the ProjectTeam model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 * @param integer $id
-	 * @return Projects the loaded model
+	 * @return ProjectTeam the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
 	{
-		if(($model = Projects::findOne($id)) !== null)
+		if(($model = ProjectTeam::findOne($id)) !== null)
 			return $model;
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

@@ -1,0 +1,137 @@
+<?php
+/**
+ * ProjectTeam
+ *
+ * ProjectTeam represents the model behind the search form about `ommu\project\models\ProjectTeam`.
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
+ * @created date 8 February 2019, 15:40 WIB
+ * @link https://bitbucket.org/ommu/project
+ *
+ */
+
+namespace ommu\project\models\search;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use ommu\project\models\ProjectTeam as ProjectTeamModel;
+
+class ProjectTeam extends ProjectTeamModel
+{
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules()
+	{
+		return [
+			[['team_id', 'publish', 'project_id', 'user_id', 'position_id', 'creation_id'], 'integer'],
+			[['creation_date', 'updated_date', 'projectName', 'userDisplayname', 'positionName', 'creationDisplayname'], 'safe'],
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
+
+	/**
+	 * Tambahkan fungsi beforeValidate ini pada model search untuk menumpuk validasi pd model induk. 
+	 * dan "jangan" tambahkan parent::beforeValidate, cukup "return true" saja.
+	 * maka validasi yg akan dipakai hanya pd model ini, semua script yg ditaruh di beforeValidate pada model induk
+	 * tidak akan dijalankan.
+	 */
+	public function beforeValidate() {
+		return true;
+	}
+
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params)
+	{
+		$query = ProjectTeamModel::find()->alias('t');
+		$query->joinWith([
+			'project project', 
+			'user user', 
+			'position position', 
+			'creation creation'
+		]);
+
+		// add conditions that should always apply here
+		$dataParams = [
+			'query' => $query,
+		];
+		// disable pagination agar data pada api tampil semua
+		if(isset($params['pagination']) && $params['pagination'] == 0)
+			$dataParams['pagination'] = false;
+		$dataProvider = new ActiveDataProvider($dataParams);
+
+		$attributes = array_keys($this->getTableSchema()->columns);
+		$attributes['projectName'] = [
+			'asc' => ['project.project_name' => SORT_ASC],
+			'desc' => ['project.project_name' => SORT_DESC],
+		];
+		$attributes['userDisplayname'] = [
+			'asc' => ['user.displayname' => SORT_ASC],
+			'desc' => ['user.displayname' => SORT_DESC],
+		];
+		$attributes['positionName'] = [
+			'asc' => ['position.position_name' => SORT_ASC],
+			'desc' => ['position.position_name' => SORT_DESC],
+		];
+		$attributes['creationDisplayname'] = [
+			'asc' => ['creation.displayname' => SORT_ASC],
+			'desc' => ['creation.displayname' => SORT_DESC],
+		];
+		$dataProvider->setSort([
+			'attributes' => $attributes,
+			'defaultOrder' => ['team_id' => SORT_DESC],
+		]);
+
+		$this->load($params);
+
+		if(!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		// grid filtering conditions
+		$query->andFilterWhere([
+			't.team_id' => $this->team_id,
+			't.project_id' => isset($params['project']) ? $params['project'] : $this->project_id,
+			't.user_id' => isset($params['user']) ? $params['user'] : $this->user_id,
+			't.position_id' => isset($params['position']) ? $params['position'] : $this->position_id,
+			'cast(t.creation_date as date)' => $this->creation_date,
+			't.creation_id' => isset($params['creation']) ? $params['creation'] : $this->creation_id,
+			'cast(t.updated_date as date)' => $this->updated_date,
+		]);
+
+		if(isset($params['trash']))
+			$query->andFilterWhere(['NOT IN', 't.publish', [0,1]]);
+		else {
+			if(!isset($params['publish']) || (isset($params['publish']) && $params['publish'] == ''))
+				$query->andFilterWhere(['IN', 't.publish', [0,1]]);
+			else
+				$query->andFilterWhere(['t.publish' => $this->publish]);
+		}
+
+		$query->andFilterWhere(['like', 'project.project_name', $this->projectName])
+			->andFilterWhere(['like', 'user.displayname', $this->userDisplayname])
+			->andFilterWhere(['like', 'position.position_name', $this->positionName])
+			->andFilterWhere(['like', 'creation.displayname', $this->creationDisplayname]);
+
+		return $dataProvider;
+	}
+}

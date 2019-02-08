@@ -1,0 +1,84 @@
+<?php
+/**
+ * Project Teams (project-team)
+ * @var $this app\components\View
+ * @var $this ommu\project\controllers\data\TeamController
+ * @var $model ommu\project\models\ProjectTeam
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
+ * @created date 8 February 2019, 15:40 WIB
+ * @link https://bitbucket.org/ommu/project
+ *
+ */
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\DetailView;
+
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Teams'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->project->project_name;
+
+$this->params['menu']['content'] = [
+	['label' => Yii::t('app', 'Back To Manage'), 'url' => Url::to(['manage']), 'icon' => 'table'],
+	['label' => Yii::t('app', 'Detail'), 'url' => Url::to(['view', 'id'=>$model->team_id]), 'icon' => 'eye'],
+	['label' => Yii::t('app', 'Update'), 'url' => Url::to(['update', 'id'=>$model->team_id]), 'icon' => 'pencil'],
+	['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id'=>$model->team_id]), 'htmlOptions' => ['data-confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'), 'data-method'=>'post'], 'icon' => 'trash'],
+];
+?>
+
+<div class="project-team-view">
+
+<?php echo DetailView::widget([
+	'model' => $model,
+	'options' => [
+		'class'=>'table table-striped detail-view',
+	],
+	'attributes' => [
+		'team_id',
+		[
+			'attribute' => 'publish',
+			'value' => $this->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish, 'Active,Deactive'),
+			'format' => 'raw',
+		],
+		[
+			'attribute' => 'projectName',
+			'value' => function ($model) {
+				$projectName = isset($model->project) ? $model->project->project_name : '-';
+				if($projectName != '-')
+					return Html::a($projectName, ['project/view', 'id'=>$model->project_id], ['title'=>$projectName]);
+				return $projectName;
+			},
+			'format' => 'html',
+		],
+		[
+			'attribute' => 'userDisplayname',
+			'value' => isset($model->user) ? $model->user->displayname : '-',
+		],
+		[
+			'attribute' => 'positionName',
+			'value' => function ($model) {
+				$positionName = isset($model->position) ? $model->position->position_name : '-';
+				if($positionName != '-')
+					return Html::a($positionName, ['position/view', 'id'=>$model->position_id], ['title'=>$positionName]);
+				return $positionName;
+			},
+			'format' => 'html',
+		],
+		[
+			'attribute' => 'creation_date',
+			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
+		],
+		[
+			'attribute' => 'creationDisplayname',
+			'value' => isset($model->creation) ? $model->creation->displayname : '-',
+		],
+		[
+			'attribute' => 'updated_date',
+			'value' => Yii::$app->formatter->asDatetime($model->updated_date, 'medium'),
+		],
+	],
+]); ?>
+
+</div>
