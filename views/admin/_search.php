@@ -10,12 +10,14 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
+ * @modified date 8 February 2019, 15:21 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
 
 use yii\helpers\Html;
 use app\components\ActiveForm;
+use ommu\project\models\Projects;
 use ommu\project\models\ProjectCategory;
 ?>
 

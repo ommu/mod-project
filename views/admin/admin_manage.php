@@ -10,7 +10,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
- * @modified date 8 February 2019, 07:18 WIB
+ * @modified date 8 February 2019, 15:21 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -21,8 +21,8 @@ use app\components\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
-use ommu\project\models\ProjectCategory;
 use ommu\ipedia\models\IpediaCompanies;
+use ommu\project\models\ProjectCategory;
 
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -37,35 +37,6 @@ $this->params['menu']['option'] = [
 
 <div class="projects-manage">
 <?php Pjax::begin(); ?>
-
-<?php if($category != null) {
-$model = $categories;
-echo DetailView::widget([
-	'model' => $categories,
-	'options' => [
-		'class'=>'table table-striped detail-view',
-	],
-	'attributes' => [
-		[
-			'attribute' => 'cat_name_i',
-			'value' => function ($model) {
-				if($model->cat_name_i != '')
-					return Html::a($model->cat_name_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
-				return $model->cat_name_i;
-			},
-			'format' => 'html',
-		],
-		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
-		],
-	],
-]);
-}?>
 
 <?php if($company != null) {
 $model = $companies;
@@ -88,6 +59,35 @@ echo DetailView::widget([
 		[
 			'attribute' => 'company_name',
 			'value' => $model->company_name ? $model->company_name : '-',
+		],
+		[
+			'attribute' => 'creation_date',
+			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
+		],
+		[
+			'attribute' => 'creationDisplayname',
+			'value' => isset($model->creation) ? $model->creation->displayname : '-',
+		],
+	],
+]);
+}?>
+
+<?php if($category != null) {
+$model = $categories;
+echo DetailView::widget([
+	'model' => $categories,
+	'options' => [
+		'class'=>'table table-striped detail-view',
+	],
+	'attributes' => [
+		[
+			'attribute' => 'cat_name_i',
+			'value' => function ($model) {
+				if($model->cat_name_i != '')
+					return Html::a($model->cat_name_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
+				return $model->cat_name_i;
+			},
+			'format' => 'html',
 		],
 		[
 			'attribute' => 'creation_date',
