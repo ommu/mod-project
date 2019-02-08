@@ -10,6 +10,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
+ * @modified date 8 February 2019, 07:18 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -21,7 +22,7 @@ use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use ommu\project\models\ProjectCategory;
-use ommu\project\models\IpediaCompanies;
+use ommu\ipedia\models\IpediaCompanies;
 
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -49,7 +50,7 @@ echo DetailView::widget([
 			'attribute' => 'cat_name_i',
 			'value' => function ($model) {
 				if($model->cat_name_i != '')
-					return Html::a($model->cat_name_i, ['category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
+					return Html::a($model->cat_name_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
 				return $model->cat_name_i;
 			},
 			'format' => 'html',
@@ -58,7 +59,7 @@ echo DetailView::widget([
 			'attribute' => 'cat_desc_i',
 			'value' => function ($model) {
 				if($model->cat_desc_i != '')
-					return Html::a($model->cat_desc_i, ['category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_desc_i]);
+					return Html::a($model->cat_desc_i, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_desc_i]);
 				return $model->cat_desc_i;
 			},
 			'format' => 'html',
@@ -84,24 +85,18 @@ echo DetailView::widget([
 	],
 	'attributes' => [
 		[
-			'attribute' => 'directoryName',
+			'attribute' => 'memberDisplayname',
 			'value' => function ($model) {
-				$directoryName = isset($model->directory) ? $model->directory->directory_name : '-';
-				if($directoryName != '-')
-					return Html::a($directoryName, ['directory/view', 'id'=>$model->directory_id], ['title'=>$directoryName]);
-				return $directoryName;
+				$memberDisplayname = isset($model->member) ? $model->member->displayname : '-';
+				if($memberDisplayname != '-')
+					return Html::a($memberDisplayname, ['member/view', 'id'=>$model->member_id], ['title'=>$memberDisplayname]);
+				return $memberDisplayname;
 			},
 			'format' => 'html',
 		],
 		[
-			'attribute' => 'memberUsername',
-			'value' => function ($model) {
-				$memberUsername = isset($model->member) ? $model->member->displayname : '-';
-				if($memberUsername != '-')
-					return Html::a($memberUsername, ['member/view', 'id'=>$model->member_id], ['title'=>$memberUsername]);
-				return $memberUsername;
-			},
-			'format' => 'html',
+			'attribute' => 'company_name',
+			'value' => $model->company_name ? $model->company_name : '-',
 		],
 		[
 			'attribute' => 'creation_date',

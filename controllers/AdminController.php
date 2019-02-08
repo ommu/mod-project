@@ -24,6 +24,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
+ * @modified date 8 February 2019, 11:39 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -37,7 +38,7 @@ use mdm\admin\components\AccessControl;
 use ommu\project\models\Projects;
 use ommu\project\models\search\Projects as ProjectsSearch;
 use ommu\project\models\ProjectCategory;
-use ommu\project\models\IpediaCompanies;
+use ommu\ipedia\models\IpediaCompanies;
 
 class AdminController extends Controller
 {

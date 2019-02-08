@@ -33,7 +33,7 @@ use ommu\project\models\ProjectCategory;
 		echo $form->field($model, 'cat_id')
 			->dropDownList($category, ['prompt'=>'']);?>
 
-		<?php echo $form->field($model, 'companyDirectoryId');?>
+		<?php echo $form->field($model, 'companyName');?>
 
 		<?php echo $form->field($model, 'project_name');?>
 

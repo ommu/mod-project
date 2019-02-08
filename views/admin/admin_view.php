@@ -9,6 +9,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
+ * @modified date 8 February 2019, 11:45 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -16,6 +17,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use ommu\project\models\Projects;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->project_name;
@@ -43,22 +45,22 @@ $this->params['menu']['content'] = [
 			'format' => 'raw',
 		],
 		[
-			'attribute' => 'categoryCatName',
+			'attribute' => 'categoryName',
 			'value' => function ($model) {
-				$categoryCatName = isset($model->category) ? $model->category->title->message : '-';
-				if($categoryCatName != '-')
-					return Html::a($categoryCatName, ['category/view', 'id'=>$model->cat_id], ['title'=>$categoryCatName]);
-				return $categoryCatName;
+				$categoryName = isset($model->category) ? $model->category->title->message : '-';
+				if($categoryName != '-')
+					return Html::a($categoryName, ['admin/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
+				return $categoryName;
 			},
 			'format' => 'html',
 		],
 		[
-			'attribute' => 'companyDirectoryId',
+			'attribute' => 'companyName',
 			'value' => function ($model) {
-				$companyDirectoryId = isset($model->company) ? $model->company->directory->directory_name : '-';
-				if($companyDirectoryId != '-')
-					return Html::a($companyDirectoryId, ['company/view', 'id'=>$model->company_id], ['title'=>$companyDirectoryId]);
-				return $companyDirectoryId;
+				$companyName = isset($model->company) ? $model->company->company_name : '-';
+				if($companyName != '-')
+					return Html::a($companyName, ['company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
+				return $companyName;
 			},
 			'format' => 'html',
 		],

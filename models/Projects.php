@@ -6,6 +6,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 17:57 WIB
+ * @modified date 8 February 2019, 07:12 WIB
  * @link https://bitbucket.org/ommu/project
  *
  * This is the model class for table "ommu_projects".
@@ -48,7 +49,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\behaviors\SluggableBehavior;
 use ommu\users\models\Users;
-use ommu\ipedia\models\IpediaCompanies; 
+use ommu\ipedia\models\IpediaCompanies;
 
 class Projects extends \app\components\ActiveRecord
 {
@@ -56,8 +57,8 @@ class Projects extends \app\components\ActiveRecord
 
 	public $gridForbiddenColumn = [];
 
-	public $categoryCatName;
-	public $companyDirectoryId;
+	public $categoryName;
+	public $companyName;
 	public $creationDisplayname;
 	public $modifiedDisplayname;
 
@@ -126,8 +127,8 @@ class Projects extends \app\components\ActiveRecord
 			'photos' => Yii::t('app', 'Photos'),
 			'tags' => Yii::t('app', 'Tags'),
 			'teams' => Yii::t('app', 'Teams'),
-			'categoryCatName' => Yii::t('app', 'Category'),
-			'companyDirectoryId' => Yii::t('app', 'Company'),
+			'categoryName' => Yii::t('app', 'Category'),
+			'companyName' => Yii::t('app', 'Company'),
 			'creationDisplayname' => Yii::t('app', 'Creation'),
 			'modifiedDisplayname' => Yii::t('app', 'Modified'),
 		];
@@ -255,10 +256,10 @@ class Projects extends \app\components\ActiveRecord
 			];
 		}
 		if(!Yii::$app->request->get('company')) {
-			$this->templateColumns['companyDirectoryId'] = [
-				'attribute' => 'companyDirectoryId',
+			$this->templateColumns['companyName'] = [
+				'attribute' => 'companyName',
 				'value' => function($model, $key, $index, $column) {
-					return isset($model->company) ? $model->company->directory->directory_name : '-';
+					return isset($model->company) ? $model->company->company_name : '-';
 				},
 			];
 		}
@@ -449,8 +450,8 @@ class Projects extends \app\components\ActiveRecord
 	{
 		parent::afterFind();
 
-		// $this->categoryCatName = isset($this->category) ? $this->category->title->message : '-';
-		// $this->companyDirectoryId = isset($this->company) ? $this->company->directory->directory_name : '-';
+		// $this->categoryName = isset($this->category) ? $this->category->title->message : '-';
+		// $this->companyName = isset($this->company) ? $this->company->company_name : '-';
 		// $this->creationDisplayname = isset($this->creation) ? $this->creation->displayname : '-';
 		// $this->modifiedDisplayname = isset($this->modified) ? $this->modified->displayname : '-';
 	}

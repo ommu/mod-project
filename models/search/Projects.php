@@ -8,6 +8,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 7 February 2019, 19:54 WIB
+ * @modified date 8 February 2019, 11:23 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -28,7 +29,8 @@ class Projects extends ProjectsModel
 	{
 		return [
 			[['project_id', 'publish', 'cat_id', 'company_id', 'headline', 'comment', 'creation_id', 'modified_id'], 'integer'],
-			[['project_name', 'project_desc', 'status', 'start_date', 'finish_date', 'headline_date', 'creation_date', 'modified_date', 'updated_date', 'slug', 'categoryCatName', 'companyDirectoryId', 'creationDisplayname', 'modifiedDisplayname'], 'safe'],
+			[['project_name', 'project_desc', 'status', 'start_date', 'finish_date', 'headline_date', 'creation_date', 'modified_date', 'updated_date', 'slug',
+				'categoryName', 'companyName', 'creationDisplayname', 'modifiedDisplayname'], 'safe'],
 		];
 	}
 
@@ -63,7 +65,7 @@ class Projects extends ProjectsModel
 		$query = ProjectsModel::find()->alias('t');
 		$query->joinWith([
 			'category.title category', 
-			'company.directory company', 
+			'company company', 
 			'creation creation', 
 			'modified modified'
 		]);
@@ -82,13 +84,13 @@ class Projects extends ProjectsModel
 			'asc' => ['category.message' => SORT_ASC],
 			'desc' => ['category.message' => SORT_DESC],
 		];
-		$attributes['categoryCatName'] = [
+		$attributes['categoryName'] = [
 			'asc' => ['category.message' => SORT_ASC],
 			'desc' => ['category.message' => SORT_DESC],
 		];
-		$attributes['companyDirectoryId'] = [
-			'asc' => ['company.directory_name' => SORT_ASC],
-			'desc' => ['company.directory_name' => SORT_DESC],
+		$attributes['companyName'] = [
+			'asc' => ['company.company_name' => SORT_ASC],
+			'desc' => ['company.company_name' => SORT_DESC],
 		];
 		$attributes['creationDisplayname'] = [
 			'asc' => ['creation.displayname' => SORT_ASC],
@@ -141,8 +143,8 @@ class Projects extends ProjectsModel
 		$query->andFilterWhere(['like', 't.project_name', $this->project_name])
 			->andFilterWhere(['like', 't.project_desc', $this->project_desc])
 			->andFilterWhere(['like', 't.slug', $this->slug])
-			->andFilterWhere(['like', 'category.message', $this->categoryCatName])
-			->andFilterWhere(['like', 'company.directory_name', $this->companyDirectoryId])
+			->andFilterWhere(['like', 'category.message', $this->categoryName])
+			->andFilterWhere(['like', 'company.company_name', $this->companyName])
 			->andFilterWhere(['like', 'creation.displayname', $this->creationDisplayname])
 			->andFilterWhere(['like', 'modified.displayname', $this->modifiedDisplayname]);
 
