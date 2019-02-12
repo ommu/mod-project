@@ -9,6 +9,7 @@
  * TOC :
  *	Index
  *	Manage
+ *	Create
  *	View
  *	Delete
  *	RunAction
@@ -108,6 +109,43 @@ class TeamController extends Controller
 			'users' => $users,
 			'position' => $position,
 			'positions' => $positions,
+		]);
+	}
+
+	/**
+	 * Creates a new ProjectTeam model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate()
+	{
+		$model = new ProjectTeam();
+		$project = Yii::$app->request->get('project');
+		if(!$project)
+			throw new \yii\web\NotAcceptableHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
+			// $postData = Yii::$app->request->post();
+			// $model->load($postData);
+			$model->project_id = $project;
+
+			if($model->save()) {
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success created.'));
+				return $this->redirect(['manage', 'project'=>$model->project_id]);
+				//return $this->redirect(['view', 'id'=>$model->team_id]);
+
+			} else {
+				if(Yii::$app->request->isAjax)
+					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
+			}
+		}
+
+		$this->view->title = Yii::t('app', 'Create Team');
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->oRender('admin_create', [
+			'model' => $model,
 		]);
 	}
 

@@ -30,6 +30,13 @@ $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
 	['label' => Yii::t('app', 'Grid Option'), 'url' => 'javascript:void(0);'],
 ];
+
+$project = Yii::$app->request->get('project');
+if($project) {
+	$this->params['menu']['content'] = [
+		['label' => Yii::t('app', 'Add Team'), 'url' => Url::to(['create', 'project'=>$project]), 'htmlOptions' => ['class'=>'modal-btn'], 'icon' => 'plus-square'],
+	];
+}
 ?>
 
 <div class="project-team-manage">
