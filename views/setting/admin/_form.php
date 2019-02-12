@@ -1,0 +1,120 @@
+<?php
+/**
+ * Project Settings (project-setting)
+ * @var $this app\components\View
+ * @var $this ommu\project\controllers\setting\AdminController
+ * @var $model ommu\project\models\ProjectSetting
+ * @var $form app\components\ActiveForm
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @contact (+62)856-299-4114
+ * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
+ * @created date 11 February 2019, 14:19 WIB
+ * @link https://bitbucket.org/ommu/project
+ *
+ */
+
+use yii\helpers\Html;
+use app\components\ActiveForm;
+use ommu\project\models\ProjectSetting;
+use ommu\project\models\ProjectCategory;
+?>
+
+<div class="project-setting-form">
+
+<?php $form = ActiveForm::begin([
+	'enableClientValidation' => true,
+	'enableAjaxValidation' => false,
+	//'enableClientScript' => true,
+]); ?>
+
+<?php //echo $form->errorSummary($model);?>
+
+<?php if($model->isNewRecord && !$model->getErrors())
+	$model->license = $this->licenseCode();
+echo $form->field($model, 'license', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12"><span class="small-px mb-10">'.Yii::t('app', 'Enter the your license key that is provided to you when you purchased this plugin. If you do not know your license key, please contact support team.').'</span>{input}{error}<span class="small-px">'.Yii::t('app', 'Format: XXXX-XXXX-XXXX-XXXX').'</span></div>'])
+	->textInput(['maxlength'=>true])
+	->label($model->getAttributeLabel('license'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $permission = ProjectSetting::getPermission();
+echo $form->field($model, 'permission', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12"><span class="small-px mb-10">'.Yii::t('app', 'Select whether or not you want to let the public (visitors that are not logged-in) to view the following sections of your social network. In some cases (such as Profiles, Blogs, and Albums), if you have given them the option, your users will be able to make their pages private even though you have made them publically viewable here. For more permissions settings, please visit the General Settings page.').'</span>{input}{error}</div>'])
+	->radioList($permission, ['class'=>'desc mt-10', 'separator' => '<br />'])
+	->label($model->getAttributeLabel('permission'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'meta_description', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+	->textarea(['rows'=>6, 'cols'=>50])
+	->label($model->getAttributeLabel('meta_description'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'meta_keyword', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+	->textarea(['rows'=>6, 'cols'=>50])
+	->label($model->getAttributeLabel('meta_keyword'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $headline = ProjectSetting::getHeadline();
+echo $form->field($model, 'headline', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+	->radioList($headline, ['class'=>'desc pt-10', 'separator' => '<br />'])
+	->label($model->getAttributeLabel('headline'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'headline_limit', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('headline_limit').'</div>{input}{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>'1'])
+	->label($model->getAttributeLabel('headline_limit'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $category = ProjectCategory::getCategory(1);
+echo $form->field($model, 'headline_category', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('headline_category').'</div>{input}{error}</div>'])
+	->checkboxList($category, ['class'=>'desc', 'separator' => '<br />'])
+	->label($model->getAttributeLabel('headline_category'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'photo_limit', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox"><div class="h5">'.$model->getAttributeLabel('photo_limit').'</div>{input}{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>'1'])
+	->label(Yii::t('app', 'Project Image'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $photoResize = ProjectSetting::getPhotoResize();
+echo $form->field($model, 'photo_resize', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}</div>'])
+	->radioList($photoResize, ['class'=>'desc', 'separator' => '<br />'])
+	->label($model->getAttributeLabel('photo_resize'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $photo_resize_size_height = $form->field($model, 'photo_resize_size[height]', ['template' => '<div class="col-md-3 col-sm-5 col-xs-6">{input}</div>', 'options' => ['tag' => null]])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_resize_size[height]')])
+	->label($model->getAttributeLabel('photo_resize_size[height]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'photo_resize_size[width]', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><span class="small-px mb-10">'.Yii::t('app', 'If you have selected "Yes" above, please input the maximum dimensions for the project image. If your users upload a image that is larger than these dimensions, the server will attempt to scale them down automatically. This feature requires that your PHP server is compiled with support for the GD Libraries.').'</span></div><div class="col-md-3 col-sm-4 col-xs-6 col-sm-offset-3">{input}</div>'.$photo_resize_size_height.'<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3">{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_resize_size[width]')])
+	->label($model->getAttributeLabel('photo_resize_size'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12 ']); ?>
+
+<?php echo $form->field($model, 'photo_file_type', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}<span class="small-px">'.Yii::t('app', 'What file types do you want to allow for project image (gif, jpg, jpeg, or png)? Separate file types with commas, i.e. jpg, jpeg, gif, png').'</span></div>'])
+	->textInput()
+	->label($model->getAttributeLabel('photo_file_type'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php $photo_view_size_small_height = $form->field($model, 'photo_view_size[small][height]', ['template' => '<div class="col-md-3 col-sm-5 col-xs-6">{input}</div>', 'options' => ['tag' => null]])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[small][height]')])
+	->label($model->getAttributeLabel('photo_view_size[small][height]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'photo_view_size[small][width]', ['template' => '{label}<div class="col-md-9 col-sm-9 col-xs-12 checkbox"><div class="h5">'.$model->getAttributeLabel('photo_view_size[small]').'</div></div><div class="col-md-3 col-sm-4 col-xs-6 col-sm-offset-3">{input}</div>'.$photo_view_size_small_height.'<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3">{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[small][width]')])
+	->label($model->getAttributeLabel('photo_view_size'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12 ']); ?>
+
+<?php $photo_view_size_medium_height = $form->field($model, 'photo_view_size[medium][height]', ['template' => '<div class="col-md-3 col-sm-5 col-xs-6">{input}</div>', 'options' => ['tag' => null]])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[medium][height]')])
+	->label($model->getAttributeLabel('photo_view_size[medium][height]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'photo_view_size[medium][width]', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('photo_view_size[medium]').'</div></div><div class="col-md-3 col-sm-4 col-xs-6 col-sm-offset-3">{input}</div>'.$photo_view_size_medium_height.'<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3">{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[medium][width]')])
+	->label($model->getAttributeLabel('photo_view_size[medium]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12 ']); ?>
+
+<?php $photo_view_size_large_height = $form->field($model, 'photo_view_size[large][height]', ['template' => '<div class="col-md-3 col-sm-5 col-xs-6">{input}</div>', 'options' => ['tag' => null]])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[large][height]')])
+	->label($model->getAttributeLabel('photo_view_size[large][height]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+
+<?php echo $form->field($model, 'photo_view_size[large][width]', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('photo_view_size[large]').'</div></div><div class="col-md-3 col-sm-4 col-xs-6 col-sm-offset-3">{input}</div>'.$photo_view_size_large_height.'<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3">{error}</div>'])
+	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[large][width]')])
+	->label($model->getAttributeLabel('photo_view_size[large]'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12 ']); ?>
+
+<div class="ln_solid"></div>
+<div class="form-group">
+	<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3">
+		<?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
+	</div>
+</div>
+
+<?php ActiveForm::end(); ?>
+
+</div>

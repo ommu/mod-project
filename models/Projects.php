@@ -372,6 +372,7 @@ class Projects extends \app\components\ActiveRecord
 			'value' => function($model, $key, $index, $column) {
 				return self::getStatus($model->status);
 			},
+			'filter' => self::getStatus(),
 			'contentOptions' => ['class'=>'center'],
 		];
 		$this->templateColumns['headline'] = [
