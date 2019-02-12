@@ -221,7 +221,8 @@ class ProjectTag extends \app\components\ActiveRecord
 				if($this->tag_id == 0) {
 					$tag = CoreTags::find()
 						->select(['tag_id'])
-						->andWhere(['body' => $tagBody]);
+						->andWhere(['body' => $tagBody])
+						->one();
 						
 					if($tag != null)
 						$this->tag_id = $tag->tag_id;

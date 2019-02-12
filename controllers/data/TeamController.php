@@ -133,7 +133,6 @@ class TeamController extends Controller
 			if($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success created.'));
 				return $this->redirect(['manage', 'project'=>$model->project_id]);
-				//return $this->redirect(['view', 'id'=>$model->team_id]);
 
 			} else {
 				if(Yii::$app->request->isAjax)

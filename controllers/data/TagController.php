@@ -9,8 +9,10 @@
  * TOC :
  *	Index
  *	Manage
+ *	Create
  *	View
  *	Delete
+ *	Suggest
  *
  *	findModel
  *
@@ -18,6 +20,7 @@
  * @contact (+62)856-299-4114
  * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
  * @created date 8 February 2019, 15:33 WIB
+ * @modified date 12 February 2019, 17:07 WIB
  * @link https://bitbucket.org/ommu/project
  *
  */
@@ -31,6 +34,7 @@ use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectTag;
 use ommu\project\models\search\ProjectTag as ProjectTagSearch;
 use ommu\project\models\Projects;
+use app\models\CoreTags;
 
 class TagController extends Controller
 {
@@ -97,6 +101,42 @@ class TagController extends Controller
 	}
 
 	/**
+	 * Creates a new ProjectTag model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate()
+	{
+		$model = new ProjectTag();
+		$project = Yii::$app->request->get('project');
+		if(!$project)
+			throw new \yii\web\NotAcceptableHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+		if(Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
+			// $postData = Yii::$app->request->post();
+			// $model->load($postData);
+			$model->project_id = $project;
+
+			if($model->save()) {
+				Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
+				return $this->redirect(['manage', 'project'=>$model->project_id]);
+
+			} else {
+				if(Yii::$app->request->isAjax)
+					return \yii\helpers\Json::encode(\app\components\ActiveForm::validate($model));
+			}
+		}
+
+		$this->view->title = Yii::t('app', 'Create Tag');
+		$this->view->description = '';
+		$this->view->keywords = '';
+		return $this->oRender('admin_create', [
+			'model' => $model,
+		]);
+	}
+
+	/**
 	 * Displays a single ProjectTag model.
 	 * @param integer $id
 	 * @return mixed
@@ -125,6 +165,34 @@ class TagController extends Controller
 		
 		Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success deleted.'));
 		return $this->redirect(['manage']);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function actionSuggest() 
+	{
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+		$term = Yii::$app->request->get('term');
+		$project = Yii::$app->request->get('project');
+
+		if($term == null) return [];
+
+		$model = CoreTags::find()->alias('t')
+			->join('LEFT JOIN', sprintf('%s project', ProjectTag::tableName()), sprintf('t.tag_id = project.tag_id and project.project_id = %s', $project))
+			->andWhere(['is', 'project.tag_id', null])
+			->andWhere(['like', 't.body', $term])
+			->published()->limit(15)->all();
+
+		$result = [];
+		foreach($model as $val) {
+			$result[] = [
+				'id' => $val->tag_id, 
+				'label' => $val->body,
+			];
+		}
+		return $result;
 	}
 
 	/**

@@ -61,7 +61,11 @@ echo DetailView::widget([
 			},
 			'format' => 'html',
 		],
-		'project_name',
+		[
+			'attribute' => 'project_name',
+			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name]),
+			'format' => 'html',
+		],
 		[
 			'attribute' => 'project_desc',
 			'value' => $model->project_desc ? $model->project_desc : '-',

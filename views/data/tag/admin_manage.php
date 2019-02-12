@@ -28,6 +28,13 @@ $this->params['menu']['option'] = [
 	//['label' => Yii::t('app', 'Search'), 'url' => 'javascript:void(0);'],
 	['label' => Yii::t('app', 'Grid Option'), 'url' => 'javascript:void(0);'],
 ];
+
+$project = Yii::$app->request->get('project');
+if($project) {
+	$this->params['menu']['content'] = [
+		['label' => Yii::t('app', 'Add Tag'), 'url' => Url::to(['create', 'project'=>$project]), 'htmlOptions' => ['class'=>'modal-btn'], 'icon' => 'plus-square'],
+	];
+}
 ?>
 
 <div class="project-tag-manage">
@@ -61,7 +68,11 @@ echo DetailView::widget([
 			},
 			'format' => 'html',
 		],
-		'project_name',
+		[
+			'attribute' => 'project_name',
+			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name]),
+			'format' => 'html',
+		],
 		[
 			'attribute' => 'status',
 			'value' => Projects::getStatus($model->status),

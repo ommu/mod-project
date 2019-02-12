@@ -119,17 +119,17 @@ $this->params['menu']['content'] = [
 		'slug',
 		[
 			'attribute' => 'photos',
-			'value' => Html::a($model->photos, ['photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$model->photos])]),
+			'value' => Html::a($model->photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$model->photos])]),
 			'format' => 'html',
 		],
 		[
 			'attribute' => 'tags',
-			'value' => Html::a($model->tags, ['tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$model->tags])]),
+			'value' => Html::a($model->tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$model->tags])]),
 			'format' => 'html',
 		],
 		[
 			'attribute' => 'teams',
-			'value' => Html::a($model->teams, ['team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$model->teams])]),
+			'value' => Html::a($model->teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$model->teams])]),
 			'format' => 'html',
 		],
 	],
