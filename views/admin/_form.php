@@ -16,10 +16,13 @@
  */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\components\ActiveForm;
 use yii\redactor\widgets\Redactor;
 use ommu\project\models\Projects;
 use ommu\project\models\ProjectCategory;
+use yii\jui\AutoComplete;
+use yii\web\JsExpression;
 
 $redactorOptions = [
 	'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -44,9 +47,25 @@ echo $form->field($model, 'cat_id', ['template' => '{label}<div class="col-md-6 
 	->dropDownList($category, ['prompt'=>''])
 	->label($model->getAttributeLabel('cat_id'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
-<?php echo $form->field($model, 'company_id', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
-	->textInput(['type'=>'number', 'min'=>'1'])
-	->label($model->getAttributeLabel('company_id'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+<?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
+echo $form->field($model, 'companyName', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}'.$company_id.'{error}</div>'])
+	// ->textInput(['maxlength'=>true])
+	->widget(AutoComplete::className(), [
+		'options' => [
+			'data-toggle' => 'tooltip', 'data-placement' => 'top',
+			'class' => 'ui-autocomplete-input form-control'
+		],
+		'clientOptions' => [
+			'source' => Url::to(['/ipedia/company/suggest']),
+			'minLength' => 2,
+			'select' => new JsExpression("function(event, ui) {
+				\$('.field-companyname #company_id').val(ui.item.id);
+				\$('.field-companyname #companyname').val(ui.item.label);
+				return false;
+			}"),
+		]
+	])
+	->label($model->getAttributeLabel('companyName'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
 <?php echo $form->field($model, 'project_name', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
 	->textInput(['maxlength'=>true])

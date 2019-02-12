@@ -51,7 +51,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$memberDisplayname = isset($model->member) ? $model->member->displayname : '-';
 				if($memberDisplayname != '-')
-					return Html::a($memberDisplayname, ['member/view', 'id'=>$model->member_id], ['title'=>$memberDisplayname]);
+					return Html::a($memberDisplayname, ['/member/manage/admin/view', 'id'=>$model->member_id], ['title'=>$memberDisplayname]);
 				return $memberDisplayname;
 			},
 			'format' => 'html',
