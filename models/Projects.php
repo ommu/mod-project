@@ -137,60 +137,62 @@ class Projects extends \app\components\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getPhotos($count=true, $publish=1)
+	public function getPhotos($count=false, $publish=1)
 	{
-		if($count == true) {
-			$model = ProjectPhoto::find()
-				->where(['project_id' => $this->project_id]);
-			if($publish == 0)
-				$model->unpublish();
-			elseif($publish == 1)
-				$model->published();
-			elseif($publish == 2)
-				$model->deleted();
-
-			return $model->count();
+		if($count == false) {
+			return $this->hasMany(ProjectPhoto::className(), ['project_id' => 'project_id'])
+				->andOnCondition([sprintf('%s.publish', ProjectPhoto::tableName()) => $publish]);
 		}
 
-		return $this->hasMany(ProjectPhoto::className(), ['project_id' => 'project_id'])
-			->andOnCondition([sprintf('%s.publish', ProjectPhoto::tableName()) => $publish]);
+		$model = ProjectPhoto::find()
+			->where(['project_id' => $this->project_id]);
+		if($publish == 0)
+			$model->unpublish();
+		elseif($publish == 1)
+			$model->published();
+		elseif($publish == 2)
+			$model->deleted();
+		$photos = $model->count();
+
+		return $photos ? $photos : 0;
 	}
 
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getTags($count=true)
+	public function getTags($count=false)
 	{
-		if($count == true) {
-			$model = ProjectTag::find()
-				->where(['project_id' => $this->project_id]);
+		if($count == false)
+			return $this->hasMany(ProjectTag::className(), ['project_id' => 'project_id']);
 
-			return $model->count();
-		}
+		$model = ProjectTag::find()
+			->where(['project_id' => $this->project_id]);
+		$tags = $model->count();
 
-		return $this->hasMany(ProjectTag::className(), ['project_id' => 'project_id']);
+		return $tags ? $tags : 0;
 	}
 
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getTeams($count=true, $publish=1)
+	public function getTeams($count=false, $publish=1)
 	{
-		if($count == true) {
-			$model = ProjectTeam::find()
-				->where(['project_id' => $this->project_id]);
-			if($publish == 0)
-				$model->unpublish();
-			elseif($publish == 1)
-				$model->published();
-			elseif($publish == 2)
-				$model->deleted();
-
-			return $model->count();
+		if($count == false) {
+			return $this->hasMany(ProjectTeam::className(), ['project_id' => 'project_id'])
+				->andOnCondition([sprintf('%s.publish', ProjectTeam::tableName()) => $publish]);
 		}
 
-		return $this->hasMany(ProjectTeam::className(), ['project_id' => 'project_id'])
-			->andOnCondition([sprintf('%s.publish', ProjectTeam::tableName()) => $publish]);
+		$model = ProjectTeam::find()
+			->where(['project_id' => $this->project_id]);
+		if($publish == 0)
+			$model->unpublish();
+		elseif($publish == 1)
+			$model->published();
+		elseif($publish == 2)
+			$model->deleted();
+		$teams = $model->count();
+
+		return $teams ? $teams : 0;
 	}
 
 	/**
@@ -344,7 +346,8 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'photos',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$model->photos])]);
+				$photos = $model->getPhotos(true);
+				return Html::a($photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$photos])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
@@ -353,7 +356,8 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'tags',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$model->tags])]);
+				$tags = $model->getTags(true);
+				return Html::a($tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$tags])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
@@ -362,7 +366,8 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'teams',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$model->teams])]);
+				$teams = $model->getTeams(true);
+				return Html::a($teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$teams])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',

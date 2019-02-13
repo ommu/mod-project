@@ -97,23 +97,24 @@ class ProjectCategory extends \app\components\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getProjects($count=true, $publish=1)
+	public function getProjects($count=false, $publish=1)
 	{
-		if($count == true) {
-			$model = Projects::find()
-				->where(['cat_id' => $this->cat_id]);
-			if($publish == 0)
-				$model->unpublish();
-			elseif($publish == 1)
-				$model->published();
-			elseif($publish == 2)
-				$model->deleted();
-
-			return $model->count();
+		if($count == false) {
+			return $this->hasMany(Projects::className(), ['cat_id' => 'cat_id'])
+				->andOnCondition([sprintf('%s.publish', Projects::tableName()) => $publish]);
 		}
 
-		return $this->hasMany(Projects::className(), ['cat_id' => 'cat_id'])
-			->andOnCondition([sprintf('%s.publish', Projects::tableName()) => $publish]);
+		$model = Projects::find()
+			->where(['cat_id' => $this->cat_id]);
+		if($publish == 0)
+			$model->unpublish();
+		elseif($publish == 1)
+			$model->published();
+		elseif($publish == 2)
+			$model->deleted();
+		$projects = $model->count();
+
+		return $projects ? $projects : 0;
 	}
 
 	/**
@@ -222,7 +223,8 @@ class ProjectCategory extends \app\components\ActiveRecord
 			'attribute' => 'projects',
 			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
-				return Html::a($model->projects, ['admin/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$model->projects])]);
+				$projects = $model->getProjects(true);
+				return Html::a($projects, ['admin/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$projects])]);
 			},
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
