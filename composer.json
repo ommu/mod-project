@@ -28,8 +28,6 @@
 			"role": "Creator"
 		}
 	],
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"require": {
 		"php": "~7.0",
 		"oomphinc/composer-installers-extender": "^1.0",
