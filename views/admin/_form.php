@@ -35,6 +35,7 @@ $redactorOptions = [
 <div class="projects-form">
 
 <?php $form = ActiveForm::begin([
+	'options' => ['class'=>'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -43,9 +44,9 @@ $redactorOptions = [
 <?php //echo $form->errorSummary($model);?>
 
 <?php $category = ProjectCategory::getCategory();
-echo $form->field($model, 'cat_id', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+echo $form->field($model, 'cat_id')
 	->dropDownList($category, ['prompt'=>''])
-	->label($model->getAttributeLabel('cat_id'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('cat_id')); ?>
 
 <?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
 echo $form->field($model, 'companyName', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}'.$company_id.'{error}</div>'])
@@ -67,39 +68,39 @@ echo $form->field($model, 'companyName', ['template' => '{label}<div class="col-
 	])
 	->label($model->getAttributeLabel('companyName'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
-<?php echo $form->field($model, 'project_name', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'project_name')
 	->textInput(['maxlength'=>true])
-	->label($model->getAttributeLabel('project_name'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('project_name')); ?>
 
-<?php echo $form->field($model, 'project_desc', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'project_desc')
 	->textarea(['rows'=>6, 'cols'=>50])
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
-	->label($model->getAttributeLabel('project_desc'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('project_desc')); ?>
 
 <?php $status = Projects::getStatus();
-echo $form->field($model, 'status', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+echo $form->field($model, 'status')
 	->dropDownList($status, ['prompt' => ''])
-	->label($model->getAttributeLabel('status'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('status')); ?>
 
-<?php echo $form->field($model, 'start_date', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'start_date')
 	->textInput(['type' => 'date'])
-	->label($model->getAttributeLabel('start_date'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('start_date')); ?>
 
-<?php echo $form->field($model, 'finish_date', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'finish_date')
 	->textInput(['type' => 'date'])
-	->label($model->getAttributeLabel('finish_date'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('finish_date')); ?>
 
-<?php echo $form->field($model, 'comment', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'comment')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('comment'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('comment')); ?>
 
-<?php echo $form->field($model, 'headline', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'headline')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('headline'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('headline')); ?>
 
-<?php echo $form->field($model, 'publish', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'publish')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('publish'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>
 <div class="form-group">

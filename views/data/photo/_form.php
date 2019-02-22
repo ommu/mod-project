@@ -24,6 +24,7 @@ use ommu\project\models\ProjectPhoto;
 
 <?php $form = ActiveForm::begin([
 	'options' => [
+		'class' => 'form-horizontal form-label-left',
 		'enctype' => 'multipart/form-data',
 	],
 	'enableClientValidation' => false,
@@ -39,21 +40,21 @@ echo $form->field($model, 'photo', ['template' => '{label}<div class="col-md-6 c
 	->fileInput()
 	->label($model->getAttributeLabel('photo'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
-<?php echo $form->field($model, 'photo_title', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'photo_title')
 	->textInput(['maxlength'=>true])
-	->label($model->getAttributeLabel('photo_title'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('photo_title')); ?>
 
-<?php echo $form->field($model, 'photo_caption', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'photo_caption')
 	->textarea(['rows'=>6, 'cols'=>50])
-	->label($model->getAttributeLabel('photo_caption'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('photo_caption')); ?>
 
-<?php echo $form->field($model, 'cover', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'cover')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('cover'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('cover')); ?>
 
-<?php echo $form->field($model, 'publish', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12 checkbox">{input}{error}</div>'])
+<?php echo $form->field($model, 'publish')
 	->checkbox(['label'=>''])
-	->label($model->getAttributeLabel('publish'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>
 <div class="form-group">

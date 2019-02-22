@@ -23,6 +23,7 @@ use ommu\project\models\ProjectCategory;
 <div class="project-setting-form">
 
 <?php $form = ActiveForm::begin([
+	'options' => ['class'=>'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -41,18 +42,18 @@ echo $form->field($model, 'permission', ['template' => '{label}<div class="col-m
 	->radioList($permission, ['class'=>'desc mt-10', 'separator' => '<br />'])
 	->label($model->getAttributeLabel('permission'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
 
-<?php echo $form->field($model, 'meta_description', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'meta_description')
 	->textarea(['rows'=>6, 'cols'=>50])
-	->label($model->getAttributeLabel('meta_description'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('meta_description')); ?>
 
-<?php echo $form->field($model, 'meta_keyword', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+<?php echo $form->field($model, 'meta_keyword')
 	->textarea(['rows'=>6, 'cols'=>50])
-	->label($model->getAttributeLabel('meta_keyword'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('meta_keyword')); ?>
 
 <?php $headline = ProjectSetting::getHeadline();
-echo $form->field($model, 'headline', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+echo $form->field($model, 'headline')
 	->radioList($headline, ['class'=>'desc pt-10', 'separator' => '<br />'])
-	->label($model->getAttributeLabel('headline'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('headline')); ?>
 
 <?php echo $form->field($model, 'headline_limit', ['template' => '<div class="col-md-6 col-sm-9 col-xs-12 col-sm-offset-3"><div class="h5">'.$model->getAttributeLabel('headline_limit').'</div>{input}{error}</div>'])
 	->textInput(['type'=>'number', 'min'=>'1'])

@@ -24,6 +24,7 @@ use yii\web\JsExpression;
 <div class="project-tag-form">
 
 <?php $form = ActiveForm::begin([
+	'options' => ['class'=>'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -32,9 +33,9 @@ use yii\web\JsExpression;
 <?php //echo $form->errorSummary($model);?>
 
 <?php if(!Yii::$app->request->get('project')) {
-echo $form->field($model, 'project_id', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}{error}</div>'])
+echo $form->field($model, 'project_id')
 	->textInput(['type'=>'number', 'min'=>'1'])
-	->label($model->getAttributeLabel('project_id'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']);
+	->label($model->getAttributeLabel('project_id'));
 } ?>
 
 <?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
