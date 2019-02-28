@@ -72,51 +72,51 @@ echo $form->field($model, 'headline', ['template' => '{label}{beginWrapper}{inpu
 	->label(Yii::t('app', 'Project Image')); ?>
 
 <?php $photoResize = ProjectSetting::getPhotoResize();
-echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-6 col-sm-9 col-12 offset-sm-3']])
+echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3']])
 	->radioList($photoResize)
 	->label($model->getAttributeLabel('photo_resize')); ?>
 
-<?php $photo_resize_size_height = $form->field($model, 'photo_resize_size[height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-6'], 'options' => ['tag' => null]])
+<?php $photo_resize_size_height = $form->field($model, 'photo_resize_size[height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-xs-6 col-6'], 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_resize_size[height]')])
 	->label($model->getAttributeLabel('photo_resize_size[height]')); ?>
 
-<?php echo $form->field($model, 'photo_resize_size[width]', ['template' => '{hint}{beginWrapper}{input}{endWrapper}'.$photo_resize_size_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-12 offset-sm-3', 'hint'=>'col-md-6 col-sm-9 col-12 offset-sm-3']])
+<?php echo $form->field($model, 'photo_resize_size[width]', ['template' => '{hint}{beginWrapper}{input}{endWrapper}'.$photo_resize_size_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3', 'hint'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3']])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_resize_size[width]')])
 	->label($model->getAttributeLabel('photo_resize_size'))
 	->hint(Yii::t('app', 'If you have selected "Yes" above, please input the maximum dimensions for the project image. If your users upload a image that is larger than these dimensions, the server will attempt to scale them down automatically. This feature requires that your PHP server is compiled with support for the GD Libraries.')); ?>
 
-<?php echo $form->field($model, 'photo_file_type', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-6 offset-sm-3']])
+<?php echo $form->field($model, 'photo_file_type', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-6 offset-sm-3']])
 	->textInput()
 	->label($model->getAttributeLabel('photo_file_type'))
 	->hint(Yii::t('app', 'What file types do you want to allow for project image (gif, jpg, jpeg, or png)? Separate file types with commas, i.e. jpg, jpeg, gif, png')); ?>
 
-<?php $photo_view_size_small_height = $form->field($model, 'photo_view_size[small][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-6'], 'options' => ['tag' => null]])
+<?php $photo_view_size_small_height = $form->field($model, 'photo_view_size[small][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-xs-6 col-6'], 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[small][height]')])
 	->label($model->getAttributeLabel('photo_view_size[small][height]')); ?>
 
-<?php echo $form->field($model, 'photo_view_size[small][width]', ['template' => '{label}<div class="h5 col-md-9 col-sm-9 col-12">'.$model->getAttributeLabel('photo_view_size[small]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_small_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-12 offset-sm-3']])
+<?php echo $form->field($model, 'photo_view_size[small][width]', ['template' => '{label}<div class="h5 col-md-9 col-sm-9 col-xs-12 col-12">'.$model->getAttributeLabel('photo_view_size[small]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_small_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3']])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[small][width]')])
 	->label($model->getAttributeLabel('photo_view_size')); ?>
 
-<?php $photo_view_size_medium_height = $form->field($model, 'photo_view_size[medium][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-6'], 'options' => ['tag' => null]])
+<?php $photo_view_size_medium_height = $form->field($model, 'photo_view_size[medium][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-xs-6 col-6'], 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[medium][height]')])
 	->label($model->getAttributeLabel('photo_view_size[medium][height]')); ?>
 
-<?php echo $form->field($model, 'photo_view_size[medium][width]', ['template' => '<div class="h5 col-md-6 col-sm-9 col-12 offset-sm-3">'.$model->getAttributeLabel('photo_view_size[medium]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_medium_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-12 offset-sm-3']])
+<?php echo $form->field($model, 'photo_view_size[medium][width]', ['template' => '<div class="h5 col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3">'.$model->getAttributeLabel('photo_view_size[medium]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_medium_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3']])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[medium][width]')])
 	->label($model->getAttributeLabel('photo_view_size[medium]')); ?>
 
-<?php $photo_view_size_large_height = $form->field($model, 'photo_view_size[large][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-6'], 'options' => ['tag' => null]])
+<?php $photo_view_size_large_height = $form->field($model, 'photo_view_size[large][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-xs-6 col-6'], 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[large][height]')])
 	->label($model->getAttributeLabel('photo_view_size[large][height]')); ?>
 
-<?php echo $form->field($model, 'photo_view_size[large][width]', ['template' => '<div class="h5 col-md-6 col-sm-9 col-12 offset-sm-3">'.$model->getAttributeLabel('photo_view_size[large]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_large_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-12 offset-sm-3']])
+<?php echo $form->field($model, 'photo_view_size[large][width]', ['template' => '<div class="h5 col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3">'.$model->getAttributeLabel('photo_view_size[large]').'</div>{beginWrapper}{input}{endWrapper}'.$photo_view_size_large_height.'{error}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-6 offset-sm-3', 'error'=>'col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3']])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[large][width]')])
 	->label($model->getAttributeLabel('photo_view_size[large]')); ?>
 
 <div class="ln_solid"></div>
 <div class="form-group row">
-	<div class="col-md-6 col-sm-9 col-12 offset-sm-3">
+	<div class="col-md-6 col-sm-9 col-xs-12 col-12 offset-sm-3">
 		<?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
 	</div>
 </div>
