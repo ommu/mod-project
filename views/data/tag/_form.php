@@ -39,7 +39,7 @@ echo $form->field($model, 'project_id')
 } ?>
 
 <?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
-echo $form->field($model, 'tagBody', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}'.$tag_id.'{error}</div>'])
+echo $form->field($model, 'tagBody', ['template' => '{label}{beginWrapper}{input}'.$tag_id.'{error}{hint}{endWrapper}'])
 	// ->textInput(['maxlength'=>true])
 	->widget(AutoComplete::className(), [
 		'options' => [
@@ -56,7 +56,7 @@ echo $form->field($model, 'tagBody', ['template' => '{label}<div class="col-md-6
 			}"),
 		]
 	])
-	->label($model->getAttributeLabel('tagBody'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('tagBody')); ?>
 
 <div class="ln_solid"></div>
 <div class="form-group row">

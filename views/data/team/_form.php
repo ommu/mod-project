@@ -44,7 +44,7 @@ echo $form->field($model, 'project_id')
 	->label($model->getAttributeLabel('position_id')); ?>
 
 <?php echo $form->field($model, 'publish')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>

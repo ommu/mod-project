@@ -36,9 +36,9 @@ use ommu\project\models\ProjectPhoto;
 
 <?php $uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->photo_id]);
 $photo = !$model->isNewRecord && $model->old_photo != '' ? Html::img(join('/', [Url::Base(), $uploadPath, $model->old_photo]), ['class'=>'mb-15', 'width'=>'100%']) : '';
-echo $form->field($model, 'photo', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12"><div>'.$photo.'</div>{input}{error}</div>'])
+echo $form->field($model, 'photo', ['template' => '{label}{beginWrapper}<div>'.$photo.'</div>{input}{error}{hint}{endWrapper}'])
 	->fileInput()
-	->label($model->getAttributeLabel('photo'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('photo')); ?>
 
 <?php echo $form->field($model, 'photo_title')
 	->textInput(['maxlength'=>true])
@@ -49,11 +49,11 @@ echo $form->field($model, 'photo', ['template' => '{label}<div class="col-md-6 c
 	->label($model->getAttributeLabel('photo_caption')); ?>
 
 <?php echo $form->field($model, 'cover')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('cover')); ?>
 
 <?php echo $form->field($model, 'publish')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>

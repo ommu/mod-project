@@ -49,7 +49,7 @@ echo $form->field($model, 'cat_id')
 	->label($model->getAttributeLabel('cat_id')); ?>
 
 <?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
-echo $form->field($model, 'companyName', ['template' => '{label}<div class="col-md-6 col-sm-9 col-xs-12">{input}'.$company_id.'{error}</div>'])
+echo $form->field($model, 'companyName', ['template' => '{label}{beginWrapper}{input}'.$company_id.'{error}{hint}{endWrapper}'])
 	// ->textInput(['maxlength'=>true])
 	->widget(AutoComplete::className(), [
 		'options' => [
@@ -66,7 +66,7 @@ echo $form->field($model, 'companyName', ['template' => '{label}<div class="col-
 			}"),
 		]
 	])
-	->label($model->getAttributeLabel('companyName'), ['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+	->label($model->getAttributeLabel('companyName')); ?>
 
 <?php echo $form->field($model, 'project_name')
 	->textInput(['maxlength'=>true])
@@ -91,15 +91,15 @@ echo $form->field($model, 'status')
 	->label($model->getAttributeLabel('finish_date')); ?>
 
 <?php echo $form->field($model, 'comment')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('comment')); ?>
 
 <?php echo $form->field($model, 'headline')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('headline')); ?>
 
 <?php echo $form->field($model, 'publish')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>

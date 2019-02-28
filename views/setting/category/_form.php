@@ -38,7 +38,7 @@ use app\components\ActiveForm;
 	->label($model->getAttributeLabel('cat_desc_i')); ?>
 
 <?php echo $form->field($model, 'publish')
-	->checkbox(['label'=>''])
+	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 
 <div class="ln_solid"></div>
