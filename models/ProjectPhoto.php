@@ -265,7 +265,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	 */
 	public static function getUploadPath($returnAlias=true) 
 	{
-		return ($returnAlias ? Yii::getAlias('@webroot/public/project') : 'public/project');
+		return ($returnAlias ? Yii::getAlias('@public/project') : 'public/project');
 	}
 
 	/**

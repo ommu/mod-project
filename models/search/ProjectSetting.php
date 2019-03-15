@@ -58,9 +58,12 @@ class ProjectSetting extends ProjectSettingModel
 	 *
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = ProjectSettingModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = ProjectSettingModel::find()->alias('t');
+		else
+			$query = ProjectSettingModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'modified modified'
 		]);

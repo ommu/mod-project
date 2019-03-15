@@ -58,9 +58,12 @@ class ProjectCategory extends ProjectCategoryModel
 	 *
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = ProjectCategoryModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = ProjectCategoryModel::find()->alias('t');
+		else
+			$query = ProjectCategoryModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'title title', 
 			'description description', 

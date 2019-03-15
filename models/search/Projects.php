@@ -60,9 +60,12 @@ class Projects extends ProjectsModel
 	 *
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = ProjectsModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = ProjectsModel::find()->alias('t');
+		else
+			$query = ProjectsModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'category.title category', 
 			'company company', 

@@ -59,9 +59,12 @@ class ProjectPhoto extends ProjectPhotoModel
 	 *
 	 * @return ActiveDataProvider
 	 */
-	public function search($params)
+	public function search($params, $column=null)
 	{
-		$query = ProjectPhotoModel::find()->alias('t');
+		if(!($column && is_array($column)))
+			$query = ProjectPhotoModel::find()->alias('t');
+		else
+			$query = ProjectPhotoModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'project project', 
 			'creation creation', 
