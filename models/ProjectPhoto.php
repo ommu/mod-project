@@ -150,15 +150,17 @@ class ProjectPhoto extends \app\components\ActiveRecord
 		if(!Yii::$app->request->get('project')) {
 			$this->templateColumns['categoryId'] = [
 				'attribute' => 'categoryId',
-				'filter' => ProjectCategory::getCategory(),
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->project->category) ? $model->project->category->title->message : '-';
+					// return $model->categoryId;
 				},
+				'filter' => ProjectCategory::getCategory(),
 			];
 			$this->templateColumns['projectName'] = [
 				'attribute' => 'projectName',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->project) ? $model->project->project_name : '-';
+					// return $model->projectName;
 				},
 			];
 		}
@@ -194,6 +196,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 				'attribute' => 'creationDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
@@ -209,6 +212,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 				'attribute' => 'modifiedDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
+					// return $model->modifiedDisplayname;
 				},
 			];
 		}
@@ -221,10 +225,10 @@ class ProjectPhoto extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['cover'] = [
 			'attribute' => 'cover',
-			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
 				return $this->filterYesNo($model->cover);
 			},
+			'filter' => $this->filterYesNo(),
 			'contentOptions' => ['class'=>'center'],
 		];
 		if(!Yii::$app->request->get('trash')) {

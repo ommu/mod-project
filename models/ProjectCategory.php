@@ -194,6 +194,7 @@ class ProjectCategory extends \app\components\ActiveRecord
 				'attribute' => 'creationDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
@@ -209,6 +210,7 @@ class ProjectCategory extends \app\components\ActiveRecord
 				'attribute' => 'modifiedDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
+					// return $model->modifiedDisplayname;
 				},
 			];
 		}
@@ -221,11 +223,11 @@ class ProjectCategory extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['projects'] = [
 			'attribute' => 'projects',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$projects = $model->getProjects(true);
 				return Html::a($projects, ['admin/manage', 'category'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} projects', ['count'=>$projects])]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];

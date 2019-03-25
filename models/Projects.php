@@ -253,6 +253,7 @@ class Projects extends \app\components\ActiveRecord
 				'attribute' => 'cat_id',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->category) ? $model->category->title->message : '-';
+					// return $model->categoryName;
 				},
 				'filter' => ProjectCategory::getCategory(),
 			];
@@ -262,6 +263,7 @@ class Projects extends \app\components\ActiveRecord
 				'attribute' => 'companyName',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->company) ? $model->company->company_name : '-';
+					// return $model->companyName;
 				},
 			];
 		}
@@ -311,6 +313,7 @@ class Projects extends \app\components\ActiveRecord
 				'attribute' => 'creationDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
@@ -326,6 +329,7 @@ class Projects extends \app\components\ActiveRecord
 				'attribute' => 'modifiedDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->modified) ? $model->modified->displayname : '-';
+					// return $model->modifiedDisplayname;
 				},
 			];
 		}
@@ -344,31 +348,31 @@ class Projects extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['photos'] = [
 			'attribute' => 'photos',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$photos = $model->getPhotos(true);
 				return Html::a($photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$photos])]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['tags'] = [
 			'attribute' => 'tags',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$tags = $model->getTags(true);
 				return Html::a($tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$tags])]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['teams'] = [
 			'attribute' => 'teams',
-			'filter' => false,
 			'value' => function($model, $key, $index, $column) {
 				$teams = $model->getTeams(true);
 				return Html::a($teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$teams])]);
 			},
+			'filter' => false,
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'html',
 		];
@@ -382,21 +386,21 @@ class Projects extends \app\components\ActiveRecord
 		];
 		$this->templateColumns['headline'] = [
 			'attribute' => 'headline',
-			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
 				$url = Url::to(['headline', 'id'=>$model->primaryKey]);
 				return $this->quickAction($url, $model->headline, 'Headline,Unheadline', true);
 			},
+			'filter' => $this->filterYesNo(),
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
 		];
 		$this->templateColumns['comment'] = [
 			'attribute' => 'comment',
-			'filter' => $this->filterYesNo(),
 			'value' => function($model, $key, $index, $column) {
 				$url = Url::to(['comment', 'id'=>$model->primaryKey]);
 				return $this->quickAction($url, $model->comment, 'Enable,Disable');
 			},
+			'filter' => $this->filterYesNo(),
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
 		];

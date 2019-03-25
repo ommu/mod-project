@@ -147,15 +147,17 @@ class ProjectTeam extends \app\components\ActiveRecord
 		if(!Yii::$app->request->get('project')) {
 			$this->templateColumns['categoryId'] = [
 				'attribute' => 'categoryId',
-				'filter' => ProjectCategory::getCategory(),
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->project->category) ? $model->project->category->title->message : '-';
+					// return $model->categoryId;
 				},
+				'filter' => ProjectCategory::getCategory(),
 			];
 			$this->templateColumns['projectName'] = [
 				'attribute' => 'projectName',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->project) ? $model->project->project_name : '-';
+					// return $model->projectName;
 				},
 			];
 		}
@@ -164,6 +166,7 @@ class ProjectTeam extends \app\components\ActiveRecord
 				'attribute' => 'userDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->user) ? $model->user->displayname : '-';
+					// return $model->userDisplayname;
 				},
 			];
 		}
@@ -172,6 +175,7 @@ class ProjectTeam extends \app\components\ActiveRecord
 				'attribute' => 'positionName',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->position) ? $model->position->position_name : '-';
+					// return $model->positionName;
 				},
 			];
 		}
@@ -187,6 +191,7 @@ class ProjectTeam extends \app\components\ActiveRecord
 				'attribute' => 'creationDisplayname',
 				'value' => function($model, $key, $index, $column) {
 					return isset($model->creation) ? $model->creation->displayname : '-';
+					// return $model->creationDisplayname;
 				},
 			];
 		}
