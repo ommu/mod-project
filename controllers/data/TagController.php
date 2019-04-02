@@ -148,7 +148,7 @@ class TagController extends Controller
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {tag-id}', ['model-class' => 'Tag', 'tag-id' => $model->tag->body]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_view', [
+		return $this->oRender('admin_view', [
 			'model' => $model,
 		]);
 	}

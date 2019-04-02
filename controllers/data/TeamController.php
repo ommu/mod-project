@@ -160,7 +160,7 @@ class TeamController extends Controller
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {project-id}', ['model-class' => 'Team', 'project-id' => $model->project->project_name]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_view', [
+		return $this->oRender('admin_view', [
 			'model' => $model,
 		]);
 	}

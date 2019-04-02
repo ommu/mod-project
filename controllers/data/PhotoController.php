@@ -144,7 +144,7 @@ class PhotoController extends Controller
 		$this->view->title = Yii::t('app', 'Detail {model-class}: {photo-title}', ['model-class' => 'Photo', 'photo-title' => $model->photo_title]);
 		$this->view->description = '';
 		$this->view->keywords = '';
-		return $this->render('admin_view', [
+		return $this->oRender('admin_view', [
 			'model' => $model,
 		]);
 	}
