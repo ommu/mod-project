@@ -33,7 +33,6 @@ use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectPhoto;
 use ommu\project\models\search\ProjectPhoto as ProjectPhotoSearch;
-use ommu\project\models\Projects;
 
 class PhotoController extends Controller
 {
@@ -70,8 +69,6 @@ class PhotoController extends Controller
 	 */
 	public function actionManage()
 	{
-		$project = Yii::$app->request->get('project');
-
 		$searchModel = new ProjectPhotoSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -85,8 +82,8 @@ class PhotoController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		if($project != null)
-			$projects = Projects::findOne($project);
+		if(($project = Yii::$app->request->get('project')) != null)
+			$project = \ommu\project\models\Projects::findOne($project);
 
 		$this->view->title = Yii::t('app', 'Photos');
 		$this->view->description = '';
@@ -96,7 +93,6 @@ class PhotoController extends Controller
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
 			'project' => $project,
-			'projects' => $projects,
 		]);
 	}
 

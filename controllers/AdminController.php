@@ -37,8 +37,6 @@ use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\Projects;
 use ommu\project\models\search\Projects as ProjectsSearch;
-use ommu\ipedia\models\IpediaCompanies;
-use ommu\project\models\ProjectCategory;
 
 class AdminController extends Controller
 {
@@ -77,9 +75,6 @@ class AdminController extends Controller
 	 */
 	public function actionManage()
 	{
-		$company = Yii::$app->request->get('company');
-		$category = Yii::$app->request->get('category');
-
 		$searchModel = new ProjectsSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -93,10 +88,10 @@ class AdminController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		if($company != null)
-			$companies = IpediaCompanies::findOne($company);
-		if($category != null)
-			$categories = ProjectCategory::findOne($category);
+		if(($company = Yii::$app->request->get('company')) != null)
+			$company = \ommu\ipedia\models\IpediaCompanies::findOne($company);
+		if(($category = Yii::$app->request->get('category')) != null)
+			$category = \ommu\project\models\ProjectCategory::findOne($category);
 
 		$this->view->title = Yii::t('app', 'Projects');
 		$this->view->description = '';
@@ -106,9 +101,7 @@ class AdminController extends Controller
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
 			'company' => $company,
-			'companies' => $companies,
 			'category' => $category,
-			'categories' => $categories,
 		]);
 	}
 

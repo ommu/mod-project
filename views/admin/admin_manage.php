@@ -39,9 +39,9 @@ $this->params['menu']['option'] = [
 <?php Pjax::begin(); ?>
 
 <?php if($company != null) {
-$model = $companies;
+$model = $company;
 echo DetailView::widget([
-	'model' => $companies,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
@@ -51,7 +51,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$memberDisplayname = isset($model->member) ? $model->member->displayname : '-';
 				if($memberDisplayname != '-')
-					return Html::a($memberDisplayname, ['/member/manage/admin/view', 'id'=>$model->member_id], ['title'=>$memberDisplayname]);
+					return Html::a($memberDisplayname, ['/member/manage/admin/view', 'id'=>$model->member_id], ['title'=>$memberDisplayname, 'class'=>'modal-btn']);
 				return $memberDisplayname;
 			},
 			'format' => 'html',
@@ -60,22 +60,14 @@ echo DetailView::widget([
 			'attribute' => 'company_name',
 			'value' => $model->company_name ? $model->company_name : '-',
 		],
-		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
-		],
 	],
 ]);
 }?>
 
 <?php if($category != null) {
-$model = $categories;
+$model = $category;
 echo DetailView::widget([
-	'model' => $categories,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
@@ -84,18 +76,14 @@ echo DetailView::widget([
 			'attribute' => 'cat_name_i',
 			'value' => function ($model) {
 				if($model->cat_name_i != '')
-					return Html::a($model->cat_name_i, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i]);
+					return Html::a($model->cat_name_i, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$model->cat_name_i, 'class'=>'modal-btn']);
 				return $model->cat_name_i;
 			},
 			'format' => 'html',
 		],
 		[
-			'attribute' => 'creation_date',
-			'value' => Yii::$app->formatter->asDatetime($model->creation_date, 'medium'),
-		],
-		[
-			'attribute' => 'creationDisplayname',
-			'value' => isset($model->creation) ? $model->creation->displayname : '-',
+			'attribute' => 'cat_desc_i',
+			'value' => $model->cat_desc_i,
 		],
 	],
 ]);

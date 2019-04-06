@@ -29,10 +29,10 @@ $this->params['menu']['option'] = [
 	['label' => Yii::t('app', 'Grid Option'), 'url' => 'javascript:void(0);'],
 ];
 
-$project = Yii::$app->request->get('project');
-if($project) {
+$projectId = Yii::$app->request->get('project');
+if($projectId) {
 	$this->params['menu']['content'] = [
-		['label' => Yii::t('app', 'Add Tag'), 'url' => Url::to(['create', 'project'=>$project]), 'htmlOptions' => ['class'=>'modal-btn'], 'icon' => 'plus-square'],
+		['label' => Yii::t('app', 'Add Tag'), 'url' => Url::to(['create', 'project'=>$projectId]), 'htmlOptions' => ['class'=>'modal-btn'], 'icon' => 'plus-square'],
 	];
 }
 ?>
@@ -41,9 +41,9 @@ if($project) {
 <?php Pjax::begin(); ?>
 
 <?php if($project != null) {
-$model = $projects;
+$model = $project;
 echo DetailView::widget([
-	'model' => $projects,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
@@ -53,7 +53,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
 				if($categoryName != '-')
-					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
+					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
 				return $categoryName;
 			},
 			'format' => 'html',
@@ -63,14 +63,14 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
 				if($companyName != '-')
-					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
+					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
 				return $companyName;
 			},
 			'format' => 'html',
 		],
 		[
 			'attribute' => 'project_name',
-			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name]),
+			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name, 'class'=>'modal-btn']),
 			'format' => 'html',
 		],
 		[

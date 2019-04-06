@@ -43,9 +43,9 @@ if($project) {
 <?php Pjax::begin(); ?>
 
 <?php if($project != null) {
-$model = $projects;
+$model = $project;
 echo DetailView::widget([
-	'model' => $projects,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
@@ -55,7 +55,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
 				if($categoryName != '-')
-					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName]);
+					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
 				return $categoryName;
 			},
 			'format' => 'html',
@@ -65,14 +65,14 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
 				if($companyName != '-')
-					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName]);
+					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
 				return $companyName;
 			},
 			'format' => 'html',
 		],
 		[
 			'attribute' => 'project_name',
-			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name]),
+			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name, 'class'=>'modal-btn']),
 			'format' => 'html',
 		],
 		[
@@ -97,13 +97,19 @@ echo DetailView::widget([
 }?>
 
 <?php if($user != null) {
-$model = $users;
+$model = $user;
 echo DetailView::widget([
-	'model' => $users,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
 	'attributes' => [
+		'displayname',
+		'email:email',
+		[
+			'attribute' => 'levelName',
+			'value' => isset($model->level) ? $model->level->title->message : '-',
+		],
 		[
 			'attribute' => 'enabled',
 			'value' => Users::getEnabled($model->enabled),
@@ -113,11 +119,6 @@ echo DetailView::widget([
 			'value' => $model->verified == 1 ? Yii::t('app', 'Verified') : Yii::t('app', 'Unverified'),
 		],
 		[
-			'attribute' => 'levelName',
-			'value' => isset($model->level) ? $model->level->title->message : '-',
-		],
-		'email:email',
-		[
 			'attribute' => 'lastlogin_date',
 			'value' => Yii::$app->formatter->asDatetime($model->lastlogin_date, 'medium'),
 		],
@@ -126,16 +127,16 @@ echo DetailView::widget([
 }?>
 
 <?php if($position != null) {
-$model = $positions;
+$model = $position;
 echo DetailView::widget([
-	'model' => $positions,
+	'model' => $model,
 	'options' => [
 		'class'=>'table table-striped detail-view',
 	],
 	'attributes' => [
 		[
 			'attribute' => 'position_name',
-			'value' => Html::a($model->position_name, ['/ipedia/position/view', 'id'=>$model->position_id], ['title'=>$model->position_name]),
+			'value' => Html::a($model->position_name, ['/ipedia/position/view', 'id'=>$model->position_id], ['title'=>$model->position_name, 'class'=>'modal-btn']),
 			'format' => 'html',
 		],
 		[

@@ -33,7 +33,6 @@ use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectTag;
 use ommu\project\models\search\ProjectTag as ProjectTagSearch;
-use ommu\project\models\Projects;
 use app\models\CoreTags;
 
 class TagController extends Controller
@@ -70,8 +69,6 @@ class TagController extends Controller
 	 */
 	public function actionManage()
 	{
-		$project = Yii::$app->request->get('project');
-
 		$searchModel = new ProjectTagSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -85,8 +82,8 @@ class TagController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		if($project != null)
-			$projects = Projects::findOne($project);
+		if(($project = Yii::$app->request->get('project')) != null)
+			$project = \ommu\project\models\Projects::findOne($project);
 
 		$this->view->title = Yii::t('app', 'Tags');
 		$this->view->description = '';
@@ -96,7 +93,6 @@ class TagController extends Controller
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
 			'project' => $project,
-			'projects' => $projects,
 		]);
 	}
 

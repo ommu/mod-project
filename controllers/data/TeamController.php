@@ -33,9 +33,6 @@ use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectTeam;
 use ommu\project\models\search\ProjectTeam as ProjectTeamSearch;
-use ommu\project\models\Projects;
-use ommu\users\models\Users;
-use ommu\ipedia\models\IpediaPositions;
 
 class TeamController extends Controller
 {
@@ -72,10 +69,6 @@ class TeamController extends Controller
 	 */
 	public function actionManage()
 	{
-		$project = Yii::$app->request->get('project');
-		$user = Yii::$app->request->get('user');
-		$position = Yii::$app->request->get('position');
-
 		$searchModel = new ProjectTeamSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -89,12 +82,12 @@ class TeamController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
-		if($project != null)
-			$projects = Projects::findOne($project);
-		if($user != null)
-			$users = Users::findOne($user);
-		if($position != null)
-			$positions = IpediaPositions::findOne($position);
+		if(($project = Yii::$app->request->get('project')) != null)
+			$project = \ommu\project\models\Projects::findOne($project);
+		if(($user = Yii::$app->request->get('user')) != null)
+			$user = \ommu\users\models\Users::findOne($user);
+		if(($position = Yii::$app->request->get('position')) != null)
+			$position = \ommu\ipedia\models\IpediaPositions::findOne($position);
 
 		$this->view->title = Yii::t('app', 'Teams');
 		$this->view->description = '';
@@ -104,11 +97,8 @@ class TeamController extends Controller
 			'dataProvider' => $dataProvider,
 			'columns' => $columns,
 			'project' => $project,
-			'projects' => $projects,
 			'user' => $user,
-			'users' => $users,
 			'position' => $position,
-			'positions' => $positions,
 		]);
 	}
 
