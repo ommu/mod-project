@@ -120,7 +120,7 @@ class PhotoController extends Controller
 			}
 		}
 
-		$this->view->title = Yii::t('app', 'Update {model-class}: {photo-title}', ['model-class' => 'Photo', 'photo-title' => $model->photo_title]);
+		$this->view->title = Yii::t('app', 'Update Photo: {photo-title}', ['photo-title' => $model->photo_title]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->render('admin_update', [
@@ -137,7 +137,7 @@ class PhotoController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		$this->view->title = Yii::t('app', 'Detail {model-class}: {photo-title}', ['model-class' => 'Photo', 'photo-title' => $model->photo_title]);
+		$this->view->title = Yii::t('app', 'Detail Photo: {photo-title}', ['photo-title' => $model->photo_title]);
 		$this->view->description = '';
 		$this->view->keywords = '';
 		return $this->oRender('admin_view', [
