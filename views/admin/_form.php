@@ -48,7 +48,7 @@ echo $form->field($model, 'cat_id')
 	->dropDownList($category, ['prompt'=>''])
 	->label($model->getAttributeLabel('cat_id')); ?>
 
-<?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
+<?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput();
 echo $form->field($model, 'companyName', ['template' => '{label}{beginWrapper}{input}'.$company_id.'{error}{hint}{endWrapper}'])
 	// ->textInput(['maxlength'=>true])
 	->widget(AutoComplete::className(), [

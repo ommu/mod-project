@@ -38,7 +38,7 @@ echo $form->field($model, 'project_id')
 	->label($model->getAttributeLabel('project_id'));
 } ?>
 
-<?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput()->label(false);
+<?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput();
 echo $form->field($model, 'tagBody', ['template' => '{label}{beginWrapper}{input}'.$tag_id.'{error}{hint}{endWrapper}'])
 	// ->textInput(['maxlength'=>true])
 	->widget(AutoComplete::className(), [

@@ -176,7 +176,7 @@ echo GridView::widget([
 			[
 				'attribute' => '',
 				'value' => Html::a(Yii::t('app', 'Update'), Url::to(['update']), [
-					'class' => 'btn btn-success',
+					'class' => 'btn btn-primary',
 				]),
 				'format' => 'raw',
 			],
