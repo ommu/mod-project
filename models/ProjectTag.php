@@ -27,13 +27,12 @@
 namespace ommu\project\models;
 
 use Yii;
+use yii\helpers\Inflector;
 use app\models\CoreTags;
 use ommu\users\models\Users;
 
 class ProjectTag extends \app\components\ActiveRecord
 {
-	use \ommu\traits\UtilityTrait;
-
 	public $gridForbiddenColumn = [];
 
 	public $tagBody;
@@ -221,7 +220,7 @@ class ProjectTag extends \app\components\ActiveRecord
 	{
 		if(parent::beforeSave($insert)) {
 			if($insert) {
-				$tagBody = $this->urlTitle($this->tagBody);
+				$tagBody = Inflector::slug($this->tagBody);
 				if($this->tag_id == 0) {
 					$tag = CoreTags::find()
 						->select(['tag_id'])
