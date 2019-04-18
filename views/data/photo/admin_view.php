@@ -39,12 +39,12 @@ $this->params['menu']['content'] = [
 		'photo_id',
 		[
 			'attribute' => 'publish',
-			'value' => $this->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish),
+			'value' => $model->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish),
 			'format' => 'raw',
 		],
 		[
 			'attribute' => 'cover',
-			'value' => $this->filterYesNo($model->cover),
+			'value' => $model->filterYesNo($model->cover),
 		],
 		[
 			'attribute' => 'categoryId',

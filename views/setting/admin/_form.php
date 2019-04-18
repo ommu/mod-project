@@ -33,7 +33,7 @@ use ommu\project\models\ProjectCategory;
 <?php //echo $form->errorSummary($model);?>
 
 <?php if($model->isNewRecord && !$model->getErrors())
-	$model->license = $this->licenseCode();
+	$model->license = $model->licenseCode();
 echo $form->field($model, 'license')
 	->textInput(['maxlength'=>true])
 	->label($model->getAttributeLabel('license'))

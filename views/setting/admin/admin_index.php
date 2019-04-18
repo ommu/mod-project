@@ -56,7 +56,7 @@ $this->params['menu']['content'] = [
 
 <?php //echo $this->render('/setting/category/_search', ['model'=>$searchModel]); ?>
 
-<?php echo $this->render('/setting/category/_option_form', ['model'=>$searchModel, 'gridColumns'=>$this->activeDefaultColumns($columns), 'route'=>$this->context->route]); ?>
+<?php echo $this->render('/setting/category/_option_form', ['model'=>$searchModel, 'gridColumns'=>$searchModel->activeDefaultColumns($columns), 'route'=>$this->context->route]); ?>
 
 <?php 
 $columnData = $columns;

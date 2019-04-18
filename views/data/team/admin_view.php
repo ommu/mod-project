@@ -37,7 +37,7 @@ $this->params['menu']['content'] = [
 		'team_id',
 		[
 			'attribute' => 'publish',
-			'value' => $this->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish, 'Active,Deactive'),
+			'value' => $model->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish, 'Active,Deactive'),
 			'format' => 'raw',
 		],
 		[

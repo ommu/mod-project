@@ -40,7 +40,7 @@ $this->params['menu']['content'] = [
 		'project_id',
 		[
 			'attribute' => 'publish',
-			'value' => $this->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish),
+			'value' => $model->quickAction(Url::to(['publish', 'id'=>$model->primaryKey]), $model->publish),
 			'format' => 'raw',
 		],
 		[
@@ -83,12 +83,12 @@ $this->params['menu']['content'] = [
 		],
 		[
 			'attribute' => 'headline',
-			'value' => $this->quickAction(Url::to(['headline', 'id'=>$model->primaryKey]), $model->headline, 'Headline,Unheadline'),
+			'value' => $model->quickAction(Url::to(['headline', 'id'=>$model->primaryKey]), $model->headline, 'Headline,Unheadline'),
 			'format' => 'raw',
 		],
 		[
 			'attribute' => 'comment',
-			'value' => $this->quickAction(Url::to(['comment', 'id'=>$model->primaryKey]), $model->comment, 'Enable,Disable'),
+			'value' => $model->quickAction(Url::to(['comment', 'id'=>$model->primaryKey]), $model->comment, 'Enable,Disable'),
 			'format' => 'raw',
 		],
 		[
