@@ -4,7 +4,7 @@
  * @var $this app\components\View
  * @var $this ommu\project\controllers\AdminController
  * @var $model ommu\project\models\Projects
- * @var $form app\components\ActiveForm
+ * @var $form app\components\widgets\ActiveForm
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @contact (+62)856-299-4114
@@ -17,7 +17,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\components\ActiveForm;
+use app\components\widgets\ActiveForm;
 use yii\redactor\widgets\Redactor;
 use ommu\project\models\Projects;
 use ommu\project\models\ProjectCategory;
