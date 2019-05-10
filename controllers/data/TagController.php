@@ -1,7 +1,7 @@
 <?php
 /**
  * TagController
- * @var $this app\components\View
+ * @var $this ommu\project\controllers\data\TagController
  * @var $model ommu\project\models\ProjectTag
  *
  * TagController implements the CRUD actions for ProjectTag model.

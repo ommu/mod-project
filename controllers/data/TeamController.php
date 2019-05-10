@@ -1,7 +1,7 @@
 <?php
 /**
  * TeamController
- * @var $this app\components\View
+ * @var $this ommu\project\controllers\data\TeamController
  * @var $model ommu\project\models\ProjectTeam
  *
  * TeamController implements the CRUD actions for ProjectTeam model.

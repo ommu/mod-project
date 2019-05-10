@@ -1,7 +1,7 @@
 <?php
 /**
  * PhotoController
- * @var $this app\components\View
+ * @var $this ommu\project\controllers\data\PhotoController
  * @var $model ommu\project\models\ProjectPhoto
  *
  * PhotoController implements the CRUD actions for ProjectPhoto model.

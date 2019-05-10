@@ -1,7 +1,7 @@
 <?php
 /**
  * CategoryController
- * @var $this app\components\View
+ * @var $this ommu\project\controllers\setting\CategoryController
  * @var $model ommu\project\models\ProjectCategory
  *
  * CategoryController implements the CRUD actions for ProjectCategory model.
