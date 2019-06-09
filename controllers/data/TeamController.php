@@ -28,8 +28,8 @@
 namespace ommu\project\controllers\data;
 
 use Yii;
-use app\components\Controller;
 use yii\filters\VerbFilter;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectTeam;
 use ommu\project\models\search\ProjectTeam as ProjectTeamSearch;

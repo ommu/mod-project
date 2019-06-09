@@ -29,8 +29,8 @@
 namespace ommu\project\controllers\setting;
 
 use Yii;
-use app\components\Controller;
 use yii\filters\VerbFilter;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectCategory;
 use ommu\project\models\search\ProjectCategory as ProjectCategorySearch;

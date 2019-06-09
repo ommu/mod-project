@@ -24,8 +24,8 @@
 namespace ommu\project\controllers\setting;
 
 use Yii;
-use app\components\Controller;
 use yii\filters\VerbFilter;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectSetting;
 use ommu\project\models\search\ProjectCategory as ProjectCategorySearch;
@@ -143,8 +143,9 @@ class AdminController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
-		
+		$model = $this->findModel($id);
+		$model->delete();
+
 		Yii::$app->session->setFlash('success', Yii::t('app', 'Project setting success deleted.'));
 		return $this->redirect(['update']);
 	}

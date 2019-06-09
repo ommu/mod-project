@@ -28,8 +28,8 @@
 namespace ommu\project\controllers\data;
 
 use Yii;
-use app\components\Controller;
 use yii\filters\VerbFilter;
+use app\components\Controller;
 use mdm\admin\components\AccessControl;
 use ommu\project\models\ProjectTag;
 use ommu\project\models\search\ProjectTag as ProjectTagSearch;
@@ -157,8 +157,9 @@ class TagController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
-		
+		$model = $this->findModel($id);
+		$model->delete();
+
 		Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success deleted.'));
 		return $this->redirect(['manage']);
 	}
