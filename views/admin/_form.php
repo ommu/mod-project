@@ -28,7 +28,7 @@ $redactorOptions = [
 	'imageManagerJson' => ['/redactor/upload/image-json'],
 	'imageUpload' => ['/redactor/upload/image'],
 	'fileUpload' => ['/redactor/upload/file'],
-	'plugins' => ['clips', 'fontcolor','imagemanager']
+	'plugins' => ['clips', 'fontcolor', 'imagemanager']
 ];
 ?>
 
@@ -79,15 +79,15 @@ echo $form->field($model, 'companyName', ['template' => '{label}{beginWrapper}{i
 
 <?php $status = Projects::getStatus();
 echo $form->field($model, 'status')
-	->dropDownList($status, ['prompt' => ''])
+	->dropDownList($status, ['prompt'=>''])
 	->label($model->getAttributeLabel('status')); ?>
 
 <?php echo $form->field($model, 'start_date')
-	->textInput(['type' => 'date'])
+	->textInput(['type'=>'date'])
 	->label($model->getAttributeLabel('start_date')); ?>
 
 <?php echo $form->field($model, 'finish_date')
-	->textInput(['type' => 'date'])
+	->textInput(['type'=>'date'])
 	->label($model->getAttributeLabel('finish_date')); ?>
 
 <?php echo $form->field($model, 'comment')
