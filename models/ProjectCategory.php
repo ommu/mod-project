@@ -102,7 +102,8 @@ class ProjectCategory extends \app\components\ActiveRecord
 	{
 		if($count == false) {
 			return $this->hasMany(Projects::className(), ['cat_id' => 'cat_id'])
-				->andOnCondition([sprintf('%s.publish', Projects::tableName()) => $publish]);
+				->alias('projects')
+				->andOnCondition([sprintf('%s.publish', 'projects') => $publish]);
 		}
 
 		$model = Projects::find()

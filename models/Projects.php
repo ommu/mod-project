@@ -141,7 +141,8 @@ class Projects extends \app\components\ActiveRecord
 	{
 		if($count == false) {
 			return $this->hasMany(ProjectPhoto::className(), ['project_id' => 'project_id'])
-				->andOnCondition([sprintf('%s.publish', ProjectPhoto::tableName()) => $publish]);
+				->alias('photos')
+				->andOnCondition([sprintf('%s.publish', 'photos') => $publish]);
 		}
 
 		$model = ProjectPhoto::find()
@@ -179,7 +180,8 @@ class Projects extends \app\components\ActiveRecord
 	{
 		if($count == false) {
 			return $this->hasMany(ProjectTeam::className(), ['project_id' => 'project_id'])
-				->andOnCondition([sprintf('%s.publish', ProjectTeam::tableName()) => $publish]);
+				->alias('teams')
+				->andOnCondition([sprintf('%s.publish', 'teams') => $publish]);
 		}
 
 		$model = ProjectTeam::find()
