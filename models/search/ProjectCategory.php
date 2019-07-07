@@ -69,7 +69,8 @@ class ProjectCategory extends ProjectCategoryModel
 			'description description', 
 			'creation creation', 
 			'modified modified'
-		]);
+		])
+		->groupBy(['cat_id']);
 
 		// add conditions that should always apply here
 		$dataParams = [

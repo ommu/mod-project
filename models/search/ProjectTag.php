@@ -70,7 +70,8 @@ class ProjectTag extends ProjectTagModel
 			'project project', 
 			'creation creation',
 			'project.category.title category',
-		]);
+		])
+		->groupBy(['id']);
 
 		// add conditions that should always apply here
 		$dataParams = [

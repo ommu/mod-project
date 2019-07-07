@@ -70,7 +70,8 @@ class ProjectPhoto extends ProjectPhotoModel
 			'creation creation', 
 			'modified modified',
 			'project.category.title category',
-		]);
+		])
+		->groupBy(['photo_id']);
 
 		// add conditions that should always apply here
 		$dataParams = [

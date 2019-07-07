@@ -71,7 +71,8 @@ class ProjectTeam extends ProjectTeamModel
 			'position position', 
 			'creation creation',
 			'project.category.title category',
-		]);
+		])
+		->groupBy(['team_id']);
 
 		// add conditions that should always apply here
 		$dataParams = [

@@ -66,7 +66,8 @@ class ProjectSetting extends ProjectSettingModel
 			$query = ProjectSettingModel::find()->alias('t')->select($column);
 		$query->joinWith([
 			'modified modified'
-		]);
+		])
+		->groupBy(['id']);
 
 		// add conditions that should always apply here
 		$dataParams = [

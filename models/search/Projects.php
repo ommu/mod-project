@@ -71,7 +71,8 @@ class Projects extends ProjectsModel
 			'company company', 
 			'creation creation', 
 			'modified modified'
-		]);
+		])
+		->groupBy(['project_id']);
 
 		// add conditions that should always apply here
 		$dataParams = [
