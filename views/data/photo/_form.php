@@ -40,7 +40,7 @@ use ommu\project\models\ProjectPhoto;
 <?php //echo $form->errorSummary($model);?>
 
 <?php $uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->photo_id]);
-$photo = !$model->isNewRecord && $model->old_photo != '' ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->old_photo])), ['class'=>'mb-15', 'width'=>'100%']) : '';
+$photo = !$model->isNewRecord && $model->old_photo != '' ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->old_photo])), ['alt'=>$model->old_photo, 'class'=>'mb-3']) : '';
 echo $form->field($model, 'photo', ['template' => '{label}{beginWrapper}<div>'.$photo.'</div>{input}{error}{hint}{endWrapper}'])
 	->fileInput()
 	->label($model->getAttributeLabel('photo')); ?>

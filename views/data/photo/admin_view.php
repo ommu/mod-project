@@ -71,7 +71,7 @@ $this->params['menu']['content'] = [
 			'attribute' => 'photo',
 			'value' => function ($model) {
 				$uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->project_id]);
-				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['width' => '100%']).'<br/><br/>'.$model->photo : '-';
+				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['alt'=>$model->photo, 'class'=>'mb-3']).'<br/>'.$model->photo : '-';
 			},
 			'format' => 'html',
 		],

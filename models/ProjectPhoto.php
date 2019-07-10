@@ -171,7 +171,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 			'attribute' => 'photo',
 			'value' => function($model, $key, $index, $column) {
 				$uploadPath = join('/', [self::getUploadPath(false), $model->project_id]);
-				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['alt' => $model->photo]) : '-';
+				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['alt'=>$model->photo]) : '-';
 			},
 			'format' => 'html',
 		];
