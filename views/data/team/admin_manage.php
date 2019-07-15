@@ -33,7 +33,7 @@ $this->params['menu']['option'] = [
 $project = Yii::$app->request->get('project');
 if($project) {
 	$this->params['menu']['content'] = [
-		['label' => Yii::t('app', 'Add Team'), 'url' => Url::to(['create', 'project'=>$project]), 'htmlOptions' => ['class'=>'modal-btn'], 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn btn-success']],
+		['label' => Yii::t('app', 'Add Team'), 'url' => Url::to(['create', 'project'=>$project]), 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn modal-btn btn-success']],
 	];
 }
 ?>
