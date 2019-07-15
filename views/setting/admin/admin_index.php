@@ -21,7 +21,6 @@ use yii\widgets\Pjax;
 use app\components\widgets\MenuContent;
 use app\components\widgets\MenuOption;
 use yii\widgets\DetailView;
-use ommu\project\models\ProjectSetting;
 
 $this->params['breadcrumbs'][] = Yii::t('app', 'Project Settings');
 
@@ -125,7 +124,7 @@ echo GridView::widget([
 			'license',
 			[
 				'attribute' => 'permission',
-				'value' => ProjectSetting::getPermission($model->permission),
+				'value' => $model::getPermission($model->permission),
 			],
 			[
 				'attribute' => 'meta_description',
@@ -137,7 +136,7 @@ echo GridView::widget([
 			],
 			[
 				'attribute' => 'headline',
-				'value' => ProjectSetting::getHeadline($model->headline),
+				'value' => $model::getHeadline($model->headline),
 			],
 			'headline_limit',
 			[
@@ -147,15 +146,15 @@ echo GridView::widget([
 			'photo_limit',
 			[
 				'attribute' => 'photo_resize',
-				'value' => ProjectSetting::getPhotoResize($model->photo_resize),
+				'value' => $model::getPhotoResize($model->photo_resize),
 			],
 			[
 				'attribute' => 'photo_resize_size',
-				'value' => ProjectSetting::getResize($model->photo_resize_size),
+				'value' => $model::getResize($model->photo_resize_size),
 			],
 			[
 				'attribute' => 'photo_view_size',
-				'value' => ProjectSetting::getViewSize($model->photo_view_size),
+				'value' => $model::getViewSize($model->photo_view_size),
 				'format' => 'html',
 			],
 			[

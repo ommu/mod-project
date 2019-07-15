@@ -16,8 +16,6 @@
 
 use yii\helpers\Html;
 use app\components\widgets\ActiveForm;
-// use yii\bootstrap\ActiveForm;
-use ommu\project\models\ProjectSetting;
 use ommu\project\models\ProjectCategory;
 ?>
 
@@ -44,7 +42,7 @@ echo $form->field($model, 'license')
 	->label($model->getAttributeLabel('license'))
 	->hint(Yii::t('app', 'Enter the your license key that is provided to you when you purchased this plugin. If you do not know your license key, please contact support team.').'<br/>'.Yii::t('app', 'Format: XXXX-XXXX-XXXX-XXXX')); ?>
 
-<?php $permission = ProjectSetting::getPermission();
+<?php $permission = $model::getPermission();
 echo $form->field($model, 'permission', ['template' => '{label}{beginWrapper}{hint}{input}{error}{endWrapper}'])
 	->radioList($permission)
 	->label($model->getAttributeLabel('permission'))
@@ -67,7 +65,7 @@ $headlineCategory = $form->field($model, 'headline_category', ['template' => '<d
 	->checkboxList($category)
 	->label($model->getAttributeLabel('headline_category')); ?>
 
-<?php $headline = ProjectSetting::getHeadline();
+<?php $headline = $model::getHeadline();
 echo $form->field($model, 'headline', ['template' => '{label}{beginWrapper}{input}{error}{hint}'.$headlineLimit.$headlineCategory.'{endWrapper}'])
 	->radioList($headline)
 	->label($model->getAttributeLabel('headline')); ?>
@@ -76,7 +74,7 @@ echo $form->field($model, 'headline', ['template' => '{label}{beginWrapper}{inpu
 	->textInput(['type'=>'number', 'min'=>'1'])
 	->label(Yii::t('app', 'Project Image')); ?>
 
-<?php $photoResize = ProjectSetting::getPhotoResize();
+<?php $photoResize = $model::getPhotoResize();
 echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-6 col-sm-9 col-xs-12 col-sm-offset-3']])
 	->radioList($photoResize)
 	->label($model->getAttributeLabel('photo_resize')); ?>
