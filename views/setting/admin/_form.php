@@ -91,7 +91,7 @@ echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div cla
 <?php echo $form->field($model, 'photo_file_type', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-sm-offset-3']])
 	->textInput()
 	->label($model->getAttributeLabel('photo_file_type'))
-	->hint(Yii::t('app', 'What file types do you want to allow for project image (gif, jpg, jpeg, or png)? Separate file types with commas, i.e. jpg, jpeg, gif, png')); ?>
+	->hint(Yii::t('app', 'What file types do you want to allow for project image (jpg, gif, or png)? Separate file types with commas, i.e. jpg, jpeg, bmp, gif, png')); ?>
 
 <?php $photo_view_size_small_height = $form->field($model, 'photo_view_size[small][height]', ['template' => '{beginWrapper}{input}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-5 col-xs-6'], 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[small][height]')])
