@@ -118,6 +118,7 @@ class TeamController extends Controller
 			$model->load(Yii::$app->request->post());
 			// $postData = Yii::$app->request->post();
 			// $model->load($postData);
+			// $model->order = $postData['order'] ? $postData['order'] : 0;
 			$model->project_id = $project;
 
 			if($model->save()) {
