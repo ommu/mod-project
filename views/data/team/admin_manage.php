@@ -95,35 +95,8 @@ echo DetailView::widget([
 ]);
 }?>
 
-<?php if($user != null) {
-$model = $user;
-echo DetailView::widget([
-	'model' => $model,
-	'options' => [
-		'class'=>'table table-striped detail-view',
-	],
-	'attributes' => [
-		'displayname',
-		'email:email',
-		[
-			'attribute' => 'levelName',
-			'value' => isset($model->level) ? $model->level->title->message : '-',
-		],
-		[
-			'attribute' => 'enabled',
-			'value' => Users::getEnabled($model->enabled),
-		],
-		[
-			'attribute' => 'verified',
-			'value' => $model->verified == 1 ? Yii::t('app', 'Verified') : Yii::t('app', 'Unverified'),
-		],
-		[
-			'attribute' => 'lastlogin_date',
-			'value' => Yii::$app->formatter->asDatetime($model->lastlogin_date, 'medium'),
-		],
-	],
-]);
-}?>
+<?php if($user != null)
+	echo $this->render('@users/views/member/admin_view', ['model'=>$user, 'small'=>true]); ?>
 
 <?php if($position != null) {
 $model = $position;
