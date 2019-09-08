@@ -146,7 +146,8 @@ class Projects extends \app\components\ActiveRecord
 		}
 
 		$model = ProjectPhoto::find()
-			->where(['project_id' => $this->project_id]);
+			->alias('t')
+			->where(['t.project_id' => $this->project_id]);
 		if($publish == 0)
 			$model->unpublish();
 		elseif($publish == 1)
@@ -167,7 +168,8 @@ class Projects extends \app\components\ActiveRecord
 			return $this->hasMany(ProjectTag::className(), ['project_id' => 'project_id']);
 
 		$model = ProjectTag::find()
-			->where(['project_id' => $this->project_id]);
+			->alias('t')
+			->where(['t.project_id' => $this->project_id]);
 		$tags = $model->count();
 
 		return $tags ? $tags : 0;
@@ -185,7 +187,8 @@ class Projects extends \app\components\ActiveRecord
 		}
 
 		$model = ProjectTeam::find()
-			->where(['project_id' => $this->project_id]);
+			->alias('t')
+			->where(['t.project_id' => $this->project_id]);
 		if($publish == 0)
 			$model->unpublish();
 		elseif($publish == 1)

@@ -107,7 +107,8 @@ class ProjectCategory extends \app\components\ActiveRecord
 		}
 
 		$model = Projects::find()
-			->where(['cat_id' => $this->cat_id]);
+			->alias('t')
+			->where(['t.cat_id' => $this->cat_id]);
 		if($publish == 0)
 			$model->unpublish();
 		elseif($publish == 1)
