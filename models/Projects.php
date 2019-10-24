@@ -259,25 +259,23 @@ class Projects extends \app\components\ActiveRecord
 			'class' => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('category')) {
-			$this->templateColumns['cat_id'] = [
-				'attribute' => 'cat_id',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->category) ? $model->category->title->message : '-';
-					// return $model->categoryName;
-				},
-				'filter' => ProjectCategory::getCategory(),
-			];
-		}
-		if(!Yii::$app->request->get('company')) {
-			$this->templateColumns['companyName'] = [
-				'attribute' => 'companyName',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->company) ? $model->company->company_name : '-';
-					// return $model->companyName;
-				},
-			];
-		}
+		$this->templateColumns['cat_id'] = [
+			'attribute' => 'cat_id',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->category) ? $model->category->title->message : '-';
+				// return $model->categoryName;
+			},
+			'filter' => ProjectCategory::getCategory(),
+			'visible' => !Yii::$app->request->get('category') ? true : false,
+		];
+		$this->templateColumns['companyName'] = [
+			'attribute' => 'companyName',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->company) ? $model->company->company_name : '-';
+				// return $model->companyName;
+			},
+			'visible' => !Yii::$app->request->get('company') ? true : false,
+		];
 		$this->templateColumns['project_name'] = [
 			'attribute' => 'project_name',
 			'value' => function($model, $key, $index, $column) {
@@ -319,15 +317,14 @@ class Projects extends \app\components\ActiveRecord
 			},
 			'filter' => $this->filterDatepicker($this, 'creation_date'),
 		];
-		if(!Yii::$app->request->get('creation')) {
-			$this->templateColumns['creationDisplayname'] = [
-				'attribute' => 'creationDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->creation) ? $model->creation->displayname : '-';
-					// return $model->creationDisplayname;
-				},
-			];
-		}
+		$this->templateColumns['creationDisplayname'] = [
+			'attribute' => 'creationDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->creation) ? $model->creation->displayname : '-';
+				// return $model->creationDisplayname;
+			},
+			'visible' => !Yii::$app->request->get('creation') ? true : false,
+		];
 		$this->templateColumns['modified_date'] = [
 			'attribute' => 'modified_date',
 			'value' => function($model, $key, $index, $column) {
@@ -335,15 +332,14 @@ class Projects extends \app\components\ActiveRecord
 			},
 			'filter' => $this->filterDatepicker($this, 'modified_date'),
 		];
-		if(!Yii::$app->request->get('modified')) {
-			$this->templateColumns['modifiedDisplayname'] = [
-				'attribute' => 'modifiedDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->modified) ? $model->modified->displayname : '-';
-					// return $model->modifiedDisplayname;
-				},
-			];
-		}
+		$this->templateColumns['modifiedDisplayname'] = [
+			'attribute' => 'modifiedDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->modified) ? $model->modified->displayname : '-';
+				// return $model->modifiedDisplayname;
+			},
+			'visible' => !Yii::$app->request->get('modified') ? true : false,
+		];
 		$this->templateColumns['updated_date'] = [
 			'attribute' => 'updated_date',
 			'value' => function($model, $key, $index, $column) {
@@ -415,18 +411,17 @@ class Projects extends \app\components\ActiveRecord
 			'contentOptions' => ['class'=>'center'],
 			'format' => 'raw',
 		];
-		if(!Yii::$app->request->get('trash')) {
-			$this->templateColumns['publish'] = [
-				'attribute' => 'publish',
-				'value' => function($model, $key, $index, $column) {
-					$url = Url::to(['publish', 'id'=>$model->primaryKey]);
-					return $this->quickAction($url, $model->publish);
-				},
-				'filter' => $this->filterYesNo(),
-				'contentOptions' => ['class'=>'center'],
-				'format' => 'raw',
-			];
-		}
+		$this->templateColumns['publish'] = [
+			'attribute' => 'publish',
+			'value' => function($model, $key, $index, $column) {
+				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				return $this->quickAction($url, $model->publish);
+			},
+			'filter' => $this->filterYesNo(),
+			'contentOptions' => ['class'=>'center'],
+			'format' => 'raw',
+			'visible' => !Yii::$app->request->get('trash') ? true : false,
+		];
 	}
 
 	/**

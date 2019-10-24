@@ -130,32 +130,31 @@ class ProjectTag extends \app\components\ActiveRecord
 			'class' => 'yii\grid\SerialColumn',
 			'contentOptions' => ['class'=>'center'],
 		];
-		if(!Yii::$app->request->get('project')) {
-			$this->templateColumns['categoryId'] = [
-				'attribute' => 'categoryId',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->project->category) ? $model->project->category->title->message : '-';
-					// return $model->categoryId;
-				},
-				'filter' => ProjectCategory::getCategory(),
-			];
-			$this->templateColumns['projectName'] = [
-				'attribute' => 'projectName',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->project) ? $model->project->project_name : '-';
-					// return $model->projectName;
-				},
-			];
-		}
-		if(!Yii::$app->request->get('tag')) {
-			$this->templateColumns['tagBody'] = [
-				'attribute' => 'tagBody',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->tag) ? $model->tag->body : '-';
-					// return $model->tagBody;
-				},
-			];
-		}
+		$this->templateColumns['categoryId'] = [
+			'attribute' => 'categoryId',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->project->category) ? $model->project->category->title->message : '-';
+				// return $model->categoryId;
+			},
+			'filter' => ProjectCategory::getCategory(),
+			'visible' => !Yii::$app->request->get('project') ? true : false,
+		];
+		$this->templateColumns['projectName'] = [
+			'attribute' => 'projectName',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->project) ? $model->project->project_name : '-';
+				// return $model->projectName;
+			},
+			'visible' => !Yii::$app->request->get('project') ? true : false,
+		];
+		$this->templateColumns['tagBody'] = [
+			'attribute' => 'tagBody',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->tag) ? $model->tag->body : '-';
+				// return $model->tagBody;
+			},
+			'visible' => !Yii::$app->request->get('tag') ? true : false,
+		];
 		$this->templateColumns['creation_date'] = [
 			'attribute' => 'creation_date',
 			'value' => function($model, $key, $index, $column) {
@@ -163,15 +162,14 @@ class ProjectTag extends \app\components\ActiveRecord
 			},
 			'filter' => $this->filterDatepicker($this, 'creation_date'),
 		];
-		if(!Yii::$app->request->get('creation')) {
-			$this->templateColumns['creationDisplayname'] = [
-				'attribute' => 'creationDisplayname',
-				'value' => function($model, $key, $index, $column) {
-					return isset($model->creation) ? $model->creation->displayname : '-';
-					// return $model->creationDisplayname;
-				},
-			];
-		}
+		$this->templateColumns['creationDisplayname'] = [
+			'attribute' => 'creationDisplayname',
+			'value' => function($model, $key, $index, $column) {
+				return isset($model->creation) ? $model->creation->displayname : '-';
+				// return $model->creationDisplayname;
+			},
+			'visible' => !Yii::$app->request->get('creation') ? true : false,
+		];
 	}
 
 	/**
