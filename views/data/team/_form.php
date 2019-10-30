@@ -48,7 +48,9 @@ echo $form->field($model, 'project_id')
 	->textInput(['type'=>'number', 'min'=>'1'])
 	->label($model->getAttributeLabel('position_id')); ?>
 
-<?php echo $form->field($model, 'publish')
+<?php if($model->isNewRecord && !$model->getErrors())
+	$model->publish = 1;
+echo $form->field($model, 'publish')
 	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 

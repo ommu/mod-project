@@ -57,7 +57,9 @@ echo $form->field($model, 'photo', ['template' => '{label}{beginWrapper}<div>'.$
 	->checkbox()
 	->label($model->getAttributeLabel('cover')); ?>
 
-<?php echo $form->field($model, 'publish')
+<?php if($model->isNewRecord && !$model->getErrors())
+	$model->publish = 1;
+echo $form->field($model, 'publish')
 	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>
 
