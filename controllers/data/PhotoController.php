@@ -28,9 +28,9 @@
 namespace ommu\project\controllers\data;
 
 use Yii;
-use yii\filters\VerbFilter;
 use app\components\Controller;
 use mdm\admin\components\AccessControl;
+use yii\filters\VerbFilter;
 use ommu\project\models\ProjectPhoto;
 use ommu\project\models\search\ProjectPhoto as ProjectPhotoSearch;
 
