@@ -117,7 +117,7 @@ echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div cla
 	->textInput(['type'=>'number', 'min'=>0, 'maxlength'=>'4', 'placeholder'=>$model->getAttributeLabel('photo_view_size[large][width]')])
 	->label($model->getAttributeLabel('photo_view_size[large]')); ?>
 
-<div class="ln_solid"></div>
+<hr/>
 
 <?php echo $form->field($model, 'submitButton')
 	->submitButton(); ?>

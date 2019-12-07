@@ -63,7 +63,7 @@ echo $form->field($model, 'tagBody', ['template' => '{label}{beginWrapper}{input
 	])
 	->label($model->getAttributeLabel('tagBody')); ?>
 
-<div class="ln_solid"></div>
+<hr/>
 
 <?php echo $form->field($model, 'submitButton')
 	->submitButton(); ?>
