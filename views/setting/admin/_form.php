@@ -56,12 +56,12 @@ echo $form->field($model, 'permission', ['template' => '{label}{beginWrapper}{hi
 	->textarea(['rows'=>6, 'cols'=>50])
 	->label($model->getAttributeLabel('meta_keyword')); ?>
 
-<?php $headlineLimit = $form->field($model, 'headline_limit', ['template' => '<div class="h5">'.$model->getAttributeLabel('headline_limit').'</div>{input}{error}{hint}', 'options' => ['tag' => null]])
+<?php $headlineLimit = $form->field($model, 'headline_limit', ['template' => '<div class="h6 mt-3 mb-3">'.$model->getAttributeLabel('headline_limit').'</div>{input}{error}{hint}', 'options' => ['tag' => null]])
 	->textInput(['type'=>'number', 'min'=>'1'])
 	->label($model->getAttributeLabel('headline_limit')); ?>
 
 <?php $category = ProjectCategory::getCategory(1);
-$headlineCategory = $form->field($model, 'headline_category', ['template' => '<div class="h5">'.$model->getAttributeLabel('headline_category').'</div>{input}{error}{hint}', 'options' => ['tag' => null]])
+$headlineCategory = $form->field($model, 'headline_category', ['template' => '<div class="h6 mt-3 mb-3">'.$model->getAttributeLabel('headline_category').'</div>{input}{error}{hint}', 'options' => ['tag' => null]])
 	->checkboxList($category)
 	->label($model->getAttributeLabel('headline_category')); ?>
 
@@ -70,12 +70,12 @@ echo $form->field($model, 'headline', ['template' => '{label}{beginWrapper}{inpu
 	->radioList($headline)
 	->label($model->getAttributeLabel('headline')); ?>
 
-<?php echo $form->field($model, 'photo_limit', ['template' => '{label}{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_limit').'</div>{input}{error}{hint}{endWrapper}'])
+<?php echo $form->field($model, 'photo_limit', ['template' => '{label}{beginWrapper}<div class="h6 mt-3 mb-3">'.$model->getAttributeLabel('photo_limit').'</div>{input}{error}{hint}{endWrapper}'])
 	->textInput(['type'=>'number', 'min'=>'1'])
 	->label(Yii::t('app', 'Project Image')); ?>
 
 <?php $photoResize = $model::getPhotoResize();
-echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-6 col-sm-9 col-xs-12 col-sm-offset-3']])
+echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div class="h6 mt-3 mb-3">'.$model->getAttributeLabel('photo_resize').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-6 col-sm-9 col-xs-12 col-sm-offset-3']])
 	->radioList($photoResize)
 	->label($model->getAttributeLabel('photo_resize')); ?>
 
@@ -88,7 +88,7 @@ echo $form->field($model, 'photo_resize', ['template' => '{beginWrapper}<div cla
 	->label($model->getAttributeLabel('photo_resize_size'))
 	->hint(Yii::t('app', 'If you have selected "Yes" above, please input the maximum dimensions for the project image. If your users upload a image that is larger than these dimensions, the server will attempt to scale them down automatically. This feature requires that your PHP server is compiled with support for the GD Libraries.')); ?>
 
-<?php echo $form->field($model, 'photo_file_type', ['template' => '{beginWrapper}<div class="h5">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-sm-offset-3']])
+<?php echo $form->field($model, 'photo_file_type', ['template' => '{beginWrapper}<div class="h6 mt-3 mb-3">'.$model->getAttributeLabel('photo_file_type').'</div>{input}{error}{hint}{endWrapper}', 'horizontalCssClasses' => ['wrapper'=>'col-md-3 col-sm-4 col-xs-6 col-sm-offset-3']])
 	->textInput()
 	->label($model->getAttributeLabel('photo_file_type'))
 	->hint(Yii::t('app', 'What file types do you want to allow for project image (jpg, gif, or png)? Separate file types with commas, i.e. jpg, jpeg, bmp, gif, png')); ?>
