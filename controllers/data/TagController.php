@@ -106,7 +106,7 @@ class TagController extends Controller
 		$model = new ProjectTag();
 		$project = Yii::$app->request->get('project');
 		if(!$project)
-			throw new \yii\web\NotAcceptableHttpException(Yii::t('app', 'The requested page does not exist.'));
+			throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'The requested page does not exist.'));
 
 		if(Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
