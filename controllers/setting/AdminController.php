@@ -55,8 +55,6 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->layout = 'admin_default';
-
 		$model = ProjectSetting::findOne(1);
 		if($model === null) 
 			$model = new ProjectSetting(['id'=>1]);
@@ -90,6 +88,7 @@ class AdminController extends Controller
 		}
 		$columns = $searchModel->getGridColumn($cols);
 
+		$this->view->cards = false;
 		$this->view->title = Yii::t('app', 'Project Settings');
 		$this->view->description = '';
 		$this->view->keywords = '';
