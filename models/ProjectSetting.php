@@ -139,7 +139,7 @@ class ProjectSetting extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'yii\grid\SerialColumn',
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['license'] = [
 			'attribute' => 'license',
@@ -222,7 +222,7 @@ class ProjectSetting extends \app\components\ActiveRecord
 				return $this->filterYesNo($model->photo_resize);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 		];
 		$this->templateColumns['headline'] = [
 			'attribute' => 'headline',
@@ -231,7 +231,7 @@ class ProjectSetting extends \app\components\ActiveRecord
 				return $this->quickAction($url, $model->headline, 'Enable,Disable', true);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'center'],
+			'contentOptions' => ['class'=>'text-center'],
 			'format' => 'raw',
 		];
 	}
