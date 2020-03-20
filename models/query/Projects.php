@@ -5,9 +5,9 @@
  * This is the ActiveQuery class for [[\ommu\project\models\Projects]].
  * @see \ommu\project\models\Projects
  * 
- * @author Putra Sudaryanto <putra@ommu.co>
+ * @author Putra Sudaryanto <putra@ommu.id>
  * @contact (+62)856-299-4114
- * @copyright Copyright (c) 2019 OMMU (www.ommu.co)
+ * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 7 February 2019, 17:57 WIB
  * @link https://bitbucket.org/ommu/project
  *
