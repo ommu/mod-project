@@ -85,7 +85,7 @@ class TeamController extends Controller
 		if(($project = Yii::$app->request->get('project')) != null)
 			$project = \ommu\project\models\Projects::findOne($project);
 		if(($user = Yii::$app->request->get('user')) != null)
-			$user = \ommu\users\models\Users::findOne($user);
+			$user = \app\models\Users::findOne($user);
 		if(($position = Yii::$app->request->get('position')) != null)
 			$position = \ommu\ipedia\models\IpediaPositions::findOne($position);
 

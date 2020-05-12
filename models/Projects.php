@@ -48,7 +48,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\behaviors\SluggableBehavior;
-use ommu\users\models\Users;
+use app\models\Users;
 use ommu\ipedia\models\IpediaCompanies;
 
 class Projects extends \app\components\ActiveRecord

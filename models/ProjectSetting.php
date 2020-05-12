@@ -36,7 +36,7 @@ namespace ommu\project\models;
 
 use Yii;
 use yii\helpers\Url;
-use ommu\users\models\Users;
+use app\models\Users;
 
 class ProjectSetting extends \app\components\ActiveRecord
 {

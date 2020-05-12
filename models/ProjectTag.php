@@ -29,7 +29,7 @@ namespace ommu\project\models;
 use Yii;
 use yii\helpers\Inflector;
 use app\models\CoreTags;
-use ommu\users\models\Users;
+use app\models\Users;
 
 class ProjectTag extends \app\components\ActiveRecord
 {

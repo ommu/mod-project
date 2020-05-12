@@ -32,7 +32,7 @@ namespace ommu\project\models;
 
 use Yii;
 use yii\helpers\Url;
-use ommu\users\models\Users;
+use app\models\Users;
 use ommu\ipedia\models\IpediaPositions;
 
 class ProjectTeam extends \app\components\ActiveRecord

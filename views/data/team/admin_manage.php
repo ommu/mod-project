@@ -20,7 +20,7 @@ use app\components\grid\GridView;
 use yii\widgets\Pjax;
 use yii\widgets\DetailView;
 use ommu\project\models\Projects;
-use ommu\users\models\Users;
+use app\models\Users;
 use ommu\ipedia\models\IpediaPositions;
 
 $this->params['breadcrumbs'][] = $this->title;
