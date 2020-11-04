@@ -42,17 +42,17 @@ class TagController extends Controller
 	 */
 	public function behaviors()
 	{
-		return [
-			'access' => [
-				'class' => AccessControl::className(),
-			],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['POST'],
-				],
-			],
-		];
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
 	}
 
 	/**
@@ -60,7 +60,7 @@ class TagController extends Controller
 	 */
 	public function actionIndex()
 	{
-		return $this->redirect(['manage']);
+        return $this->redirect(['manage']);
 	}
 
 	/**
@@ -105,29 +105,29 @@ class TagController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new ProjectTag();
+        $model = new ProjectTag();
 		$project = Yii::$app->request->get('project');
         if (!$project) {
 			throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
 
         if (Yii::$app->request->isPost) {
-			$model->load(Yii::$app->request->post());
-			// $postData = Yii::$app->request->post();
-			// $model->load($postData);
-			// $model->order = $postData['order'] ? $postData['order'] : 0;
+            $model->load(Yii::$app->request->post());
+            // $postData = Yii::$app->request->post();
+            // $model->load($postData);
+            // $model->order = $postData['order'] ? $postData['order'] : 0;
 			$model->project_id = $project;
 
             if ($model->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
-				return $this->redirect(['manage', 'project'=>$model->project_id]);
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
+                return $this->redirect(['manage', 'project'=>$model->project_id]);
 
             } else {
                 if (Yii::$app->request->isAjax) {
                     return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
                 }
-			}
-		}
+            }
+        }
 
 		$this->view->title = Yii::t('app', 'Create Tag');
 		$this->view->description = '';
@@ -144,7 +144,7 @@ class TagController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = $this->findModel($id);
+        $model = $this->findModel($id);
 
 		$this->view->title = Yii::t('app', 'Detail Tag: {tag-id}', ['tag-id' => $model->tag->body]);
 		$this->view->description = '';
