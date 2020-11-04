@@ -119,11 +119,13 @@ class ProjectTag extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -177,19 +179,20 @@ class ProjectTag extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
@@ -210,13 +213,14 @@ class ProjectTag extends \app\components\ActiveRecord
 	 */
 	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -224,26 +228,27 @@ class ProjectTag extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		if(parent::beforeSave($insert)) {
-			if($insert) {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
 				$tagBody = Inflector::slug($this->tagBody);
-				if($this->tag_id == 0) {
+                if ($this->tag_id == 0) {
 					$tag = CoreTags::find()
 						->select(['tag_id'])
 						->andWhere(['body' => $tagBody])
 						->one();
 						
-					if($tag != null)
-						$this->tag_id = $tag->tag_id;
-					else {
+                    if ($tag != null) {
+                        $this->tag_id = $tag->tag_id;
+                    } else {
 						$data = new CoreTags();
 						$data->body = $this->tagBody;
-						if($data->save())
-							$this->tag_id = $data->tag_id;
+                        if ($data->save()) {
+                            $this->tag_id = $data->tag_id;
+                        }
 					}
 				}
-			}
-		}
-		return true;
+            }
+        }
+        return true;
 	}
 }

@@ -142,11 +142,13 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -253,26 +255,27 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['photo_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['photo_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
 	 * @param returnAlias set true jika ingin kembaliannya path alias atau false jika ingin string
 	 * relative path. default true.
 	 */
-	public static function getUploadPath($returnAlias=true) 
+	public static function getUploadPath($returnAlias=true)
 	{
 		return ($returnAlias ? Yii::getAlias('@public/project') : 'project');
 	}
@@ -296,31 +299,34 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	 */
 	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			$photoFileType = ['bmp','gif','jpg','png'];
+        if (parent::beforeValidate()) {
+			$photoFileType = ['bmp', 'gif', 'jpg', 'png'];
 			$photo = UploadedFile::getInstance($this, 'photo');
 
-			if($photo instanceof UploadedFile && !$photo->getHasError()) {
-				if(!in_array(strtolower($photo->getExtension()), $photoFileType)) {
+            if ($photo instanceof UploadedFile && !$photo->getHasError()) {
+                if (!in_array(strtolower($photo->getExtension()), $photoFileType)) {
 					$this->addError('photo', Yii::t('app', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}', [
 						'name'=>$photo->name,
 						'extensions'=>$this->formatFileType($photoFileType, false),
 					]));
-				}
-			} else {
-				if($this->isNewRecord || (!$this->isNewRecord && $this->old_photo == ''))
-					$this->addError('photo', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo')]));
+                }
+            } else {
+                if ($this->isNewRecord || (!$this->isNewRecord && $this->old_photo == '')) {
+                    $this->addError('photo', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo')]));
+                }
 			}
 
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			} else {
-				if($this->modified_id == null)
-					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            } else {
+                if ($this->modified_id == null) {
+                    $this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -328,25 +334,27 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		if(parent::beforeSave($insert)) {
-			$uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
-			$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
-			$this->createUploadDirectory(self::getUploadPath(), $this->project_id);
+        if (parent::beforeSave($insert)) {
+            $uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
+            $verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
+            $this->createUploadDirectory(self::getUploadPath(), $this->project_id);
 
 			$this->photo = UploadedFile::getInstance($this, 'photo');
-			if($this->photo instanceof UploadedFile && !$this->photo->getHasError()) {
-				$fileName = join('-', [time(), UuidHelper::uuid()]).'.'.strtolower($this->photo->getExtension()); 
-				if($this->photo->saveAs(join('/', [$uploadPath, $fileName]))) {
-					if(!$insert && $this->old_photo != '' && file_exists(join('/', [$uploadPath, $this->old_photo])))
-						rename(join('/', [$uploadPath, $this->old_photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_change_'.$this->old_photo]));
+            if ($this->photo instanceof UploadedFile && !$this->photo->getHasError()) {
+				$fileName = join('-', [time(), UuidHelper::uuid()]).'.'.strtolower($this->photo->getExtension());
+                if ($this->photo->saveAs(join('/', [$uploadPath, $fileName]))) {
+                    if (!$insert && $this->old_photo != '' && file_exists(join('/', [$uploadPath, $this->old_photo]))) {
+                        rename(join('/', [$uploadPath, $this->old_photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_change_'.$this->old_photo]));
+                    }
 					$this->photo = $fileName;
-				}
-			} else {
-				if($this->photo == '')
-					$this->photo = $this->old_photo;
-			}
-		}
-		return true;
+                }
+            } else {
+                if ($this->photo == '') {
+                    $this->photo = $this->old_photo;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -354,12 +362,13 @@ class ProjectPhoto extends \app\components\ActiveRecord
 	 */
 	public function afterDelete()
 	{
-		parent::afterDelete();
+        parent::afterDelete();
 
-		$uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
-		$verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
+        $uploadPath = join('/', [self::getUploadPath(), $this->project_id]);
+        $verwijderenPath = join('/', [self::getUploadPath(), 'verwijderen']);
 
-		if($this->photo != '' && file_exists(join('/', [$uploadPath, $this->photo])))
-			rename(join('/', [$uploadPath, $this->photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_deleted_'.$this->photo]));
+        if ($this->photo != '' && file_exists(join('/', [$uploadPath, $this->photo]))) {
+            rename(join('/', [$uploadPath, $this->photo]), join('/', [$verwijderenPath, $this->project_id.'-'.time().'_deleted_'.$this->photo]));
+        }
 	}
 }

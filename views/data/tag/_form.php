@@ -37,10 +37,11 @@ use yii\web\JsExpression;
 
 <?php //echo $form->errorSummary($model);?>
 
-<?php if(!Yii::$app->request->get('project')) {
-echo $form->field($model, 'project_id')
-	->textInput(['type'=>'number', 'min'=>'1'])
-	->label($model->getAttributeLabel('project_id'));
+<?php 
+if (!Yii::$app->request->get('project')) {
+    echo $form->field($model, 'project_id')
+        ->textInput(['type'=>'number', 'min'=>'1'])
+        ->label($model->getAttributeLabel('project_id'));
 } ?>
 
 <?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput();

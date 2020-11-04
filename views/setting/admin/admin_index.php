@@ -33,17 +33,17 @@ $this->params['menu']['content'] = [
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
-				<?php if($this->params['menu']['content']):
-				echo MenuContent::widget(['items' => $this->params['menu']['content']]);
-				endif;?>
+                <?php if ($this->params['menu']['content']) {
+                    echo MenuContent::widget(['items' => $this->params['menu']['content']]);
+                } ?>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a href="#" title="<?php echo Yii::t('app', 'Toggle');?>" class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<?php if($this->params['menu']['option']):?>
+					<?php if ($this->params['menu']['option']) {?>
 					<li class="dropdown">
 						<a href="#" title="<?php echo Yii::t('app', 'Options');?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 						<?php echo MenuOption::widget(['items' => $this->params['menu']['option']]);?>
 					</li>
-					<?php endif;?>
+                    <?php } ?>
 					<li><a href="#" title="<?php echo Yii::t('app', 'Close');?>" class="close-link"><i class="fa fa-close"></i></a></li>
 				</ul>
 				<div class="clearfix"></div>
@@ -62,12 +62,15 @@ array_push($columnData, [
 	'class' => 'app\components\grid\ActionColumn',
 	'header' => Yii::t('app', 'Option'),
 	'urlCreator' => function($action, $model, $key, $index) {
-		if($action == 'view')
-			return Url::to(['setting/category/view', 'id'=>$key]);
-		if($action == 'update')
-			return Url::to(['setting/category/update', 'id'=>$key]);
-		if($action == 'delete')
-			return Url::to(['setting/category/delete', 'id'=>$key]);
+        if ($action == 'view') {
+            return Url::to(['setting/category/view', 'id'=>$key]);
+        }
+        if ($action == 'update') {
+            return Url::to(['setting/category/update', 'id'=>$key]);
+        }
+        if ($action == 'delete') {
+            return Url::to(['setting/category/delete', 'id'=>$key]);
+        }
 	},
 	'buttons' => [
 		'view' => function ($url, $model, $key) {
@@ -113,7 +116,7 @@ echo GridView::widget([
 			</div>
 			<div class="x_content">
 <div class="project-setting-index">
-<?php if(!$model->isNewRecord) {
+<?php if (!$model->isNewRecord) {
 	echo DetailView::widget([
 		'model' => $model,
 		'options' => [

@@ -31,17 +31,16 @@ $this->params['menu']['option'] = [
 ];
 
 $project = Yii::$app->request->get('project');
-if($project) {
+if ($project) {
 	$this->params['menu']['content'] = [
 		['label' => Yii::t('app', 'Add Team'), 'url' => Url::to(['create', 'project'=>$project]), 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn modal-btn btn-success']],
 	];
-}
-?>
+} ?>
 
 <div class="project-team-manage">
 <?php Pjax::begin(); ?>
 
-<?php if($project != null) {
+<?php if ($project != null) {
 $model = $project;
 echo DetailView::widget([
 	'model' => $model,
@@ -53,8 +52,9 @@ echo DetailView::widget([
 			'attribute' => 'categoryName',
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
-				if($categoryName != '-')
-					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
+                if ($categoryName != '-') {
+                    return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
+                }
 				return $categoryName;
 			},
 			'format' => 'html',
@@ -63,8 +63,9 @@ echo DetailView::widget([
 			'attribute' => 'companyName',
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
-				if($companyName != '-')
-					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
+                if ($companyName != '-') {
+                    return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
+                }
 				return $companyName;
 			},
 			'format' => 'html',
@@ -95,10 +96,11 @@ echo DetailView::widget([
 ]);
 }?>
 
-<?php if($user != null)
-	echo $this->render('@users/views/member/admin_view', ['model'=>$user, 'small'=>true]); ?>
+<?php if ($user != null) {
+	echo $this->render('@users/views/member/admin_view', ['model'=>$user, 'small'=>true]);
+} ?>
 
-<?php if($position != null) {
+<?php if ($position != null) {
 $model = $position;
 echo DetailView::widget([
 	'model' => $model,
@@ -129,12 +131,15 @@ array_push($columnData, [
 	'class' => 'app\components\grid\ActionColumn',
 	'header' => Yii::t('app', 'Option'),
 	'urlCreator' => function($action, $model, $key, $index) {
-		if($action == 'view')
-			return Url::to(['view', 'id'=>$key]);
-		if($action == 'update')
-			return Url::to(['update', 'id'=>$key]);
-		if($action == 'delete')
-			return Url::to(['delete', 'id'=>$key]);
+        if ($action == 'view') {
+            return Url::to(['view', 'id'=>$key]);
+        }
+        if ($action == 'update') {
+            return Url::to(['update', 'id'=>$key]);
+        }
+        if ($action == 'delete') {
+            return Url::to(['delete', 'id'=>$key]);
+        }
 	},
 	'buttons' => [
 		'view' => function ($url, $model, $key) {

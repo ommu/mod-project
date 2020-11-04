@@ -69,21 +69,23 @@ class TagController extends Controller
 	 */
 	public function actionManage()
 	{
-		$searchModel = new ProjectTagSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new ProjectTagSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		$gridColumn = Yii::$app->request->get('GridColumn', null);
-		$cols = [];
-		if($gridColumn != null && count($gridColumn) > 0) {
-			foreach($gridColumn as $key => $val) {
-				if($gridColumn[$key] == 1)
-					$cols[] = $key;
-			}
-		}
-		$columns = $searchModel->getGridColumn($cols);
+        $gridColumn = Yii::$app->request->get('GridColumn', null);
+        $cols = [];
+        if ($gridColumn != null && count($gridColumn) > 0) {
+            foreach ($gridColumn as $key => $val) {
+                if ($gridColumn[$key] == 1) {
+                    $cols[] = $key;
+                }
+            }
+        }
+        $columns = $searchModel->getGridColumn($cols);
 
-		if(($project = Yii::$app->request->get('project')) != null)
-			$project = \ommu\project\models\Projects::findOne($project);
+        if (($project = Yii::$app->request->get('project')) != null) {
+            $project = \ommu\project\models\Projects::findOne($project);
+        }
 
 		$this->view->title = Yii::t('app', 'Tags');
 		$this->view->description = '';
@@ -105,23 +107,25 @@ class TagController extends Controller
 	{
 		$model = new ProjectTag();
 		$project = Yii::$app->request->get('project');
-		if(!$project)
+        if (!$project) {
 			throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
 
-		if(Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
 			// $postData = Yii::$app->request->post();
 			// $model->load($postData);
 			// $model->order = $postData['order'] ? $postData['order'] : 0;
 			$model->project_id = $project;
 
-			if($model->save()) {
+            if ($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
 				return $this->redirect(['manage', 'project'=>$model->project_id]);
 
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+            } else {
+                if (Yii::$app->request->isAjax) {
+                    return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+                }
 			}
 		}
 
@@ -168,14 +172,14 @@ class TagController extends Controller
 	/**
 	 * {@inheritdoc}
 	 */
-	public function actionSuggest() 
+	public function actionSuggest()
 	{
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
 		$term = Yii::$app->request->get('query');
 		$project = Yii::$app->request->get('project');
 
-		if($term == null) return [];
+        if ($term == null) return [];
 
 		$model = CoreTags::find()->alias('t')
 			->join('LEFT JOIN', sprintf('%s project', ProjectTag::tableName()), sprintf('t.tag_id = project.tag_id and project.project_id = %s', $project))
@@ -184,7 +188,7 @@ class TagController extends Controller
 			->published()->limit(15)->all();
 
 		$result = [];
-		foreach($model as $val) {
+        foreach ($model as $val) {
 			$result[] = [
 				'id' => $val->tag_id, 
 				'label' => $val->body,
@@ -202,8 +206,9 @@ class TagController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = ProjectTag::findOne($id)) !== null)
-			return $model;
+        if (($model = ProjectTag::findOne($id)) !== null) {
+            return $model;
+        }
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}

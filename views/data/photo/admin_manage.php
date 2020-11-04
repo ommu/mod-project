@@ -32,7 +32,7 @@ $this->params['menu']['option'] = [
 <div class="project-photo-manage">
 <?php Pjax::begin(); ?>
 
-<?php if($project != null) {
+<?php if ($project != null) {
 $model = $project;
 echo DetailView::widget([
 	'model' => $model,
@@ -44,8 +44,9 @@ echo DetailView::widget([
 			'attribute' => 'categoryName',
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
-				if($categoryName != '-')
-					return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
+                if ($categoryName != '-') {
+                    return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
+                }
 				return $categoryName;
 			},
 			'format' => 'html',
@@ -54,8 +55,9 @@ echo DetailView::widget([
 			'attribute' => 'companyName',
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
-				if($companyName != '-')
-					return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
+                if ($companyName != '-') {
+                    return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
+                }
 				return $companyName;
 			},
 			'format' => 'html',
@@ -96,12 +98,15 @@ array_push($columnData, [
 	'class' => 'app\components\grid\ActionColumn',
 	'header' => Yii::t('app', 'Option'),
 	'urlCreator' => function($action, $model, $key, $index) {
-		if($action == 'view')
-			return Url::to(['view', 'id'=>$key]);
-		if($action == 'update')
-			return Url::to(['update', 'id'=>$key]);
-		if($action == 'delete')
-			return Url::to(['delete', 'id'=>$key]);
+        if ($action == 'view') {
+            return Url::to(['view', 'id'=>$key]);
+        }
+        if ($action == 'update') {
+            return Url::to(['update', 'id'=>$key]);
+        }
+        if ($action == 'delete') {
+            return Url::to(['delete', 'id'=>$key]);
+        }
 	},
 	'buttons' => [
 		'view' => function ($url, $model, $key) {

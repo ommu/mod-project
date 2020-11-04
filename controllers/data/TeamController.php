@@ -69,25 +69,29 @@ class TeamController extends Controller
 	 */
 	public function actionManage()
 	{
-		$searchModel = new ProjectTeamSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new ProjectTeamSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		$gridColumn = Yii::$app->request->get('GridColumn', null);
-		$cols = [];
-		if($gridColumn != null && count($gridColumn) > 0) {
-			foreach($gridColumn as $key => $val) {
-				if($gridColumn[$key] == 1)
-					$cols[] = $key;
-			}
-		}
-		$columns = $searchModel->getGridColumn($cols);
+        $gridColumn = Yii::$app->request->get('GridColumn', null);
+        $cols = [];
+        if ($gridColumn != null && count($gridColumn) > 0) {
+            foreach ($gridColumn as $key => $val) {
+                if ($gridColumn[$key] == 1) {
+                    $cols[] = $key;
+                }
+            }
+        }
+        $columns = $searchModel->getGridColumn($cols);
 
-		if(($project = Yii::$app->request->get('project')) != null)
-			$project = \ommu\project\models\Projects::findOne($project);
-		if(($user = Yii::$app->request->get('user')) != null)
-			$user = \app\models\Users::findOne($user);
-		if(($position = Yii::$app->request->get('position')) != null)
-			$position = \ommu\ipedia\models\IpediaPositions::findOne($position);
+        if (($project = Yii::$app->request->get('project')) != null) {
+            $project = \ommu\project\models\Projects::findOne($project);
+        }
+        if (($user = Yii::$app->request->get('user')) != null) {
+            $user = \app\models\Users::findOne($user);
+        }
+        if (($position = Yii::$app->request->get('position')) != null) {
+            $position = \ommu\ipedia\models\IpediaPositions::findOne($position);
+        }
 
 		$this->view->title = Yii::t('app', 'Teams');
 		$this->view->description = '';
@@ -111,23 +115,25 @@ class TeamController extends Controller
 	{
 		$model = new ProjectTeam();
 		$project = Yii::$app->request->get('project');
-		if(!$project)
+        if (!$project) {
 			throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
 
-		if(Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
 			// $postData = Yii::$app->request->post();
 			// $model->load($postData);
 			// $model->order = $postData['order'] ? $postData['order'] : 0;
 			$model->project_id = $project;
 
-			if($model->save()) {
+            if ($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success created.'));
 				return $this->redirect(['manage', 'project'=>$model->project_id]);
 
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+            } else {
+                if (Yii::$app->request->isAjax) {
+                    return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+                }
 			}
 		}
 
@@ -167,7 +173,7 @@ class TeamController extends Controller
 		$model = $this->findModel($id);
 		$model->publish = 2;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success deleted.'));
 			return $this->redirect(Yii::$app->request->referrer ?: ['manage']);
 		}
@@ -185,7 +191,7 @@ class TeamController extends Controller
 		$replace = $model->publish == 1 ? 0 : 1;
 		$model->publish = $replace;
 
-		if($model->save(false, ['publish'])) {
+        if ($model->save(false, ['publish'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project team success updated.'));
 			return $this->redirect(Yii::$app->request->referrer ?: ['manage']);
 		}
@@ -200,8 +206,9 @@ class TeamController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = ProjectTeam::findOne($id)) !== null)
-			return $model;
+        if (($model = ProjectTeam::findOne($id)) !== null) {
+            return $model;
+        }
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}

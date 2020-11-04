@@ -34,10 +34,11 @@ use app\components\widgets\ActiveForm;
 
 <?php //echo $form->errorSummary($model);?>
 
-<?php if(!Yii::$app->request->get('project')) {
-echo $form->field($model, 'project_id')
-	->textInput(['type'=>'number', 'min'=>'1'])
-	->label($model->getAttributeLabel('project_id'));
+<?php 
+if (!Yii::$app->request->get('project')) {
+    echo $form->field($model, 'project_id')
+        ->textInput(['type'=>'number', 'min'=>'1'])
+        ->label($model->getAttributeLabel('project_id'));
 } ?>
 
 <?php echo $form->field($model, 'user_id')
@@ -48,8 +49,10 @@ echo $form->field($model, 'project_id')
 	->textInput(['type'=>'number', 'min'=>'1'])
 	->label($model->getAttributeLabel('position_id')); ?>
 
-<?php if($model->isNewRecord && !$model->getErrors())
-	$model->publish = 1;
+<?php 
+if ($model->isNewRecord && !$model->getErrors()) {
+    $model->publish = 1;
+}
 echo $form->field($model, 'publish')
 	->checkbox()
 	->label($model->getAttributeLabel('publish')); ?>

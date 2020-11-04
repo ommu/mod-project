@@ -75,23 +75,26 @@ class AdminController extends Controller
 	 */
 	public function actionManage()
 	{
-		$searchModel = new ProjectsSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new ProjectsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-		$gridColumn = Yii::$app->request->get('GridColumn', null);
-		$cols = [];
-		if($gridColumn != null && count($gridColumn) > 0) {
-			foreach($gridColumn as $key => $val) {
-				if($gridColumn[$key] == 1)
-					$cols[] = $key;
-			}
-		}
-		$columns = $searchModel->getGridColumn($cols);
+        $gridColumn = Yii::$app->request->get('GridColumn', null);
+        $cols = [];
+        if ($gridColumn != null && count($gridColumn) > 0) {
+            foreach ($gridColumn as $key => $val) {
+                if ($gridColumn[$key] == 1) {
+                    $cols[] = $key;
+                }
+            }
+        }
+        $columns = $searchModel->getGridColumn($cols);
 
-		if(($company = Yii::$app->request->get('company')) != null)
+        if (($company = Yii::$app->request->get('company')) != null) {
 			$company = \ommu\ipedia\models\IpediaCompanies::findOne($company);
-		if(($category = Yii::$app->request->get('category')) != null)
+        }
+        if (($category = Yii::$app->request->get('category')) != null) {
 			$category = \ommu\project\models\ProjectCategory::findOne($category);
+        }
 
 		$this->view->title = Yii::t('app', 'Projects');
 		$this->view->description = '';
@@ -114,20 +117,21 @@ class AdminController extends Controller
 	{
 		$model = new Projects();
 
-		if(Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
 			// $postData = Yii::$app->request->post();
 			// $model->load($postData);
 			// $model->order = $postData['order'] ? $postData['order'] : 0;
 
-			if($model->save()) {
+            if ($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Project success created.'));
 				return $this->redirect(['manage']);
 				//return $this->redirect(['view', 'id'=>$model->project_id]);
 
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+            } else {
+                if (Yii::$app->request->isAjax) {
+                    return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+                }
 			}
 		}
 
@@ -149,19 +153,20 @@ class AdminController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		if(Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
 			// $postData = Yii::$app->request->post();
 			// $model->load($postData);
 			// $model->order = $postData['order'] ? $postData['order'] : 0;
 
-			if($model->save()) {
+            if ($model->save()) {
 				Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
 				return $this->redirect(['manage']);
 
-			} else {
-				if(Yii::$app->request->isAjax)
-					return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+            } else {
+                if (Yii::$app->request->isAjax) {
+                    return \yii\helpers\Json::encode(\app\components\widgets\ActiveForm::validate($model));
+                }
 			}
 		}
 
@@ -201,7 +206,7 @@ class AdminController extends Controller
 		$model = $this->findModel($id);
 		$model->publish = 2;
 
-		if($model->save(false, ['publish','modified_id'])) {
+        if ($model->save(false, ['publish', 'modified_id'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success deleted.'));
 			return $this->redirect(Yii::$app->request->referrer ?: ['manage']);
 		}
@@ -219,7 +224,7 @@ class AdminController extends Controller
 		$replace = $model->publish == 1 ? 0 : 1;
 		$model->publish = $replace;
 
-		if($model->save(false, ['publish','modified_id'])) {
+        if ($model->save(false, ['publish', 'modified_id'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
 			return $this->redirect(Yii::$app->request->referrer ?: ['manage']);
 		}
@@ -237,7 +242,7 @@ class AdminController extends Controller
 		$model->headline = 1;
 		$model->publish  = 1;
 
-		if($model->save(false, ['publish','headline','modified_id'])) {
+        if ($model->save(false, ['publish', 'headline', 'modified_id'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
 			return $this->redirect(['manage']);
 		}
@@ -255,7 +260,7 @@ class AdminController extends Controller
 		$replace = $model->comment == 1 ? 0 : 1;
 		$model->comment = $replace;
 		
-		if($model->save(false, ['comment','modified_id'])) {
+        if ($model->save(false, ['comment', 'modified_id'])) {
 			Yii::$app->session->setFlash('success', Yii::t('app', 'Project success updated.'));
 			return $this->redirect(['manage']);
 		}
@@ -270,8 +275,9 @@ class AdminController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if(($model = Projects::findOne($id)) !== null)
-			return $model;
+        if (($model = Projects::findOne($id)) !== null) {
+            return $model;
+        }
 
 		throw new \yii\web\NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 	}

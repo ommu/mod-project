@@ -21,12 +21,12 @@ use ommu\project\models\ProjectPhoto;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Photos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->photo_title;
 
-if(!$small) {
-$this->params['menu']['content'] = [
-	['label' => Yii::t('app', 'Detail'), 'url' => Url::to(['view', 'id'=>$model->photo_id]), 'icon' => 'eye', 'htmlOptions' => ['class'=>'btn btn-success']],
-	['label' => Yii::t('app', 'Update'), 'url' => Url::to(['update', 'id'=>$model->photo_id]), 'icon' => 'pencil', 'htmlOptions' => ['class'=>'btn btn-primary']],
-	['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id'=>$model->photo_id]), 'htmlOptions' => ['data-confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'), 'data-method'=>'post', 'class'=>'btn btn-danger'], 'icon' => 'trash'],
-];
+if (!$small) {
+    $this->params['menu']['content'] = [
+        ['label' => Yii::t('app', 'Detail'), 'url' => Url::to(['view', 'id'=>$model->photo_id]), 'icon' => 'eye', 'htmlOptions' => ['class'=>'btn btn-success']],
+        ['label' => Yii::t('app', 'Update'), 'url' => Url::to(['update', 'id'=>$model->photo_id]), 'icon' => 'pencil', 'htmlOptions' => ['class'=>'btn btn-primary']],
+        ['label' => Yii::t('app', 'Delete'), 'url' => Url::to(['delete', 'id'=>$model->photo_id]), 'htmlOptions' => ['data-confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'), 'data-method'=>'post', 'class'=>'btn btn-danger'], 'icon' => 'trash'],
+    ];
 } ?>
 
 <div class="project-photo-view">
@@ -51,8 +51,9 @@ $this->params['menu']['content'] = [
 			'attribute' => 'categoryId',
 			'value' => function ($model) {
 				$categoryId = isset($model->project->category) ? $model->project->category->title->message : '-';
-				if($categoryId != '-')
-					return Html::a($categoryId, ['setting/category/view', 'id'=>$model->project->cat_id], ['title'=>$categoryId]);
+                if ($categoryId != '-') {
+                    return Html::a($categoryId, ['setting/category/view', 'id'=>$model->project->cat_id], ['title'=>$categoryId]);
+                }
 				return $categoryId;
 			},
 			'format' => 'html',
@@ -61,8 +62,9 @@ $this->params['menu']['content'] = [
 			'attribute' => 'projectName',
 			'value' => function ($model) {
 				$projectName = isset($model->project) ? $model->project->project_name : '-';
-				if($projectName != '-')
-					return Html::a($projectName, ['admin/view', 'id'=>$model->project_id], ['title'=>$projectName]);
+                if ($projectName != '-') {
+                    return Html::a($projectName, ['admin/view', 'id'=>$model->project_id], ['title'=>$projectName]);
+                }
 				return $projectName;
 			},
 			'format' => 'html',

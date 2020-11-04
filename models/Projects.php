@@ -139,21 +139,22 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public function getPhotos($count=false, $publish=1)
 	{
-		if($count == false) {
-			return $this->hasMany(ProjectPhoto::className(), ['project_id' => 'project_id'])
-				->alias('photos')
-				->andOnCondition([sprintf('%s.publish', 'photos') => $publish]);
-		}
+        if ($count == false) {
+            return $this->hasMany(ProjectPhoto::className(), ['project_id' => 'project_id'])
+                ->alias('photos')
+                ->andOnCondition([sprintf('%s.publish', 'photos') => $publish]);
+        }
 
 		$model = ProjectPhoto::find()
-			->alias('t')
-			->where(['t.project_id' => $this->project_id]);
-		if($publish == 0)
-			$model->unpublish();
-		elseif($publish == 1)
-			$model->published();
-		elseif($publish == 2)
-			$model->deleted();
+            ->alias('t')
+            ->where(['t.project_id' => $this->project_id]);
+        if ($publish == 0) {
+            $model->unpublish();
+        } else if ($publish == 1) {
+            $model->published();
+        } else if ($publish == 2) {
+            $model->deleted();
+        }
 		$photos = $model->count();
 
 		return $photos ? $photos : 0;
@@ -164,12 +165,13 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public function getTags($count=false)
 	{
-		if($count == false)
-			return $this->hasMany(ProjectTag::className(), ['project_id' => 'project_id']);
+        if ($count == false) {
+            return $this->hasMany(ProjectTag::className(), ['project_id' => 'project_id']);
+        }
 
 		$model = ProjectTag::find()
-			->alias('t')
-			->where(['t.project_id' => $this->project_id]);
+            ->alias('t')
+            ->where(['t.project_id' => $this->project_id]);
 		$tags = $model->count();
 
 		return $tags ? $tags : 0;
@@ -180,21 +182,22 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public function getTeams($count=false, $publish=1)
 	{
-		if($count == false) {
-			return $this->hasMany(ProjectTeam::className(), ['project_id' => 'project_id'])
-				->alias('teams')
-				->andOnCondition([sprintf('%s.publish', 'teams') => $publish]);
-		}
+        if ($count == false) {
+            return $this->hasMany(ProjectTeam::className(), ['project_id' => 'project_id'])
+                ->alias('teams')
+                ->andOnCondition([sprintf('%s.publish', 'teams') => $publish]);
+        }
 
 		$model = ProjectTeam::find()
-			->alias('t')
-			->where(['t.project_id' => $this->project_id]);
-		if($publish == 0)
-			$model->unpublish();
-		elseif($publish == 1)
-			$model->published();
-		elseif($publish == 2)
-			$model->deleted();
+            ->alias('t')
+            ->where(['t.project_id' => $this->project_id]);
+        if ($publish == 0) {
+            $model->unpublish();
+        } else if ($publish == 1) {
+            $model->published();
+        } else if ($publish == 2) {
+            $model->deleted();
+        }
 		$teams = $model->count();
 
 		return $teams ? $teams : 0;
@@ -248,11 +251,13 @@ class Projects extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -429,19 +434,20 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['project_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['project_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
@@ -456,10 +462,11 @@ class Projects extends \app\components\ActiveRecord
 			'pending' => Yii::t('app', 'Pending'),
 		);
 
-		if($value !== null)
-			return $items[$value];
-		else
-			return $items;
+        if ($value !== null) {
+            return $items[$value];
+        } else {
+            return $items;
+        }
 	}
 
 	/**
@@ -480,16 +487,18 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			} else {
-				if($this->modified_id == null)
-					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            } else {
+                if ($this->modified_id == null) {
+                    $this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -497,10 +506,10 @@ class Projects extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		if(parent::beforeSave($insert)) {
+        if (parent::beforeSave($insert)) {
 			$this->start_date = Yii::$app->formatter->asDate($this->start_date, 'php:Y-m-d');
 			$this->finish_date = Yii::$app->formatter->asDate($this->finish_date, 'php:Y-m-d');
-		}
-		return true;
+        }
+        return true;
 	}
 }

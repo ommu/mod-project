@@ -100,21 +100,22 @@ class ProjectCategory extends \app\components\ActiveRecord
 	 */
 	public function getProjects($count=false, $publish=1)
 	{
-		if($count == false) {
-			return $this->hasMany(Projects::className(), ['cat_id' => 'cat_id'])
-				->alias('projects')
-				->andOnCondition([sprintf('%s.publish', 'projects') => $publish]);
-		}
+        if ($count == false) {
+            return $this->hasMany(Projects::className(), ['cat_id' => 'cat_id'])
+                ->alias('projects')
+                ->andOnCondition([sprintf('%s.publish', 'projects') => $publish]);
+        }
 
 		$model = Projects::find()
-			->alias('t')
-			->where(['t.cat_id' => $this->cat_id]);
-		if($publish == 0)
-			$model->unpublish();
-		elseif($publish == 1)
-			$model->published();
-		elseif($publish == 2)
-			$model->deleted();
+            ->alias('t')
+            ->where(['t.cat_id' => $this->cat_id]);
+        if ($publish == 0) {
+            $model->unpublish();
+        } else if ($publish == 1) {
+            $model->published();
+        } else if ($publish == 2) {
+            $model->deleted();
+        }
 		$projects = $model->count();
 
 		return $projects ? $projects : 0;
@@ -168,11 +169,13 @@ class ProjectCategory extends \app\components\ActiveRecord
 	{
 		parent::init();
 
-		if(!(Yii::$app instanceof \app\components\Application))
-			return;
+        if (!(Yii::$app instanceof \app\components\Application)) {
+            return;
+        }
 
-		if(!$this->hasMethod('search'))
-			return;
+        if (!$this->hasMethod('search')) {
+            return;
+        }
 
 		$this->templateColumns['_no'] = [
 			'header' => '#',
@@ -256,35 +259,38 @@ class ProjectCategory extends \app\components\ActiveRecord
 	 */
 	public static function getInfo($id, $column=null)
 	{
-		if($column != null) {
-			$model = self::find();
-			if(is_array($column))
-				$model->select($column);
-			else
-				$model->select([$column]);
-			$model = $model->where(['cat_id' => $id])->one();
-			return is_array($column) ? $model : $model->$column;
-			
-		} else {
-			$model = self::findOne($id);
-			return $model;
-		}
+        if ($column != null) {
+            $model = self::find();
+            if (is_array($column)) {
+                $model->select($column);
+            } else {
+                $model->select([$column]);
+            }
+            $model = $model->where(['cat_id' => $id])->one();
+            return is_array($column) ? $model : $model->$column;
+
+        } else {
+            $model = self::findOne($id);
+            return $model;
+        }
 	}
 
 	/**
 	 * function getCategory
 	 */
-	public static function getCategory($publish=null, $array=true) 
+	public static function getCategory($publish=null, $array=true)
 	{
 		$model = self::find()->alias('t');
 		$model->leftJoin(sprintf('%s title', SourceMessage::tableName()), 't.cat_name=title.id');
-		if($publish != null)
-			$model->andWhere(['t.publish' => $publish]);
+        if ($publish != null) {
+            $model->andWhere(['t.publish' => $publish]);
+        }
 
 		$model = $model->orderBy('title.message ASC')->all();
 
-		if($array == true)
-			return \yii\helpers\ArrayHelper::map($model, 'cat_id', 'cat_name_i');
+        if ($array == true) {
+            return \yii\helpers\ArrayHelper::map($model, 'cat_id', 'cat_name_i');
+        }
 
 		return $model;
 	}
@@ -307,16 +313,18 @@ class ProjectCategory extends \app\components\ActiveRecord
 	 */
 	public function beforeValidate()
 	{
-		if(parent::beforeValidate()) {
-			if($this->isNewRecord) {
-				if($this->creation_id == null)
-					$this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			} else {
-				if($this->modified_id == null)
-					$this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
-			}
-		}
-		return true;
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                if ($this->creation_id == null) {
+                    $this->creation_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            } else {
+                if ($this->modified_id == null) {
+                    $this->modified_id = !Yii::$app->user->isGuest ? Yii::$app->user->id : null;
+                }
+            }
+        }
+        return true;
 	}
 
 	/**
@@ -324,40 +332,41 @@ class ProjectCategory extends \app\components\ActiveRecord
 	 */
 	public function beforeSave($insert)
 	{
-		$module = strtolower(Yii::$app->controller->module->id);
-		$controller = strtolower(Yii::$app->controller->id);
-		$action = strtolower(Yii::$app->controller->action->id);
+        $module = strtolower(Yii::$app->controller->module->id);
+        $controller = strtolower(Yii::$app->controller->id);
+        $action = strtolower(Yii::$app->controller->action->id);
 
-		$location = Inflector::slug($module.' '.$controller);
+        $location = Inflector::slug($module.' '.$controller);
 
-		if(parent::beforeSave($insert)) {
-			if($insert || (!$insert && !$this->cat_name)) {
-				$cat_name = new SourceMessage();
-				$cat_name->location = $location.'_title';
-				$cat_name->message = $this->cat_name_i;
-				if($cat_name->save())
-					$this->cat_name = $cat_name->id;
+        if (parent::beforeSave($insert)) {
+            if ($insert || (!$insert && !$this->cat_name)) {
+                $cat_name = new SourceMessage();
+                $cat_name->location = $location.'_title';
+                $cat_name->message = $this->cat_name_i;
+                if ($cat_name->save()) {
+                    $this->cat_name = $cat_name->id;
+                }
 
-			} else {
-				$cat_name = SourceMessage::findOne($this->cat_name);
-				$cat_name->message = $this->cat_name_i;
-				$cat_name->save();
-			}
+            } else {
+                $cat_name = SourceMessage::findOne($this->cat_name);
+                $cat_name->message = $this->cat_name_i;
+                $cat_name->save();
+            }
 
-			if($insert || (!$insert && !$this->cat_desc)) {
-				$cat_desc = new SourceMessage();
-				$cat_desc->location = $location.'_description';
-				$cat_desc->message = $this->cat_desc_i;
-				if($cat_desc->save())
-					$this->cat_desc = $cat_desc->id;
+            if ($insert || (!$insert && !$this->cat_desc)) {
+                $cat_desc = new SourceMessage();
+                $cat_desc->location = $location.'_description';
+                $cat_desc->message = $this->cat_desc_i;
+                if ($cat_desc->save()) {
+                    $this->cat_desc = $cat_desc->id;
+                }
 
-			} else {
-				$cat_desc = SourceMessage::findOne($this->cat_desc);
-				$cat_desc->message = $this->cat_desc_i;
-				$cat_desc->save();
-			}
-
-		}
-		return true;
+            } else {
+                $cat_desc = SourceMessage::findOne($this->cat_desc);
+                $cat_desc->message = $this->cat_desc_i;
+                $cat_desc->save();
+            }
+        }
+        return true;
 	}
 }
