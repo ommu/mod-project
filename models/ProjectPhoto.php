@@ -153,7 +153,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['categoryId'] = [
 			'attribute' => 'categoryId',
@@ -176,7 +176,7 @@ class ProjectPhoto extends \app\components\ActiveRecord
 			'attribute' => 'photo',
 			'value' => function($model, $key, $index, $column) {
 				$uploadPath = join('/', [self::getUploadPath(false), $model->project_id]);
-				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['alt'=>$model->photo]) : '-';
+				return $model->photo ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->photo])), ['alt' => $model->photo]) : '-';
 			},
 			'format' => 'html',
 		];
@@ -235,16 +235,16 @@ class ProjectPhoto extends \app\components\ActiveRecord
 				return $this->filterYesNo($model->cover);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];
@@ -306,13 +306,13 @@ class ProjectPhoto extends \app\components\ActiveRecord
             if ($photo instanceof UploadedFile && !$photo->getHasError()) {
                 if (!in_array(strtolower($photo->getExtension()), $photoFileType)) {
 					$this->addError('photo', Yii::t('app', 'The file {name} cannot be uploaded. Only files with these extensions are allowed: {extensions}', [
-						'name'=>$photo->name,
-						'extensions'=>$this->formatFileType($photoFileType, false),
+						'name' => $photo->name,
+						'extensions' => $this->formatFileType($photoFileType, false),
 					]));
                 }
             } else {
                 if ($this->isNewRecord || (!$this->isNewRecord && $this->old_photo == '')) {
-                    $this->addError('photo', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo')]));
+                    $this->addError('photo', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo')]));
                 }
 			}
 

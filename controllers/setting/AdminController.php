@@ -57,7 +57,7 @@ class AdminController extends Controller
 	{
 		$model = ProjectSetting::findOne(1);
         if ($model === null) {
-			$model = new ProjectSetting(['id'=>1]);
+			$model = new ProjectSetting(['id' => 1]);
         }
 
         if (Yii::$app->request->isPost) {
@@ -113,7 +113,7 @@ class AdminController extends Controller
 	{
 		$model = ProjectSetting::findOne(1);
         if ($model === null) {
-			$model = new ProjectSetting(['id'=>1]);
+			$model = new ProjectSetting(['id' => 1]);
         }
 
         if (Yii::$app->request->isPost) {

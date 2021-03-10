@@ -120,7 +120,7 @@ class TagController extends Controller
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Project tag success created.'));
-                return $this->redirect(['manage', 'project'=>$model->project_id]);
+                return $this->redirect(['manage', 'project' => $model->project_id]);
 
             } else {
                 if (Yii::$app->request->isAjax) {

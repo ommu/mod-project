@@ -262,7 +262,7 @@ class Projects extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['cat_id'] = [
 			'attribute' => 'cat_id',
@@ -362,30 +362,30 @@ class Projects extends \app\components\ActiveRecord
 			'attribute' => 'photos',
 			'value' => function($model, $key, $index, $column) {
 				$photos = $model->getPhotos(true);
-				return Html::a($photos, ['data/photo/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} photos', ['count'=>$photos])]);
+				return Html::a($photos, ['data/photo/manage', 'project' => $model->primaryKey, 'publish' => 1], ['title' => Yii::t('app', '{count} photos', ['count' => $photos])]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['tags'] = [
 			'attribute' => 'tags',
 			'value' => function($model, $key, $index, $column) {
 				$tags = $model->getTags(true);
-				return Html::a($tags, ['data/tag/manage', 'project'=>$model->primaryKey], ['title'=>Yii::t('app', '{count} tags', ['count'=>$tags])]);
+				return Html::a($tags, ['data/tag/manage', 'project' => $model->primaryKey], ['title' => Yii::t('app', '{count} tags', ['count' => $tags])]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['teams'] = [
 			'attribute' => 'teams',
 			'value' => function($model, $key, $index, $column) {
 				$teams = $model->getTeams(true);
-				return Html::a($teams, ['data/team/manage', 'project'=>$model->primaryKey, 'publish'=>1], ['title'=>Yii::t('app', '{count} teams', ['count'=>$teams])]);
+				return Html::a($teams, ['data/team/manage', 'project' => $model->primaryKey, 'publish' => 1], ['title' => Yii::t('app', '{count} teams', ['count' => $teams])]);
 			},
 			'filter' => false,
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'html',
 		];
 		$this->templateColumns['status'] = [
@@ -394,36 +394,36 @@ class Projects extends \app\components\ActiveRecord
 				return self::getStatus($model->status);
 			},
 			'filter' => self::getStatus(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['headline'] = [
 			'attribute' => 'headline',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['headline', 'id'=>$model->primaryKey]);
+				$url = Url::to(['headline', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->headline, 'Headline,Unheadline', true);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 		];
 		$this->templateColumns['comment'] = [
 			'attribute' => 'comment',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['comment', 'id'=>$model->primaryKey]);
+				$url = Url::to(['comment', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->comment, 'Enable,Disable');
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 		];
 		$this->templateColumns['publish'] = [
 			'attribute' => 'publish',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['publish', 'id'=>$model->primaryKey]);
+				$url = Url::to(['publish', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->publish);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 			'visible' => !Yii::$app->request->get('trash') ? true : false,
 		];

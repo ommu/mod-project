@@ -33,7 +33,7 @@ use ommu\project\models\ProjectCategory;
 
 		<?php $category = ProjectCategory::getCategory();
 		echo $form->field($model, 'cat_id')
-			->dropDownList($category, ['prompt'=>'']);?>
+			->dropDownList($category, ['prompt' => '']);?>
 
 		<?php echo $form->field($model, 'companyName');?>
 
@@ -43,7 +43,7 @@ use ommu\project\models\ProjectCategory;
 
 		<?php $status = Projects::getStatus();
 			echo $form->field($model, 'status')
-			->dropDownList($status, ['prompt'=>'']);?>
+			->dropDownList($status, ['prompt' => '']);?>
 
 		<?php echo $form->field($model, 'start_date')
 			->input('date');?>
@@ -70,13 +70,13 @@ use ommu\project\models\ProjectCategory;
 		<?php echo $form->field($model, 'slug');?>
 
 		<?php echo $form->field($model, 'comment')
-			->dropDownList($model->filterYesNo(), ['prompt'=>'']);?>
+			->dropDownList($model->filterYesNo(), ['prompt' => '']);?>
 
 		<?php echo $form->field($model, 'headline')
-			->dropDownList($model->filterYesNo(), ['prompt'=>'']);?>
+			->dropDownList($model->filterYesNo(), ['prompt' => '']);?>
 
 		<?php echo $form->field($model, 'publish')
-			->dropDownList($model->filterYesNo(), ['prompt'=>'']);?>
+			->dropDownList($model->filterYesNo(), ['prompt' => '']);?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']); ?>

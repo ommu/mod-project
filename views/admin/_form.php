@@ -23,6 +23,7 @@ use ommu\project\models\Projects;
 use ommu\project\models\ProjectCategory;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
+use ommu\flatpickr\Flatpickr;
 
 $redactorOptions = [
 	'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -35,7 +36,7 @@ $redactorOptions = [
 <div class="projects-form">
 
 <?php $form = ActiveForm::begin([
-	'options' => ['class'=>'form-horizontal form-label-left'],
+	'options' => ['class' => 'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -50,12 +51,12 @@ $redactorOptions = [
 
 <?php $category = ProjectCategory::getCategory();
 echo $form->field($model, 'cat_id')
-	->dropDownList($category, ['prompt'=>''])
+	->dropDownList($category, ['prompt' => ''])
 	->label($model->getAttributeLabel('cat_id')); ?>
 
 <?php $company_id = $form->field($model, 'company_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput();
 echo $form->field($model, 'companyName', ['template' => '{label}{beginWrapper}{input}'.$company_id.'{error}{hint}{endWrapper}'])
-	// ->textInput(['maxlength'=>true])
+	// ->textInput(['maxlength' => true])
 	->widget(AutoComplete::className(), [
 		'options' => [
 			'data-toggle' => 'tooltip', 'data-placement' => 'top',
@@ -74,25 +75,25 @@ echo $form->field($model, 'companyName', ['template' => '{label}{beginWrapper}{i
 	->label($model->getAttributeLabel('companyName')); ?>
 
 <?php echo $form->field($model, 'project_name')
-	->textInput(['maxlength'=>true])
+	->textInput(['maxlength' => true])
 	->label($model->getAttributeLabel('project_name')); ?>
 
 <?php echo $form->field($model, 'project_desc')
-	->textarea(['rows'=>6, 'cols'=>50])
+	->textarea(['rows' => 6, 'cols' => 50])
 	->widget(Redactor::className(), ['clientOptions' => $redactorOptions])
 	->label($model->getAttributeLabel('project_desc')); ?>
 
 <?php $status = Projects::getStatus();
 echo $form->field($model, 'status')
-	->dropDownList($status, ['prompt'=>''])
+	->dropDownList($status, ['prompt' => ''])
 	->label($model->getAttributeLabel('status')); ?>
 
 <?php echo $form->field($model, 'start_date')
-	->textInput(['type'=>'date'])
+    ->widget(Flatpickr::className(), ['model' => $model, 'attribute' => 'start_date'])
 	->label($model->getAttributeLabel('start_date')); ?>
 
 <?php echo $form->field($model, 'finish_date')
-	->textInput(['type'=>'date'])
+    ->widget(Flatpickr::className(), ['model' => $model, 'attribute' => 'finish_date'])
 	->label($model->getAttributeLabel('finish_date')); ?>
 
 <?php echo $form->field($model, 'comment')

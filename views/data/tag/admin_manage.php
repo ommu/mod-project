@@ -31,7 +31,7 @@ $this->params['menu']['option'] = [
 $projectId = Yii::$app->request->get('project');
 if ($projectId) {
 	$this->params['menu']['content'] = [
-		['label' => Yii::t('app', 'Add Tag'), 'url' => Url::to(['create', 'project'=>$projectId]), 'icon' => 'plus-square', 'htmlOptions' => ['class'=>'btn modal-btn btn-success']],
+		['label' => Yii::t('app', 'Add Tag'), 'url' => Url::to(['create', 'project' => $projectId]), 'icon' => 'plus-square', 'htmlOptions' => ['class' => 'btn btn-primary modal-btn']],
 	];
 } ?>
 
@@ -43,7 +43,7 @@ $model = $project;
 echo DetailView::widget([
 	'model' => $model,
 	'options' => [
-		'class'=>'table table-striped detail-view',
+		'class' => 'table table-striped detail-view',
 	],
 	'attributes' => [
 		[
@@ -51,7 +51,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$categoryName = isset($model->category) ? $model->category->title->message : '-';
                 if ($categoryName != '-') {
-                    return Html::a($categoryName, ['setting/category/view', 'id'=>$model->cat_id], ['title'=>$categoryName, 'class'=>'modal-btn']);
+                    return Html::a($categoryName, ['setting/category/view', 'id' => $model->cat_id], ['title' => $categoryName, 'class' => 'modal-btn']);
                 }
 				return $categoryName;
 			},
@@ -62,7 +62,7 @@ echo DetailView::widget([
 			'value' => function ($model) {
 				$companyName = isset($model->company) ? $model->company->company_name : '-';
                 if ($companyName != '-') {
-                    return Html::a($companyName, ['/ipedia/company/view', 'id'=>$model->company_id], ['title'=>$companyName, 'class'=>'modal-btn']);
+                    return Html::a($companyName, ['/ipedia/company/view', 'id' => $model->company_id], ['title' => $companyName, 'class' => 'modal-btn']);
                 }
 				return $companyName;
 			},
@@ -70,7 +70,7 @@ echo DetailView::widget([
 		],
 		[
 			'attribute' => 'project_name',
-			'value' => Html::a($model->project_name, ['admin/view', 'id'=>$model->project_id], ['title'=>$model->project_name, 'class'=>'modal-btn']),
+			'value' => Html::a($model->project_name, ['admin/view', 'id' => $model->project_id], ['title' => $model->project_name, 'class' => 'modal-btn']),
 			'format' => 'html',
 		],
 		[
@@ -89,9 +89,9 @@ echo DetailView::widget([
 ]);
 }?>
 
-<?php //echo $this->render('_search', ['model'=>$searchModel]); ?>
+<?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<?php echo $this->render('_option_form', ['model'=>$searchModel, 'gridColumns'=>$searchModel->activeDefaultColumns($columns), 'route'=>$this->context->route]); ?>
+<?php echo $this->render('_option_form', ['model' => $searchModel, 'gridColumns' => $searchModel->activeDefaultColumns($columns), 'route' => $this->context->route]); ?>
 
 <?php
 $columnData = $columns;
@@ -100,21 +100,21 @@ array_push($columnData, [
 	'header' => Yii::t('app', 'Option'),
 	'urlCreator' => function($action, $model, $key, $index) {
         if ($action == 'view') {
-            return Url::to(['view', 'id'=>$key]);
+            return Url::to(['view', 'id' => $key]);
         }
         if ($action == 'update') {
-            return Url::to(['update', 'id'=>$key]);
+            return Url::to(['update', 'id' => $key]);
         }
         if ($action == 'delete') {
-            return Url::to(['delete', 'id'=>$key]);
+            return Url::to(['delete', 'id' => $key]);
         }
 	},
 	'buttons' => [
 		'view' => function ($url, $model, $key) {
-			return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title'=>Yii::t('app', 'Detail')]);
+			return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => Yii::t('app', 'Detail')]);
 		},
 		'update' => function ($url, $model, $key) {
-			return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title'=>Yii::t('app', 'Update')]);
+			return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => Yii::t('app', 'Update')]);
 		},
 		'delete' => function ($url, $model, $key) {
 			return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [

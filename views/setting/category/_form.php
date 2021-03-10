@@ -21,7 +21,7 @@ use app\components\widgets\ActiveForm;
 <div class="project-category-form">
 
 <?php $form = ActiveForm::begin([
-	'options' => ['class'=>'form-horizontal form-label-left'],
+	'options' => ['class' => 'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -35,11 +35,11 @@ use app\components\widgets\ActiveForm;
 <?php //echo $form->errorSummary($model);?>
 
 <?php echo $form->field($model, 'cat_name_i')
-	->textInput(['maxlength'=>true])
+	->textInput(['maxlength' => true])
 	->label($model->getAttributeLabel('cat_name_i')); ?>
 
 <?php echo $form->field($model, 'cat_desc_i')
-	->textarea(['rows'=>6, 'cols'=>50, 'maxlength'=>true])
+	->textarea(['rows' => 6, 'cols' => 50, 'maxlength' => true])
 	->label($model->getAttributeLabel('cat_desc_i')); ?>
 
 <?php 

@@ -40,17 +40,17 @@ use ommu\project\models\ProjectPhoto;
 <?php //echo $form->errorSummary($model);?>
 
 <?php $uploadPath = join('/', [ProjectPhoto::getUploadPath(false), $model->photo_id]);
-$photo = !$model->isNewRecord && $model->old_photo != '' ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->old_photo])), ['alt'=>$model->old_photo, 'class'=>'d-block border border-width-3 mb-3']).$model->old_photo.'<hr/>' : '';
+$photo = !$model->isNewRecord && $model->old_photo != '' ? Html::img(Url::to(join('/', ['@webpublic', $uploadPath, $model->old_photo])), ['alt' => $model->old_photo, 'class' => 'd-block border border-width-3 mb-4']).$model->old_photo.'<hr/>' : '';
 echo $form->field($model, 'photo', ['template' => '{label}{beginWrapper}<div>'.$photo.'</div>{input}{error}{hint}{endWrapper}'])
 	->fileInput()
 	->label($model->getAttributeLabel('photo')); ?>
 
 <?php echo $form->field($model, 'photo_title')
-	->textInput(['maxlength'=>true])
+	->textInput(['maxlength' => true])
 	->label($model->getAttributeLabel('photo_title')); ?>
 
 <?php echo $form->field($model, 'photo_caption')
-	->textarea(['rows'=>6, 'cols'=>50])
+	->textarea(['rows' => 6, 'cols' => 50])
 	->label($model->getAttributeLabel('photo_caption')); ?>
 
 <?php echo $form->field($model, 'cover')

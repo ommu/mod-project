@@ -24,7 +24,7 @@ use yii\web\JsExpression;
 <div class="project-tag-form">
 
 <?php $form = ActiveForm::begin([
-	'options' => ['class'=>'form-horizontal form-label-left'],
+	'options' => ['class' => 'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -40,20 +40,20 @@ use yii\web\JsExpression;
 <?php 
 if (!Yii::$app->request->get('project')) {
     echo $form->field($model, 'project_id')
-        ->textInput(['type'=>'number', 'min'=>'1'])
+        ->textInput(['type' => 'number', 'min' => '1'])
         ->label($model->getAttributeLabel('project_id'));
 } ?>
 
 <?php $tag_id = $form->field($model, 'tag_id', ['template' => '{input}', 'options' => ['tag' => null]])->hiddenInput();
 echo $form->field($model, 'tagBody', ['template' => '{label}{beginWrapper}{input}'.$tag_id.'{error}{hint}{endWrapper}'])
-	// ->textInput(['maxlength'=>true])
+	// ->textInput(['maxlength' => true])
 	->widget(AutoComplete::className(), [
 		'options' => [
 			'data-toggle' => 'tooltip', 'data-placement' => 'top',
 			'class' => 'ui-autocomplete-input form-control'
 		],
 		'clientOptions' => [
-			'source' => Url::to(['suggest', 'project'=>Yii::$app->request->get('project')]),
+			'source' => Url::to(['suggest', 'project' => Yii::$app->request->get('project')]),
 			'minLength' => 2,
 			'select' => new JsExpression("function(event, ui) {
 				\$('.field-companyname #tag_id').val(ui.item.id);

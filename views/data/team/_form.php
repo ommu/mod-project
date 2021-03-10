@@ -21,7 +21,7 @@ use app\components\widgets\ActiveForm;
 <div class="project-team-form">
 
 <?php $form = ActiveForm::begin([
-	'options' => ['class'=>'form-horizontal form-label-left'],
+	'options' => ['class' => 'form-horizontal form-label-left'],
 	'enableClientValidation' => true,
 	'enableAjaxValidation' => false,
 	//'enableClientScript' => true,
@@ -37,16 +37,16 @@ use app\components\widgets\ActiveForm;
 <?php 
 if (!Yii::$app->request->get('project')) {
     echo $form->field($model, 'project_id')
-        ->textInput(['type'=>'number', 'min'=>'1'])
+        ->textInput(['type' => 'number', 'min' => '1'])
         ->label($model->getAttributeLabel('project_id'));
 } ?>
 
 <?php echo $form->field($model, 'user_id')
-	->textInput(['type'=>'number', 'min'=>'1'])
+	->textInput(['type' => 'number', 'min' => '1'])
 	->label($model->getAttributeLabel('user_id')); ?>
 
 <?php echo $form->field($model, 'position_id')
-	->textInput(['type'=>'number', 'min'=>'1'])
+	->textInput(['type' => 'number', 'min' => '1'])
 	->label($model->getAttributeLabel('position_id')); ?>
 
 <?php 

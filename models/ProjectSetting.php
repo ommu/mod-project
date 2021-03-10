@@ -141,7 +141,7 @@ class ProjectSetting extends \app\components\ActiveRecord
 		$this->templateColumns['_no'] = [
 			'header' => '#',
 			'class' => 'app\components\grid\SerialColumn',
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['license'] = [
 			'attribute' => 'license',
@@ -224,16 +224,16 @@ class ProjectSetting extends \app\components\ActiveRecord
 				return $this->filterYesNo($model->photo_resize);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 		];
 		$this->templateColumns['headline'] = [
 			'attribute' => 'headline',
 			'value' => function($model, $key, $index, $column) {
-				$url = Url::to(['headline', 'id'=>$model->primaryKey]);
+				$url = Url::to(['headline', 'id' => $model->primaryKey]);
 				return $this->quickAction($url, $model->headline, 'Enable,Disable', true);
 			},
 			'filter' => $this->filterYesNo(),
-			'contentOptions' => ['class'=>'text-center'],
+			'contentOptions' => ['class' => 'text-center'],
 			'format' => 'raw',
 		];
 	}
@@ -271,8 +271,8 @@ class ProjectSetting extends \app\components\ActiveRecord
         }
 
 		$items = array(
-			1 => Yii::t('app', 'Yes, the public can view {module} unless they are made private.', ['module'=>$moduleName]),
-			0 => Yii::t('app', 'No, the public cannot view {module}.', ['module'=>$moduleName]),
+			1 => Yii::t('app', 'Yes, the public can view {module} unless they are made private.', ['module' => $moduleName]),
+			0 => Yii::t('app', 'No, the public cannot view {module}.', ['module' => $moduleName]),
 		);
 
         if ($value !== null) {
@@ -374,42 +374,42 @@ class ProjectSetting extends \app\components\ActiveRecord
             }
 
             if ($this->photo_resize_size['width'] == '' && $this->photo_resize_size['height'] == '') {
-                $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_resize_size')]));
+                $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_resize_size')]));
             } else {
                 if ($this->photo_resize_size['width'] == '') {
-                    $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_resize_size[width]')]));
+                    $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_resize_size[width]')]));
                 } else if ($this->photo_resize_size['height'] == '') {
-                    $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_resize_size[height]')]));
+                    $this->addError('photo_resize_size', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_resize_size[height]')]));
                 }
 			}
 
             if ($this->photo_view_size['small']['width'] == '' && $this->photo_view_size['small']['height'] == '') {
-                $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[small]')]));
+                $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[small]')]));
             } else {
                 if ($this->photo_view_size['small']['width'] == '') {
-                    $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[small][width]')]));
+                    $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[small][width]')]));
                 } else if ($this->photo_view_size['small']['height'] == '') {
-                    $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[small][height]')]));
+                    $this->addError('photo_view_size[small]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[small][height]')]));
                 }
 			}
 
             if ($this->photo_view_size['medium']['width'] == '' && $this->photo_view_size['medium']['height'] == '') {
-                $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[medium]')]));
+                $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[medium]')]));
             } else {
                 if ($this->photo_view_size['medium']['width'] == '') {
-                    $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[medium][width]')]));
+                    $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[medium][width]')]));
                 } else if ($this->photo_view_size['medium']['height'] == '') {
-                    $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[medium][height]')]));
+                    $this->addError('photo_view_size[medium]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[medium][height]')]));
                 }
 			}
 
             if ($this->photo_view_size['large']['width'] == '' && $this->photo_view_size['large']['height'] == '') {
-                $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[large]')]));
+                $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[large]')]));
             } else {
                 if ($this->photo_view_size['large']['width'] == '') {
-                    $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[large][width]')]));
+                    $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[large][width]')]));
                 } else if ($this->photo_view_size['large']['height'] == '') {
-                    $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute'=>$this->getAttributeLabel('photo_view_size[large][height]')]));
+                    $this->addError('photo_view_size[large]', Yii::t('app', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('photo_view_size[large][height]')]));
                 }
             }
         }
