@@ -230,11 +230,10 @@ class ProjectTag extends \app\components\ActiveRecord
 	{
         if (parent::beforeSave($insert)) {
             if ($insert) {
-				$tagBody = Inflector::slug($this->tagBody);
                 if ($this->tag_id == 0) {
 					$tag = CoreTags::find()
 						->select(['tag_id'])
-						->andWhere(['body' => $tagBody])
+						->andWhere(['body' => Inflector::camelize($this->tagBody)])
 						->one();
 						
                     if ($tag != null) {
