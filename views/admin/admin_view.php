@@ -6,7 +6,7 @@
  * @var $model ommu\project\models\Projects
  *
  * @author Putra Sudaryanto <putra@ommu.id>
- * @contact (+62)856-299-4114
+ * @contact (+62)811-2540-432
  * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 7 February 2019, 19:54 WIB
  * @modified date 8 February 2019, 11:45 WIB
