@@ -10,7 +10,7 @@
  * @contact (+62)811-2540-432
  * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 12 February 2019, 17:07 WIB
- * @link https://bitbucket.org/ommu/project
+ * @link https://github.com/ommu/mod-project
  *
  */
 

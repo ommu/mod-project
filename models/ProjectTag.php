@@ -6,7 +6,7 @@
  * @contact (+62)811-2540-432
  * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 8 February 2019, 11:58 WIB
- * @link https://bitbucket.org/ommu/project
+ * @link https://github.com/ommu/mod-project
  *
  * This is the model class for table "ommu_project_tag".
  *

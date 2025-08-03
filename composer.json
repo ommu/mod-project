@@ -10,15 +10,15 @@
 		"yii2"
 	],
 	"license": "Apache-2.0",
-	"homepage": "https://bitbucket.org/ommu/project",
+	"homepage": "https://github.com/ommu/mod-project",
 	"support": {
-		"issues": "https://bitbucket.org/ommu/project/issues",
-		"wiki": "https://bitbucket.org/ommu/project/wiki",
-		"source": "https://bitbucket.org/ommu/project"
+		"issues": "https://github.com/ommu/mod-project/issues",
+		"wiki": "https://github.com/ommu/mod-project/wiki",
+		"source": "https://github.com/ommu/mod-project"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://bitbucket.org/ommu/project.git"
+		"url": "https://github.com/ommu/mod-project.git"
 	},
 	"authors": [
 		{

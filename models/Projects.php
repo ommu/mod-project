@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 7 February 2019, 17:57 WIB
  * @modified date 8 February 2019, 07:12 WIB
- * @link https://bitbucket.org/ommu/project
+ * @link https://github.com/ommu/mod-project
  *
  * This is the model class for table "ommu_projects".
  *

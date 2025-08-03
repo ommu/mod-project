@@ -21,7 +21,7 @@
  * @copyright Copyright (c) 2019 OMMU (www.ommu.id)
  * @created date 8 February 2019, 15:33 WIB
  * @modified date 12 February 2019, 17:07 WIB
- * @link https://bitbucket.org/ommu/project
+ * @link https://github.com/ommu/mod-project
  *
  */
 
